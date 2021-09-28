@@ -188,8 +188,8 @@ class AuthorizationsController extends Controller
         // 清除验证码
         Cache::pull($request->key);
         if ($safe_password = $request->input('safe_password', '')) {
-            if (strlen($safe_password) < 8 ) {
-                return $this->errorResponse(400,'安全密码请大于8位数');
+            if (strlen($safe_password) != 6 ) {
+                return $this->errorResponse(400,'安全密码为6位数');
             }
             $request->user()->update(['safe_password' => Hash::make($safe_password)]);
         }

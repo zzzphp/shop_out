@@ -8,7 +8,7 @@ return [
     'alipay' => [
         'default' => [
             // 支付宝分配的 app_id
-            'app_id' => '',
+            'app_id' => '2021000117601830',
             // 应用私钥
             'app_secret_cert' => '',
             // 应用公钥证书 路径
