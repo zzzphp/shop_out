@@ -174,12 +174,18 @@ class AuthorizationsController extends Controller
 
     public function safePassword(Request $request)
     {
-        if ($password = $request->input('password', '')) {
-            if (strlen($password) < 8 ) {
-                return $this->errorResponse(400,'登录密码请大于8位数');
-            }
-            $request->user()->update(['password' => Hash::make($password)]);
+        $request->validate(['code' => 'required', 'safe_password' => 'required', 'phone' => $request->phone]);
+        $cacheData = Cache::get($request->key);
+        if(!$cacheData) {
+            $this->errorResponse(400, '验证码已过期');
+            return response()->json(['message' => '验证码已过期'])->setStatusCode(400);
         }
+        if($request->code != $cacheData['code'] || $request->phone != $cacheData['phone']) {
+            // 验证码错误
+            $this->errorResponse(400, '验证码错误');
+        }
+        // 清除验证码
+        Cache::pull($request->key);
         if ($safe_password = $request->input('safe_password', '')) {
             if (strlen($safe_password) < 8 ) {
                 return $this->errorResponse(400,'安全密码请大于8位数');
@@ -191,10 +197,22 @@ class AuthorizationsController extends Controller
 
     public function password(Request $request)
     {
+        $request->validate(['code' => 'required', 'password' => 'required', 'phone' => $request->phone]);
+        $cacheData = Cache::get($request->key);
+        if(!$cacheData) {
+            $this->errorResponse(400, '验证码已过期');
+            return response()->json(['message' => '验证码已过期'])->setStatusCode(400);
+        }
+        if($request->code != $cacheData['code'] || $request->phone != $cacheData['phone']) {
+            // 验证码错误
+            $this->errorResponse(400, '验证码错误');
+        }
+        // 清除验证码
+        Cache::pull($request->key);
         if (strlen($request->password) < 8 ) {
             return $this->errorResponse(400,'密码请大于8位数');
         }
-       $request->user()->update(['password' => Hash::make($request->password)]);
+        $request->user()->update(['password' => Hash::make($request->password)]);
         return response()->json(['data' => true]);
     }
 
