@@ -198,21 +198,9 @@ class AuthorizationsController extends Controller
 
     public function password(Request $request)
     {
-        $request->validate(['code' => 'required', 'password' => 'required', 'key' => 'required']);
-        $cacheData = Cache::get($request->key);
-        $phone  = $request->user()->phone;
-        if(!$cacheData) {
-            $this->errorResponse(400, '验证码已过期');
-            return response()->json(['message' => '验证码已过期'])->setStatusCode(400);
-        }
-        if($request->code != $cacheData['code'] || $phone != $cacheData['phone']) {
-            // 验证码错误
-            $this->errorResponse(400, '验证码错误');
-        }
-        // 清除验证码
-        Cache::pull($request->key);
+        $request->validate(['password' => 'required']);
         if (strlen($request->password) < 8 ) {
-            return $this->errorResponse(400,'密码请大于8位数');
+            return $this->errorResponse(400,'新密码请大于8位数');
         }
         $request->user()->update(['password' => Hash::make($request->password)]);
         return response()->json(['data' => true]);
