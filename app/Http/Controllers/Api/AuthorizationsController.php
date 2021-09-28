@@ -174,13 +174,14 @@ class AuthorizationsController extends Controller
 
     public function safePassword(Request $request)
     {
-        $request->validate(['code' => 'required', 'safe_password' => 'required', 'phone' => $request->phone]);
+        $request->validate(['code' => 'required', 'safe_password' => 'required', 'key' => 'required']);
         $cacheData = Cache::get($request->key);
+        $phone  = $request->user()->phone;
         if(!$cacheData) {
             $this->errorResponse(400, '验证码已过期');
             return response()->json(['message' => '验证码已过期'])->setStatusCode(400);
         }
-        if($request->code != $cacheData['code'] || $request->phone != $cacheData['phone']) {
+        if($request->code != $cacheData['code'] || $phone != $cacheData['phone']) {
             // 验证码错误
             $this->errorResponse(400, '验证码错误');
         }
@@ -197,13 +198,14 @@ class AuthorizationsController extends Controller
 
     public function password(Request $request)
     {
-        $request->validate(['code' => 'required', 'password' => 'required', 'phone' => $request->phone]);
+        $request->validate(['code' => 'required', 'password' => 'required', 'key' => 'required']);
         $cacheData = Cache::get($request->key);
+        $phone  = $request->user()->phone;
         if(!$cacheData) {
             $this->errorResponse(400, '验证码已过期');
             return response()->json(['message' => '验证码已过期'])->setStatusCode(400);
         }
-        if($request->code != $cacheData['code'] || $request->phone != $cacheData['phone']) {
+        if($request->code != $cacheData['code'] || $phone != $cacheData['phone']) {
             // 验证码错误
             $this->errorResponse(400, '验证码错误');
         }
