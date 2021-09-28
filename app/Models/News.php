@@ -10,15 +10,13 @@ class News extends Model
 {
     use HasFactory, HasDateTimeFormatter;
 
-    const TYPE_KUAIXUN = 'kuaixun';
-    const TYPE_ZIXUN   = 'zixun';
-    const TYPE_SHUJU   = 'shuju';
+    const TYPE_HELP = 'help';
+    const TYPE_ACTIVE   = 'shuju';
     const TYPE_NOTICE  = 'notice';
 
     public static $typeMap = [
-                self::TYPE_KUAIXUN => '快讯',
-                self::TYPE_ZIXUN => '资讯',
-                self::TYPE_SHUJU => '数据',
+                self::TYPE_HELP => '帮助中心',
+                self::TYPE_ACTIVE => '活动',
                 self::TYPE_NOTICE => '公告',
         ];
 
