@@ -22,7 +22,8 @@
         "overtrue/easy-sms": "^1.3",
         "overtrue/laravel-wechat": "^6.0",
         "tymon/jwt-auth": "^1.0",
-        "vinkla/hashids": "^9.1"
+        "vinkla/hashids": "^9.1",
+        "yansongda/laravel-pay": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

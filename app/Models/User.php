@@ -24,7 +24,8 @@ class User extends Authenticatable implements JWTSubject
     const GRADE_TWO = 'two';
     const GRADE_THREE = 'three';
     const GRADE_FOUR  = 'four';
-    const GRADE_TOP  = 'top';
+    const GRADE_FIVE  = 'five';
+    const GRADE_SIX  = 'six';
 
     public static $statusMap = [
             self::STATUS_NOT_CERTIFIED => '未提交资料',
@@ -33,11 +34,12 @@ class User extends Authenticatable implements JWTSubject
             self::STATUS_SUCCESS        => '认证成功',
         ];
     public static $gradeMap = [
-            self::GRADE_ONE => 'Lv1',
-            self::GRADE_TWO => 'Lv2',
-            self::GRADE_THREE => 'Lv3',
-            self::GRADE_FOUR => 'Lv4',
-            self::GRADE_TOP => '盟友',
+            self::GRADE_ONE => '普通会员',
+            self::GRADE_TWO => '精英会员',
+            self::GRADE_THREE => '银牌会员',
+            self::GRADE_FOUR => '金牌会员',
+            self::GRADE_FIVE => '白金会员',
+            self::GRADE_SIX => '钻石会员',
         ];
     /**
      * The attributes that are mass assignable.
@@ -60,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
         'created_at'
     ];
 
-    protected $appends = ['team_count'];
+    protected $appends = ['team_count', 'grade_full'];
 
     protected static function boot()
     {
@@ -122,6 +124,11 @@ class User extends Authenticatable implements JWTSubject
         }
 
         return $powers;
+    }
+
+    public function getGradeFullAttribute()
+    {
+        return $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '新用户';
     }
 
     /**
