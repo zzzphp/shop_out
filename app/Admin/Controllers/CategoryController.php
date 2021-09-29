@@ -79,6 +79,10 @@ class CategoryController extends AdminController
             $form->text('describe');
             $form->image('icon')->uniqueName();
             $form->switch('is_show')->default(true);
+            $form->embeds('open_time', '开放时间',function ($form){
+               $form->time('begin', '开始');
+               $form->time('end', '结束');
+            });
             $form->display('created_at');
             $form->display('updated_at');
         });
