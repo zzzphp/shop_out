@@ -42,7 +42,6 @@ class Wallet extends Model
            if($model->hash_key !== hashKey($model->user_id, $model->currency_id, $model->type)) {
                return false;
            }
-
         });
     }
 
