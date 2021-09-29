@@ -18,7 +18,7 @@ class NewsController extends Controller
                 break;
             default:
                 $news = News::orderBy('created_at','DESC')
-                    ->where('type', $request->input('type', News::TYPE_ZIXUN));
+                    ->where('type', $request->input('type', News::TYPE_ACTIVE));
                 break;
         }
         return response()->json(['data' => $news->paginate(10)]);

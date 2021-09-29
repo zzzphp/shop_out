@@ -11,7 +11,7 @@ class News extends Model
     use HasFactory, HasDateTimeFormatter;
 
     const TYPE_HELP = 'help';
-    const TYPE_ACTIVE   = 'shuju';
+    const TYPE_ACTIVE   = 'active';
     const TYPE_NOTICE  = 'notice';
 
     public static $typeMap = [
