@@ -62,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
         'created_at'
     ];
 
-    protected $appends = ['team_count', 'grade_full'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list'];
 
     protected static function boot()
     {
@@ -128,7 +128,18 @@ class User extends Authenticatable implements JWTSubject
 
     public function getGradeFullAttribute()
     {
-        return $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '新用户';
+        return $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '体验会员';
+    }
+
+    public function getGradeListAttribute()
+    {
+        $grade =  config('site.vip_grade');
+        $grade_full = [];
+        foreach ($grade as $k => $item) {
+            $full = ['name' => User::$gradeMap[$k], 'data' => $item];
+            $grade_full[] = $full;
+        }
+        return $grade_full;
     }
 
     /**

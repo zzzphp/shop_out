@@ -238,9 +238,6 @@ class AuthorizationsController extends Controller
         return response()->json(['data' => $data]);
     }
 
-
-
-
     public function teams(Request $request)
     {
         $data['self'] = $request->user();
