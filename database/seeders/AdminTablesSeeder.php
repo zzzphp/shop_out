@@ -171,8 +171,8 @@ class AdminTablesSeeder extends Seeder
                     "order" => 5,
                     "parent_id" => 8,
                     "show" => 1,
-                    "title" => "充币管理",
-                    "updated_at" => "2021-07-13 17:33:10",
+                    "title" => "充值管理",
+                    "updated_at" => "2021-09-28 17:47:00",
                     "uri" => "recharges"
                 ],
                 [
@@ -207,8 +207,8 @@ class AdminTablesSeeder extends Seeder
                     "order" => 6,
                     "parent_id" => 8,
                     "show" => 1,
-                    "title" => "提币管理",
-                    "updated_at" => "2021-07-13 17:33:10",
+                    "title" => "提现管理",
+                    "updated_at" => "2021-09-28 17:47:14",
                     "uri" => "withdrawals"
                 ],
                 [

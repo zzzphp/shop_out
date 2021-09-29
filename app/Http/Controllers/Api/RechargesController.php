@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Models\Recharge;
+use Illuminate\Support\Facades\DB;
 
 class RechargesController extends Controller
 {
@@ -23,7 +24,8 @@ class RechargesController extends Controller
         if (!isset($chain['service_charge']) || !$chain['service_charge']) {
             $chain['service_charge'] = 0;
         }
-        $recharge = Recharge::create([
+        $recharge = DB::transaction(function () use ($request, $chain){
+            $recharge = Recharge::create([
                 'user_id'  => $request->user()->id,
                 'currency' => $request->currency,
                 'chain'    => $request->chain,
@@ -31,6 +33,10 @@ class RechargesController extends Controller
                 'recharge_prove' => $request->recharge_prove,
                 'currency_id'   => $request->currency_id,
             ]);
+
+
+            return $recharge;
+        });
         return response()->json(['data' => $recharge]);
     }
 

@@ -34,12 +34,9 @@ class WalletService
                     'currency_id' => $currency->id,
                     'type'        => $currency->type,
                 ]);
-            $total_amount = $total_amount + $wallet->amount * currency_last(strtolower($currency->name)) * usdtAmount();
+            $total_amount = $total_amount + $wallet->amount;
         }
         $assets['cny'] = number_format($total_amount, 2);
-        // 换算为btc
-        $assets['btc'] = div(div($total_amount, usdtAmount()), currency_last('btc')) . 'BTC';
-
         return $assets;
     }
 

@@ -36,7 +36,7 @@ function usdtAmount()
 
 function currency_last($symbol)
 {
-    return \Illuminate\Support\Facades\DB::table('currency_market_biki')->where('symbol', $symbol)->value('last');
+    return 1;
 }
 
 function check_url($value, $disk = 'admin')
