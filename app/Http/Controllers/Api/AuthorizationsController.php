@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use EasyWeChatComposer\EasyWeChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -211,6 +212,16 @@ class AuthorizationsController extends Controller
         $user = $request->user();
 
         return response()->json(['data' => $user]);
+    }
+
+    public function apply_vip(Request $request)
+    {
+        $user = $request->user();
+        if ($user->apply_at) {
+            return $this->errorResponse(400, '您已申请过体验会员！');
+        }
+        $user->apply_at = Carbon::today()->toDateString();
+        return response()->json(['data' => $user->save()]);
     }
 
     public function invite(Request $request)

@@ -59,7 +59,8 @@ class User extends Authenticatable implements JWTSubject
         'grade',
         'admin_id',
         'openid',
-        'created_at'
+        'created_at',
+        'apply_at',
     ];
 
     protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip'];
@@ -144,13 +145,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function GetByVipAttribute()
     {
-        if ($this->attributes['grade'] === null) {
-            $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['created_at']));
+        if ($this->attributes['apply_at'] !== null && $this->attributes['grade'] === null) {
+            $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['apply_at']));
             if ($carbon->addDays(3)->lt(Carbon::today())) {
                 $this->newQuery()
                     ->where('id', $this->attributes['id'])
                     ->update(['grade' => self::GRADE_ONE]);
-                return '已截至';
+                return '体验会员已过期';
             } else {
                 return $carbon->toDateString();
             }

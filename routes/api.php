@@ -87,6 +87,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::put('orders/prove', 'OrdersController@prove')
             ->middleware('throttle:4,1')
             ->name('orders.prove');
+        // 申请体验会员
+        Route::put('apply', 'AuthorizationsController@apply_vip');
         // 更改资料
         Route::put('edit', 'AuthorizationsController@edit')->name('users.edit');
         // 实名认证
