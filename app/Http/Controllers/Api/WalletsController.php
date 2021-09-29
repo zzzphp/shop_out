@@ -18,9 +18,9 @@ class WalletsController extends Controller
                     ->whereHas('currency', function($builder){
                         $builder->where('is_show', true);
                     })
-                    ->get();
+                    ->first();
         $data['assets'] = $server->calculationWallets($request->user());
-        $data['wallets'] = walletHelper($wallets);
+        $data['wallets'] = $wallets;
         return response()->json(['data' => $data]);
     }
 }
