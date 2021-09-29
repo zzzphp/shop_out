@@ -62,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
         'created_at'
     ];
 
-    protected $appends = ['team_count', 'grade_full', 'grade_list'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip'];
 
     protected static function boot()
     {
@@ -140,6 +140,21 @@ class User extends Authenticatable implements JWTSubject
             $grade_full[] = $full;
         }
         return $grade_full;
+    }
+
+    public function GetByVipAttribute()
+    {
+        if ($this->attributes['grade'] === null) {
+            $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['created_at']));
+            if ($carbon->addDays(3)->lte(Carbon::today())) {
+                $this->newQuery()
+                    ->where('id', $this->attributes['id'])
+                    ->update(['grade' => self::GRADE_ONE]);
+                return '已截至';
+            } else {
+                return $carbon->toDateString();
+            }
+        }
     }
 
     /**
