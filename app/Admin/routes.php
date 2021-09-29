@@ -41,4 +41,5 @@ Route::group([
     $router->resource('market_biki', CurrencyMarketBikiController::class);
     $router->resource('automatics', DistributesAutomaticController::class);
     $router->resource('versions', VersionController::class);
+    $router->resource('information', NewsInformationController::class);
 });
