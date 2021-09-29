@@ -91,15 +91,6 @@ class Product extends Model
         }
         return Storage::disk('admin')->url($this->attributes['image']);
     }
-
-    public function getAgreementAttribute()
-    {
-        return Agreement::find($this->attributes['agreement_id']);
-    }
-
-
-
-
         // 减少库存
     public function decreaseStock($amount)
     {
