@@ -72,6 +72,10 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('site', 'SiteController@show');
     // 获取用户注册协议隐私
     Route::get('register_agreements', 'AgreementsController@register');
+    // 获取所有协议
+    Route::get('agreements', 'AgreementsController@index');
+    // 协议详情
+    Route::get('agreements/{agreement}', 'AgreementsController@show');
     // 登录后可访问
     Route::middleware('auth:api')->group(function(){
         // 节流处理防止攻击

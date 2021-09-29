@@ -15,4 +15,16 @@ class AgreementsController extends Controller
         $agreements = Agreement::query()->whereIn('title', $titles)->get();
         return response()->json(['data' => $agreements]);
     }
+
+    public function index(Request $request)
+    {
+        $agreements = Agreement::query()->get(['id', 'title']);
+
+        return response()->json(['data' => $agreements]);
+    }
+
+    public function show(Agreement $agreement)
+    {
+        return response()->json(['data' => $agreement]);
+    }
 }

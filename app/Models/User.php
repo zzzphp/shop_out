@@ -146,7 +146,7 @@ class User extends Authenticatable implements JWTSubject
     {
         if ($this->attributes['grade'] === null) {
             $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['created_at']));
-            if ($carbon->addDays(3)->lte(Carbon::today())) {
+            if ($carbon->addDays(3)->lt(Carbon::today())) {
                 $this->newQuery()
                     ->where('id', $this->attributes['id'])
                     ->update(['grade' => self::GRADE_ONE]);
