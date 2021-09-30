@@ -22,7 +22,6 @@ class CreateRechargesTable extends Migration
             ->on('users')
             ->onDelete('cascade');
             $table->string('currency')->comment('币种');
-
             $table->string('chain')->nullable()->comment('链名');
             $table->decimal('amount',18,8)->comment('充值数量');
             $table->string('recharge_prove')->nullable()->comment('充值截图');

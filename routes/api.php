@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// 支付后回调
+Route::get('payment/alipay/return', 'NotifyController@alipayRechargeReturn');
+
 Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
+    // 充币申请
+    Route::get('recharges', 'RechargesController@store')->name('recharges.store');
     Route::get('/', 'AuthorizationsController@store');
     // 节流处理防止攻击
     Route::middleware('throttle:3,1')->group(function (){
@@ -103,10 +108,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::get('orders', 'OrdersController@index')->name('orders.index');
         // 订单详情
         Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
-        // 充币申请
-        Route::post('recharges', 'RechargesController@store')->name('recharges.store');
-        // 申请列表
-        Route::get('recharges', 'RechargesController@index')->name('recharges.index');
+
+//        // 申请列表
+//        Route::get('recharges', 'RechargesController@index')->name('recharges.index');
         // 钱包列表
         Route::get('wallets', 'WalletsController@index')->name('wallets.index');
         // 用户邀请连接
