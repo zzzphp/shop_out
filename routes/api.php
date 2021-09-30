@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 // 支付后回调
 
 Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
-    Route::get('payment/alipay/return', 'NotifyController@alipayRechargeReturn');
+    Route::post('payment/alipay/return', 'NotifyController@alipayRechargeReturn');
 
     // 充币申请
     Route::get('recharges', 'RechargesController@store')->name('recharges.store');
