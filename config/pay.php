@@ -17,7 +17,7 @@ return [
             'alipay_public_cert_path' => '/www/wwwroot/shop.local/storage/app/pay/alipay/alipayCertPublicKey_RSA2.crt',
             // 支付宝根证书 路径
             'alipay_root_cert_path' => '/www/wwwroot/shop.local/storage/app/pay/alipay/alipayRootCert.crt',
-            'return_url' => 'http://wwww.baidu.com',
+//            'return_url' => 'http://wwww.baidu.com',
 //            'notify_url' => 'http://wwww.baidu.com',
             'mode' => Pay::MODE_SANDBOX,
         ],

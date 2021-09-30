@@ -38,6 +38,7 @@ class RechargesController extends Controller
                     'total_amount' => $recharge->amount,
                     'subject'      => 'shop',
                     'notify_url'   => config('app.url') . '/api/v1/payment/alipay/return',
+                    'return_url'   => 'http://shop.gaogecloud.com',
                 ])->getBody()->getContents();
                 return $result;
                 break;
