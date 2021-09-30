@@ -10,7 +10,7 @@ use Yansongda\LaravelPay\Facades\Pay;
 class NotifyController extends Controller
 {
     //
-    public function alipayRechargeReturn(Request $request)
+    public function alipayRechargeNotify(Request $request)
     {
         $result = Pay::alipay()->callback();
         Log::info($result);
