@@ -1,7 +1,6 @@
 /node_modules
 /public/hot
-/public/storage/framework
-/public/storage/logs
+/public/storage
 /public/uploads
 /storage/*.key
 /vendor
