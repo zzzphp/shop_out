@@ -37,7 +37,7 @@ class RechargesController extends Controller
                     'out_trade_no' => $recharge->id,
                     'total_amount' => $recharge->amount,
                     'subject'      => 'shop',
-                    'notify_url'   => config('app.url') . '/payment/alipay/return',
+                    'notify_url'   => config('app.url') . '/api/v1/payment/alipay/return',
                 ])->getBody()->getContents();
                 return $result;
                 break;
