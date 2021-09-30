@@ -25,17 +25,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('minercloud:sync-currency-market')->everyMinute();
-        $schedule->command('miners:set-profit-date')->dailyAt('01:00');
-        $schedule->command('order:overdue-remind')->dailyAt('00:10');
-        $schedule->command('agent:performance-statistics')->dailyAt('00:30');
-        $schedule->command('miners:first-powers-currency')->dailyAt('00:01');
-        $schedule->command('miners:powers-linear-release')->dailyAt('00:10');
-        // 每晚11点自动写入发币数据
-        $schedule->command('miners:power-distributes-automatic')->dailyAt('23:00');
-        // 抓取资讯数据
-        $schedule->command('customize:news-grab')->everyFiveMinutes();
-        $schedule->command('customize:news-grab-information')->everyThirtyMinutes();
+//        $schedule->command('minercloud:sync-currency-market')->everyMinute();
+//        $schedule->command('miners:set-profit-date')->dailyAt('01:00');
+//        $schedule->command('order:overdue-remind')->dailyAt('00:10');
+//        $schedule->command('agent:performance-statistics')->dailyAt('00:30');
+//        $schedule->command('miners:first-powers-currency')->dailyAt('00:01');
+//        $schedule->command('miners:powers-linear-release')->dailyAt('00:10');
+//        // 每晚11点自动写入发币数据
+//        $schedule->command('miners:power-distributes-automatic')->dailyAt('23:00');
+//        // 抓取资讯数据
+//        $schedule->command('customize:news-grab')->everyFiveMinutes();
+//        $schedule->command('customize:news-grab-information')->everyThirtyMinutes();
 
     }
 

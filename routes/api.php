@@ -135,6 +135,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::get('collections', 'CollectionController@show');
         // 更新收款信息
         Route::put('collections', 'CollectionController@update');
+        // 收货地址
+        Route::resource('user_addresses', UserAddressesController::class);
     });
     // 实名认证后可访问
     Route::middleware(['auth:api', 'real'])->group(function(){

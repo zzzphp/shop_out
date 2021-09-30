@@ -88,6 +88,10 @@ class User extends Authenticatable implements JWTSubject
         'safe_password',
     ];
 
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -195,5 +199,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(AdminUser::class);
     }
+
 
 }
