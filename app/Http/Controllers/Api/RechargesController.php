@@ -38,7 +38,6 @@ class RechargesController extends Controller
                     'total_amount' => $recharge->amount,
                     'subject'      => 'shop',
                 ])->getBody()->getContents();
-                return $result;
                 break;
             default:
                 $this->errorResponse(400, '当前支付方式未开通');
@@ -46,7 +45,6 @@ class RechargesController extends Controller
                 break;
         }
         DB::commit();
-
         return response()->json(['data' => $result]);
     }
 

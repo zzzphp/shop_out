@@ -34,7 +34,7 @@ class RechargesController extends AdminController
             $grid->column('currency');
 //            $grid->column('chain');
             $grid->column('amount')->label('success');
-            $grid->column('recharge_prove')->image('', 30,30);
+//            $grid->column('recharge_prove');
             $grid->column('status')->display(function($value){
                 return Recharge::$statusMap[$value];
             })->dot([
@@ -123,7 +123,6 @@ class RechargesController extends AdminController
             $form->text('chain')->required();
             $form->decimal('amount')->required();
             $form->text('remark')->default('后台手动充值');
-            $form->image('recharge_prove')->default(env('APP_URL') . '/vendor/dcat-admin/images/logo.png')->required();
             $form->select('status')->options(function (){
                 return [Recharge::STATUS_PENDING => '审核中'];
             })->default(Recharge::STATUS_PENDING)->required();;
