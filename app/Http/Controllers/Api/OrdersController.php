@@ -32,7 +32,6 @@ class OrdersController extends Controller
                 'payment_method'  => 'CNY',
                 'total_powers' => $product->amount * $request->amount,
                 'currency_id' => 1,
-                'status' => Order::STATUS_SUCCESS,
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);
@@ -41,12 +40,11 @@ class OrdersController extends Controller
                 throw new InternalException("库存不足");
             }
             // 扣除余额
-            $wallet = Wallet::query()
-                            ->where('user_id', $request->user()->id)
-                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
-                            ->first();
-            $wallet->subAmount($request->amount * $product->price, AssetDetails::TYPE_BUY);
-
+//            $wallet = Wallet::query()
+//                            ->where('user_id', $request->user()->id)
+//                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
+//                            ->first();
+//            $wallet->subAmount($request->amount * $product->price, AssetDetails::TYPE_BUY);
             $order->save();
            return $order;
         });
@@ -112,9 +110,9 @@ class OrdersController extends Controller
         if ($order->status !== Order::STATUS_PENDING) {
             $this->errorResponse(400, '订单状态不正确');
         }
-        $order->paid_prove = $request->input('paid_prove');
-        $order->status = 'pending';
-        $order->payment_method = $request->input('payment_method');
+        $order->paid_prove = 'true';
+        $order->status = Order::STATUS_SUCCESS;
+        $order->payment_method = '余额';
         $order->payment_price = $request->input('payment_price');
         $order->paid_at = Carbon::now()->toDateTimeString();
         $order->save();

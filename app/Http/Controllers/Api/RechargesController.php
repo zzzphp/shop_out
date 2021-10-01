@@ -14,7 +14,6 @@ class RechargesController extends Controller
     // 充币
     public function store(Request $request)
     {
-        $user = User::find(1);
         $request->validate([
                 'amount'         => 'required',
                 'currency_id'    => 'required',
@@ -23,7 +22,7 @@ class RechargesController extends Controller
         $currency = Currency::find($request->currency_id);
         DB::beginTransaction();
         $recharge = Recharge::create([
-            'user_id'  => $user->id,
+            'user_id'  => $request->user()->id,
             'currency' => $currency->name,
             'chain'    => $request->type,
             'amount'   => $request->amount,

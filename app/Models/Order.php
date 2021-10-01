@@ -20,7 +20,7 @@ class Order extends Model
     const STATUS_PLEDGE_RETURN = 'pledge_return';
 
     public static $statusMap = [
-            self::STATUS_PENDING => '审核中',
+            self::STATUS_PENDING => '待支付',
             self::STATUS_SUCCESS => '支付成功',
             self::STATUS_FAILED => '支付失败',
             self::STATUS_EFFECTIVE => '有效算力',

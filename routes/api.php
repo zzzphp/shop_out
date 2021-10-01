@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::post('payment/alipay/notify', 'NotifyController@alipayRechargeNotify');
-
-    // 充币申请
-    Route::get('recharges', 'RechargesController@store')->name('recharges.store');
     Route::get('/', 'AuthorizationsController@store');
     // 节流处理防止攻击
     Route::middleware('throttle:3,1')->group(function (){
@@ -84,6 +81,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('agreements/{agreement}', 'AgreementsController@show');
     // 登录后可访问
     Route::middleware('auth:api')->group(function(){
+        // 充币申请
+        Route::get('recharges', 'RechargesController@store')->name('recharges.store');
         // 节流处理防止攻击
         // 下单
         Route::post('orders', 'OrdersController@store')
