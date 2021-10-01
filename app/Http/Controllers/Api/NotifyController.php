@@ -22,6 +22,7 @@ class NotifyController extends Controller
         }
         $recharge = Recharge::find($result->get('out_trade_no'));
         if (!$recharge) {
+            Log::error($result);
             return 'fail';
         }
         // 如果该充值已经确认 避免多次通知重复执行该代码
@@ -31,13 +32,18 @@ class NotifyController extends Controller
         DB::transaction(function () use ($recharge, $result){
             $recharge->status = $result->get('trade_status') === 'TRADE_SUCCESS' ?
                                                            Recharge::STATUS_SUCCESS : Recharge::STATUS_FALED;
+            $recharge->recharge_prove = $result->get('trade_no');
             $recharge->save();
-            $wallet = Wallet::query()
-                ->where(['user_id' => $recharge->user_id,
+            if ($recharge->status == Recharge::STATUS_SUCCESS) {
+                $wallet = Wallet::query()
+                    ->where(['user_id' => $recharge->user_id,
                         'currency_id' => $recharge->currency_id,
                         'type'     => Wallet::TYPE_LEFAL,
-                ])->first();
-            $wallet->addAmount($result->get('total_amount'), AssetDetails::TYPE_RECHARGE);
+                    ])->first();
+                $wallet->addAmount($result->get('total_amount'), AssetDetails::TYPE_RECHARGE);
+            } else {
+                Log::error($result);
+            }
         });
         return Pay::alipay()->success();
     }
