@@ -24,8 +24,6 @@ class OrdersController extends Controller
             $order = new Order([
                 'amount'      => $request->amount,
                 'payment_price'      => $request->amount * $product->price,
-                'paid_prove'      => true,
-                'payment_method'      => '余额',
                 'total_amount' => $request->amount * $product->price,
                 'remark'        => $request->input('remark', ''),
                 'status'       => Order::STATUS_PENDING,
@@ -99,9 +97,6 @@ class OrdersController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'paid_prove' => 'required|url',
-            'payment_method' => 'required',
-            'payment_price'  => 'required',
         ]);
         $order = Order::find($request->input('id'));
         $this->authorize('own', $order);
@@ -110,12 +105,23 @@ class OrdersController extends Controller
         if ($order->status !== Order::STATUS_PENDING) {
             $this->errorResponse(400, '订单状态不正确');
         }
-        $order->paid_prove = 'true';
-        $order->status = Order::STATUS_SUCCESS;
-        $order->payment_method = '余额';
-        $order->payment_price = $request->input('payment_price');
-        $order->paid_at = Carbon::now()->toDateTimeString();
-        $order->save();
+        $order = DB::transaction(function () use ($order){
+            $order->paid_prove = 'true';
+            $order->status = Order::STATUS_SUCCESS;
+            $order->payment_method = '余额';
+            $order->payment_price = $order->total_amount;
+            $order->paid_at = Carbon::now()->toDateTimeString();
+            $order->save();
+
+            // 扣除余额
+            $wallet = Wallet::query()
+                            ->where('user_id', $order->user_id)
+                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
+                            ->first();
+            $wallet->subAmount($order->total_amount, AssetDetails::TYPE_BUY);
+
+            return $order;
+        });
 
         return response()->json(['data' => $order]);
     }
