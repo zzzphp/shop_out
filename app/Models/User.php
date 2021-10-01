@@ -63,7 +63,7 @@ class User extends Authenticatable implements JWTSubject
         'apply_at',
     ];
 
-    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data'];
 
     protected static function boot()
     {
@@ -147,7 +147,7 @@ class User extends Authenticatable implements JWTSubject
         return $grade_full;
     }
 
-    public function GetByVipAttribute()
+    public function getByVipAttribute()
     {
         if ($this->attributes['apply_at'] !== null && $this->attributes['grade'] === null) {
             $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['apply_at']));
@@ -158,6 +158,21 @@ class User extends Authenticatable implements JWTSubject
                 return '体验会员已过期';
             } else {
                 return $carbon->toDateString();
+            }
+        }
+    }
+
+    public function getUploadDataAttribute()
+    {
+        if ($this->attributes['status'] !== User::STATUS_SUCCESS) {
+            if (!$this->attributes['idcard_data']) {
+                return 'idcard';
+            }
+            if (Collection::query()->where('user_id', $this->attributes['id'])->doesntExist()) {
+                return 'collection';
+            }
+            if (UserAddress::query()->where('user_id', $this->attributes['id'])->doesntExist()) {
+                return 'address';
             }
         }
     }

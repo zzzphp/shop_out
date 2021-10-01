@@ -42,4 +42,5 @@ Route::group([
     $router->resource('automatics', DistributesAutomaticController::class);
     $router->resource('versions', VersionController::class);
     $router->resource('information', NewsInformationController::class);
+    $router->resource('real_names', UserRealNameController::class);
 });

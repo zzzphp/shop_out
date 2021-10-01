@@ -64,6 +64,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection sort
      * @property Grid\Column|Collection describe
      * @property Grid\Column|Collection is_show
+     * @property Grid\Column|Collection open_time
+     * @property Grid\Column|Collection data
+     * @property Grid\Column|Collection hash_key
      * @property Grid\Column|Collection level
      * @property Grid\Column|Collection order_id
      * @property Grid\Column|Collection address_data
@@ -84,7 +87,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection vol
      * @property Grid\Column|Collection distribute_id
      * @property Grid\Column|Collection day
-     * @property Grid\Column|Collection hash_key
      * @property Grid\Column|Collection info
      * @property Grid\Column|Collection product_id
      * @property Grid\Column|Collection total_amount
@@ -155,6 +157,15 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection stock
      * @property Grid\Column|Collection currency
      * @property Grid\Column|Collection recharge_prove
+     * @property Grid\Column|Collection city
+     * @property Grid\Column|Collection contact_name
+     * @property Grid\Column|Collection contact_phone
+     * @property Grid\Column|Collection district
+     * @property Grid\Column|Collection is_default
+     * @property Grid\Column|Collection last_used_at
+     * @property Grid\Column|Collection province
+     * @property Grid\Column|Collection zip
+     * @property Grid\Column|Collection apply_at
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection grade
      * @property Grid\Column|Collection idcard_data
@@ -226,6 +237,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection sort(string $label = null)
      * @method Grid\Column|Collection describe(string $label = null)
      * @method Grid\Column|Collection is_show(string $label = null)
+     * @method Grid\Column|Collection open_time(string $label = null)
+     * @method Grid\Column|Collection data(string $label = null)
+     * @method Grid\Column|Collection hash_key(string $label = null)
      * @method Grid\Column|Collection level(string $label = null)
      * @method Grid\Column|Collection order_id(string $label = null)
      * @method Grid\Column|Collection address_data(string $label = null)
@@ -246,7 +260,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection vol(string $label = null)
      * @method Grid\Column|Collection distribute_id(string $label = null)
      * @method Grid\Column|Collection day(string $label = null)
-     * @method Grid\Column|Collection hash_key(string $label = null)
      * @method Grid\Column|Collection info(string $label = null)
      * @method Grid\Column|Collection product_id(string $label = null)
      * @method Grid\Column|Collection total_amount(string $label = null)
@@ -317,6 +330,15 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection stock(string $label = null)
      * @method Grid\Column|Collection currency(string $label = null)
      * @method Grid\Column|Collection recharge_prove(string $label = null)
+     * @method Grid\Column|Collection city(string $label = null)
+     * @method Grid\Column|Collection contact_name(string $label = null)
+     * @method Grid\Column|Collection contact_phone(string $label = null)
+     * @method Grid\Column|Collection district(string $label = null)
+     * @method Grid\Column|Collection is_default(string $label = null)
+     * @method Grid\Column|Collection last_used_at(string $label = null)
+     * @method Grid\Column|Collection province(string $label = null)
+     * @method Grid\Column|Collection zip(string $label = null)
+     * @method Grid\Column|Collection apply_at(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection grade(string $label = null)
      * @method Grid\Column|Collection idcard_data(string $label = null)
@@ -393,6 +415,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection sort
      * @property Show\Field|Collection describe
      * @property Show\Field|Collection is_show
+     * @property Show\Field|Collection open_time
+     * @property Show\Field|Collection data
+     * @property Show\Field|Collection hash_key
      * @property Show\Field|Collection level
      * @property Show\Field|Collection order_id
      * @property Show\Field|Collection address_data
@@ -413,7 +438,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection vol
      * @property Show\Field|Collection distribute_id
      * @property Show\Field|Collection day
-     * @property Show\Field|Collection hash_key
      * @property Show\Field|Collection info
      * @property Show\Field|Collection product_id
      * @property Show\Field|Collection total_amount
@@ -484,6 +508,15 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection stock
      * @property Show\Field|Collection currency
      * @property Show\Field|Collection recharge_prove
+     * @property Show\Field|Collection city
+     * @property Show\Field|Collection contact_name
+     * @property Show\Field|Collection contact_phone
+     * @property Show\Field|Collection district
+     * @property Show\Field|Collection is_default
+     * @property Show\Field|Collection last_used_at
+     * @property Show\Field|Collection province
+     * @property Show\Field|Collection zip
+     * @property Show\Field|Collection apply_at
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection grade
      * @property Show\Field|Collection idcard_data
@@ -555,6 +588,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection sort(string $label = null)
      * @method Show\Field|Collection describe(string $label = null)
      * @method Show\Field|Collection is_show(string $label = null)
+     * @method Show\Field|Collection open_time(string $label = null)
+     * @method Show\Field|Collection data(string $label = null)
+     * @method Show\Field|Collection hash_key(string $label = null)
      * @method Show\Field|Collection level(string $label = null)
      * @method Show\Field|Collection order_id(string $label = null)
      * @method Show\Field|Collection address_data(string $label = null)
@@ -575,7 +611,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection vol(string $label = null)
      * @method Show\Field|Collection distribute_id(string $label = null)
      * @method Show\Field|Collection day(string $label = null)
-     * @method Show\Field|Collection hash_key(string $label = null)
      * @method Show\Field|Collection info(string $label = null)
      * @method Show\Field|Collection product_id(string $label = null)
      * @method Show\Field|Collection total_amount(string $label = null)
@@ -646,6 +681,15 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection stock(string $label = null)
      * @method Show\Field|Collection currency(string $label = null)
      * @method Show\Field|Collection recharge_prove(string $label = null)
+     * @method Show\Field|Collection city(string $label = null)
+     * @method Show\Field|Collection contact_name(string $label = null)
+     * @method Show\Field|Collection contact_phone(string $label = null)
+     * @method Show\Field|Collection district(string $label = null)
+     * @method Show\Field|Collection is_default(string $label = null)
+     * @method Show\Field|Collection last_used_at(string $label = null)
+     * @method Show\Field|Collection province(string $label = null)
+     * @method Show\Field|Collection zip(string $label = null)
+     * @method Show\Field|Collection apply_at(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection grade(string $label = null)
      * @method Show\Field|Collection idcard_data(string $label = null)

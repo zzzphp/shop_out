@@ -88,7 +88,9 @@ class UsersController extends AdminController
                     }
 
                 });
-                $grid->column('status','认证状态')->select(\App\Models\User::$statusMap);
+                $grid->column('status','认证状态')->display(function ($value){
+                    return User::$statusMap[$value];
+                });
                 // $grid->post->display('查看钱包')->modal('', UserWallets::make());
                 // 可以在闭包内返回异步加载类的实例
                 $grid->post->modal(function (Grid\Displayers\Modal $modal) {
@@ -117,7 +119,6 @@ class UsersController extends AdminController
                     $value = trim(json_encode($this->input), '"');
                     $builder->where('idcard_data', 'like', "%{$value}%");
                 })->width(4);
-
                 $filter->newline();
                 $filter->equal('status', '认证状态')->select(User::$statusMap)->width(4);
 
