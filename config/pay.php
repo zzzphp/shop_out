@@ -18,7 +18,7 @@ return [
             // 支付宝根证书 路径
             'alipay_root_cert_path' => storage_path('app/pay/alipay/alipayRootCert.crt'),
             'notify_url'   => 'http://shop.gaogecloud.com/api/v1/payment/alipay/notify',
-            'return_url'   => 'http://192.168.1.6:8081/#/',
+            'return_url'   => 'http://192.168.1.6:8081/#/views/recharge/index',
             'mode' => Pay::MODE_SANDBOX,
         ],
     ],
