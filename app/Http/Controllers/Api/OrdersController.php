@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\AssetDetails;
+use App\Models\Currency;
 use App\Models\Order;
 use App\Models\Wallet;
 use Carbon\Carbon;
@@ -21,6 +23,9 @@ class OrdersController extends Controller
             $product = Product::query()->where('id', $request->product_id)->first();
             $order = new Order([
                 'amount'      => $request->amount,
+                'payment_price'      => $request->amount * $product->price,
+                'paid_prove'      => true,
+                'payment_method'      => '余额',
                 'total_amount' => $request->amount * $product->price,
                 'remark'        => $request->input('remark', ''),
                 'status'       => Order::STATUS_PENDING,
@@ -29,12 +34,19 @@ class OrdersController extends Controller
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);
-            $order->currency()->associate($product->currency);
+//            $order->currency()->associate($product->currency);
             //减少产品库存
             if($product->decreaseStock($request->amount) <= 0) {
                 throw new InternalException("库存不足");
             }
-           $order->save();
+            // 扣除余额
+            $wallet = Wallet::query()
+                            ->where('user_id', $request->user()->id)
+                            ->where(['currency_id', 1, 'type' => Currency::TYPE_LEFAL])
+                            ->first();
+            $wallet->subAmount($request->amount * $product->price, AssetDetails::TYPE_BUY);
+
+            $order->save();
            return $order;
         });
         // 延时队列关闭未支付的订单
