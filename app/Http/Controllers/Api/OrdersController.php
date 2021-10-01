@@ -31,10 +31,11 @@ class OrdersController extends Controller
                 'status'       => Order::STATUS_PENDING,
                 'payment_method'  => 'CNY',
                 'total_powers' => $product->amount * $request->amount,
+                'currency_id' => 1,
+                'status' => Order::STATUS_SUCCESS,
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);
-//            $order->currency()->associate($product->currency);
             //减少产品库存
             if($product->decreaseStock($request->amount) <= 0) {
                 throw new InternalException("库存不足");
@@ -42,7 +43,7 @@ class OrdersController extends Controller
             // 扣除余额
             $wallet = Wallet::query()
                             ->where('user_id', $request->user()->id)
-                            ->where(['currency_id', 1, 'type' => Currency::TYPE_LEFAL])
+                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
                             ->first();
             $wallet->subAmount($request->amount * $product->price, AssetDetails::TYPE_BUY);
 

@@ -5,27 +5,27 @@ function hashKey($user_id, $currency_id, $other = '')
     return substr(md5($user_id.$currency_id.$other), 8, 16);
 }
 // 加
-function add($left, $right, int $scale = 8)
+function add($left, $right, int $scale = 2)
 {
     return bcadd($left, $right, $scale);
 }
 // 减
-function sub($left, $right, int $scale = 8)
+function sub($left, $right, int $scale = 2)
 {
     return bcsub($left, $right, $scale);
 }
 //乘
-function mul($left, $right, int $scale = 8)
+function mul($left, $right, int $scale = 2)
 {
     return bcmul($left, $right, $scale);
 }
 // 除
-function div($left, $right, int $scale = 8)
+function div($left, $right, int $scale = 2)
 {
     return bcdiv($left, $right, $scale);
 }
 // 两个数相等时返回 0； num1 比 num2 大时返回 1； 其他则返回 -1。
-function comp($left, $rigth, int $scale = 8) {
+function comp($left, $rigth, int $scale = 2) {
     return bccomp($left, $rigth, $scale) === 1 ? true : false;
 }
 

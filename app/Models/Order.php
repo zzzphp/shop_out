@@ -33,7 +33,7 @@ class Order extends Model
         'remark','paid_prove', 'paid_at',
         'payment_method', 'closed', 'status','amount',
         'total_amount','profit_data','product_id','mortgage',
-        'total_powers', 'payment_price',
+        'total_powers', 'payment_price','currency_id',
     ];
 
     // protected $dates = [

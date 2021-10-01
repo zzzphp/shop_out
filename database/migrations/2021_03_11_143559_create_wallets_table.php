@@ -27,7 +27,7 @@ class CreateWalletsTable extends Migration
             ->references('id')
             ->on('currencies')
             ->onDelete('cascade');
-            $table->decimal('amount',18,8)->default(0);
+            $table->decimal('amount',18,2)->default(0);
             $table->timestamps();
         });
     }

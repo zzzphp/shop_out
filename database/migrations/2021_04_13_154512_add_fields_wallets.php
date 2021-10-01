@@ -15,8 +15,8 @@ class AddFieldsWallets extends Migration
     {
         Schema::table('wallets', function (Blueprint $table) {
             //
-        $table->decimal('withdrawal_amount', 18, 8)->comment('提现数量')->after('amount')->default(0);
-        $table->decimal('frozen_amount', 18, 8)->comment('冻结数量')->after('amount')->default(0);
+        $table->decimal('withdrawal_amount', 18, 2)->comment('提现数量')->after('amount')->default(0);
+        $table->decimal('frozen_amount', 18, 2)->comment('冻结数量')->after('amount')->default(0);
         });
     }
 

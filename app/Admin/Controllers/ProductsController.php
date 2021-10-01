@@ -23,14 +23,8 @@ class ProductsController extends AdminController
     {
         return Grid::make(Products::with(['currency','stage']), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('type')->display(function($type){
-                return \App\Models\Product::$typeMap[$type];
-            });
-            $grid->column('currency.name', '币种');
             $grid->column('image')->image('', 50, 50);
-            $grid->column('stage.name', '期数');
             $grid->column('title');
-            $grid->column('amount');
             $grid->column('original_price');
             $grid->column('price');
             // $grid->column('attributes');
@@ -47,9 +41,6 @@ class ProductsController extends AdminController
                 $filter->panel();
                 // 展开过滤器
                 $filter->expand();
-                $filter->equal('currency_id', '币种')->select(function (){
-                    return Currency::query()->pluck('name', 'id');
-                })->width(4);
                 $filter->equal('stage.id', '期数')->select(function (){
                     return Stage::query()->pluck('name', 'id');
                 })->width(4);

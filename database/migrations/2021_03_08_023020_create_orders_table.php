@@ -21,11 +21,6 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('currency_id');
-            $table->foreign('currency_id')
-                ->references('id')
-                ->on('currencies')
-                ->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
                 ->references('id')

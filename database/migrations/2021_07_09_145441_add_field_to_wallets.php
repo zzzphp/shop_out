@@ -15,8 +15,8 @@ class AddFieldToWallets extends Migration
     {
         Schema::table('wallets', function (Blueprint $table) {
             //
-            $table->decimal('unlock', 18, 8)->after('withdrawal_amount')->default(0);
-            $table->decimal('lock', 18, 8)->after('withdrawal_amount')->default(0);
+            $table->decimal('unlock', 18, 2)->after('withdrawal_amount')->default(0);
+            $table->decimal('lock', 18, 2)->after('withdrawal_amount')->default(0);
         });
     }
 

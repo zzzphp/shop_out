@@ -24,7 +24,7 @@ class Product extends Model
 
     protected $fillable = [
             'currency_id', 'title', 'description', 'original_price', 'price',
-            'attributes', 'detail', 'end_at','commission','type','stage_id','on_sale','agreement_id','pay_methods',
+            'attributes', 'detail', 'end_at','commission','type','stage_id','on_sale',
         ];
 
 
@@ -38,7 +38,7 @@ class Product extends Model
         ];
 
     protected $appends = [
-        'image_url', 'agreement', 'methods','usdt_price'
+        'image_url','usdt_price'
         ];
 
     public function currency()
@@ -65,15 +65,6 @@ class Product extends Model
     {
         // 换算 USDT
         return number_format(ceil($this->attributes['price']/usdtAmount()), 2, '.', '');
-    }
-
-    public function getMethodsAttribute()
-    {
-        if ($this->attributes['pay_methods'])
-            return PayMethod::query()
-                ->whereIn('id', json_decode($this->attributes['pay_methods'], true))
-                ->orderBy('sort', 'ASC')
-                ->get();
     }
 
     public function getImage()
