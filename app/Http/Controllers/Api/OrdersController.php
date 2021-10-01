@@ -56,31 +56,9 @@ class OrdersController extends Controller
     {
         $builder = Order::query()->orderBy('id','desc')
         ->with(['product'])
-        ->where('user_id', $request->user()->id)
-        ->where('closed', false);
-
-        if($paid = $request->input('paid', '')) {
-            $builder->whereNotNull('paid_at');
-            $builder->whereNotNull('paid_prove');
-            if($status = $request->input('status', '')) {
-                if ($status === Order::STATUS_SUCCESS) {
-                    $builder->whereNotIn('status', [Order::STATUS_PENDING, Order::STATUS_FAILED]);
-                } else {
-                    if($status === Order::STATUS_EFFECTIVE) {
-                        $builder->whereIn('status', [$status, Order::STATUS_SUCCESS])
-                        ->whereNotNull('profit_data')
-                        ->whereNotNull('mortgage');
-                    } else {
-                       $builder->where('status', $status);
-                   }
-                }
-            }
-            if ($currency_id = $request->input('currency_id', '')) {
-                $builder->where('currency_id', $currency_id);
-            }
-        } else {
-            $builder->whereNull('paid_at');
-            $builder->whereNull('paid_prove');
+        ->where('user_id', $request->user()->id);
+        if ($request->input('status', '')) {
+            $builder->where('status', $request->input('status'));
         }
 
         return response()->json(['data' => $builder->get()]);
