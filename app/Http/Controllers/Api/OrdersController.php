@@ -89,8 +89,6 @@ class OrdersController extends Controller
             $order->payment_method = '余额';
             $order->payment_price = $order->total_amount;
             $order->paid_at = Carbon::now()->toDateTimeString();
-            $order->save();
-
             // 扣除余额
             $wallet = Wallet::query()
                             ->where('user_id', $order->user_id)
@@ -98,6 +96,7 @@ class OrdersController extends Controller
                             ->first();
             $wallet->subAmount($order->total_amount, AssetDetails::TYPE_BUY);
 
+            $order->save();
             return $order;
         });
 
