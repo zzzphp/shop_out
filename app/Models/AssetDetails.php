@@ -14,6 +14,8 @@ class AssetDetails extends Model
             'user_id', 'currency_id', 'front_amount', 'amount', 'after_amount', 'type', 'remark', 'sign',
         ];
 
+    protected $appends = ['full_type'];
+
     const TYPE_POWER = 'power';
     const TYPE_RECHARGE = 'recharge';
     const TYPE_WITHDRAWALS = 'withdrawals';
@@ -24,6 +26,7 @@ class AssetDetails extends Model
     const TYPE_PLEDGE_RETURN = 'pledge_return';
     const TYPE_BUY = 'buy';
     const TYPE_FROZEN_RETURN = 'return_frozen';
+    const TYPE_BOND = 'bond';
 
     const SECRET_KEY = 'e3ksp8o921hjdjx6';
 
@@ -38,6 +41,7 @@ class AssetDetails extends Model
             self::TYPE_PLEDGE_RETURN => '退还质押币',
             self::TYPE_BUY => '购买产品',
             self::TYPE_FROZEN_RETURN => '冻结退回',
+            self::TYPE_BOND => '缴纳保证金',
         ];
 
     public function user()
@@ -60,6 +64,11 @@ class AssetDetails extends Model
             $sign = $model->user_id . $model->currency_id . $model->front_amount . $model->amount . $model->after_amount . $model->type . self::SECRET_KEY . time();
             $model->sign = md5($sign);
         });
+    }
+
+    public function getFullTypeAttribute()
+    {
+        return self::$typeMap[$this->attributes['type']];
     }
 
 }

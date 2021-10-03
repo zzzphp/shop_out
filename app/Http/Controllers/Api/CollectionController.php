@@ -12,7 +12,7 @@ class CollectionController extends Controller
     public function show(Request $request)
     {
         $request->validate(['type' => 'required']);
-        $collection = Collection::firstOrCreate([
+        $collection = Collection::query()->firstOrNew([
                 'hash_key' => hashKey($request->user()->id, $request->input('type', Collection::TYPE_BANK)),
                 'user_id' => $request->user()->id,
                 'type'    => $request->input('type', Collection::TYPE_BANK),

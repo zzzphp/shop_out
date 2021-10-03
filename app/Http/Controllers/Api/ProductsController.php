@@ -14,6 +14,7 @@ class ProductsController extends Controller
         $request->validate(['category_id' => 'required|integer']);
         $products = Product::query()
         ->where(['category_id' => $request->input('category_id'), 'on_sale' => true])
+        ->where('stock', '>', 0)
         ->orderBy('id', 'DESC')
         ->get();
 

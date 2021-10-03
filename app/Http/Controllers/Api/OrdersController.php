@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\AssetDetails;
 use App\Models\Currency;
 use App\Models\Order;
+use App\Models\UserAddress;
 use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\InternalException;
 use App\Jobs\CloseOrder;
+use function PHPUnit\Framework\callback;
 
 class OrdersController extends Controller
 {
@@ -20,7 +22,13 @@ class OrdersController extends Controller
     public function store(OrderRequest $request)
     {
         $order = DB::transaction(function() use ($request){
-            $product = Product::query()->where('id', $request->product_id)->first();
+            $product = Product::find($request->product_id);
+            $open_time = $product->category->open_time;
+            $now = strtotime(Carbon::now()->toTimeString());
+            if ($now < strtotime($open_time['begin']) || $now > strtotime($open_time['end'])) {
+                return $this->errorResponse(400, '抢购时间未开始');
+            }
+            $address = UserAddress::find($request->address_id);
             $order = new Order([
                 'amount'      => $request->amount,
                 'payment_price'      => $request->amount * $product->price,
@@ -37,12 +45,14 @@ class OrdersController extends Controller
             if($product->decreaseStock($request->amount) <= 0) {
                 throw new InternalException("库存不足");
             }
-            // 扣除余额
-//            $wallet = Wallet::query()
-//                            ->where('user_id', $request->user()->id)
-//                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
-//                            ->first();
-//            $wallet->subAmount($request->amount * $product->price, AssetDetails::TYPE_BUY);
+            // 冻结保证金
+            $wallet = Wallet::query()
+                            ->where('user_id', $request->user()->id)
+                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
+                            ->first();
+            $amount = $request->amount * config('site.bond');
+            $wallet->subBondAmount($amount);
+            $wallet->addLockAmount($amount);
             $order->save();
            return $order;
         });

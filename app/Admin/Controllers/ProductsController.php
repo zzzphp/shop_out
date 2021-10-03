@@ -115,8 +115,8 @@ class ProductsController extends AdminController
                         ->options(['all' => '全部', 'list' => '列表', 'detail' => '详情']);
                 });
             })->required();
-            $form->time('begin_at')->required();
-            $form->time('end_at')->required();
+//            $form->time('begin_at')->required();
+//            $form->time('end_at')->required();
             $form->number('stock')->required();
             $form->editor('description')->required();
             $form->editor('detail')->required();

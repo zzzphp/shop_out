@@ -29,6 +29,7 @@ class Wallet extends Model
         'withdrawal_amount',
         'lock',
         'unlock',
+        'bond',
     ];
 
     protected $appends = ['cny'];
@@ -131,6 +132,49 @@ class Wallet extends Model
             ->where(['id' => $this->getKey(), 'withdrawal_amount' => $this->attributes['withdrawal_amount']])
             ->update(['withdrawal_amount' => $after_amount]);
         if (!$result) throw new InternalException('提现失败，请重试');
+    }
+
+    public function addBondAmount($amount)
+    {
+        if (comp($amount, $this->attributes['amount'])) {
+            throw new InternalException("余额不足");
+        }
+        $result = $this->newQuery()
+                    ->where(['id' => $this->getKey(), 'bond' => $this->attributes['bond']])
+                    ->update(['bond' => add($this->attributes['bond'], $amount)]);
+        if (!$result) throw new InternalException('保证金充值失败，请重试');
+    }
+    public function subBondAmount($amount)
+    {
+        if (comp($amount, $this->attributes['bond'])) {
+            throw new InternalException("保证金不足");
+        }
+        $result = $this->newQuery()
+            ->where(['id' => $this->getKey(), 'bond' => $this->attributes['bond']])
+            ->update(['bond' => sub($this->attributes['bond'], $amount)]);
+        if (!$result) throw new InternalException('扣除失败，请重试');
+    }
+
+    public function addLockAmount($amount)
+    {
+        if (comp($amount, $this->attributes['bond'])) {
+            throw new InternalException("保证金不足");
+        }
+        $result = $this->newQuery()
+            ->where(['id' => $this->getKey(), 'lock' => $this->attributes['lock']])
+            ->update(['lock' => add($this->attributes['lock'], $amount)]);
+        if (!$result) throw new InternalException('保证金冻结失败，请重试');
+    }
+
+    public function subLockAmount($amount)
+    {
+        if (comp($amount, $this->attributes['lock'])) {
+            throw new InternalException("冻结保证金不足");
+        }
+        $result = $this->newQuery()
+            ->where(['id' => $this->getKey(), 'lock' => $this->attributes['lock']])
+            ->update(['lock' => sub($this->attributes['lock'], $amount)]);
+        if (!$result) throw new InternalException('解除保证金失败，请重试');
     }
 
 

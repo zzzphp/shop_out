@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 10, 2)->comment('现价');
             $table->text('attributes')->comment('规格参数');
             $table->text('detail')->comment('产品说明');
-            $table->time('begin_at')->comment('每天开始时间');
-            $table->time('end_at')->comment('每天结束时间');
+            $table->time('begin_at')->nullable()->comment('每天开始时间');
+            $table->time('end_at')->nullable()->comment('每天结束时间');
             $table->unsignedInteger('stock')->comment('库存');
             $table->timestamps();
         });

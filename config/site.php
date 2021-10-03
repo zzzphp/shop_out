@@ -20,5 +20,6 @@ return [
         'five' => ['condition' => 800, 'minute' => 12, 'order' => 4],
         'six' => ['condition' => 1000, 'minute' => 15, 'order' => 5],
     ],
+    'bond' => 200,
 
 ];

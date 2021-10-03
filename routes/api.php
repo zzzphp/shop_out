@@ -141,6 +141,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::put('collections', 'CollectionController@update');
         // 收货地址
         Route::resource('user_addresses', UserAddressesController::class);
+        // 保证金
+        Route::get('bond', 'BondController@bond');
+        Route::post('bond', 'BondController@pay_bond');
     });
     // 实名认证后可访问
     Route::middleware(['auth:api', 'real'])->group(function(){
