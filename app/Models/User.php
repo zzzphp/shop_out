@@ -160,6 +160,7 @@ class User extends Authenticatable implements JWTSubject
                 return $carbon->toDateString();
             }
         }
+        return '体验会员已过期';
     }
 
     public function getUploadDataAttribute()
