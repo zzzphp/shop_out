@@ -166,7 +166,10 @@ class User extends Authenticatable implements JWTSubject
     public function getUploadDataAttribute()
     {
         if ($this->attributes['status'] !== User::STATUS_SUCCESS) {
-            if (!$this->attributes['idcard_data']) {
+            if (!isset($this->attributes['idcard_data']['video']) ||
+                !isset($this->attributes['idcard_data']['front_photo']) ||
+                !isset($this->attributes['idcard_data']['back_photo'])
+            ) {
                 return 'idcard';
             }
             if (Collection::query()->where('user_id', $this->attributes['id'])->doesntExist()) {
