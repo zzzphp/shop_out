@@ -133,7 +133,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getGradeFullAttribute()
     {
-        return $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '体验会员';
+        return isset($this->attributes['grade']) && $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '体验会员';
     }
 
     public function getGradeListAttribute()
