@@ -24,9 +24,33 @@ class OrdersController extends Controller
         $order = DB::transaction(function() use ($request){
             $product = Product::find($request->product_id);
             $open_time = $product->category->open_time;
-            $now = strtotime(Carbon::now()->toTimeString());
+            $now = Carbon::now();
+            // 判断用户的等级，提前抢单
+            $grade_config = config('site.vip_grade');
+            $grade = $grade_config[$request->user()->grade];
+            if ($grade['minute'] !== 0) {
+                $advance_now = strtotime($now->toTimeString());
+                // 需要先判断一次 当前时间是否在正常抢单时间内， 如果已经在正常抢单时间，则不需要再去判断提前抢单数量
+                if ($advance_now < strtotime($open_time['begin']) || $advance_now > strtotime($open_time['end'])) {
+                    // 检查提前抢单时间段是否有订单
+                    $advance_time = Carbon::createFromTimeString($open_time['begin'])
+                        ->subMinutes($grade['minute'])
+                        ->toTimeString();
+                    $order_count = Order::query()
+                        ->whereDate('created_at', $now->toDateString())
+                        ->whereTime('created_at', '>=', $advance_time)
+                        ->whereTime('created_at', '<=', $open_time['begin'])
+                        ->count();
+                    if ($order_count >= $grade['order']) {
+                        return $this->errorResponse(400, '您已经超过提前抢单数量');
+                    }
+                }
+                // 根据用户等级增加提前抢单时间
+                $now->addMinutes($grade['minute']);
+            }
+            $now = strtotime($now->toTimeString());
             if ($now < strtotime($open_time['begin']) || $now > strtotime($open_time['end'])) {
-                return $this->errorResponse(400, '抢购时间未开始');
+                 return $this->errorResponse(400, '抢购时间未开始');
             }
             $address = UserAddress::find($request->address_id);
             $order = new Order([
@@ -37,7 +61,6 @@ class OrdersController extends Controller
                 'status'       => Order::STATUS_PENDING,
                 'payment_method'  => 'CNY',
                 'total_powers' => $product->amount * $request->amount,
-                'currency_id' => 1,
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);

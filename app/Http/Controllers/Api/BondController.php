@@ -20,7 +20,7 @@ class BondController extends Controller
         if (!Hash::check($request->safe_password, $safe_password)) {
             return $this->errorResponse(400, '安全密码错误');
         }
-        DB::transaction(function () use ($request){
+        $wallet = DB::transaction(function () use ($request){
             $wallet = Wallet::query()
                 ->where('user_id', $request->user()->id)
                 ->where('currency_id', 1)
@@ -29,6 +29,8 @@ class BondController extends Controller
             $amount = $bond * $request->amount;
             $wallet->addBondAmount($amount);
             $wallet->subAmount($amount, AssetDetails::TYPE_BOND);
+
+            return $wallet;
         });
         return response()->json(['data' => $wallet]);
     }

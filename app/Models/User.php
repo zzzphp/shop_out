@@ -160,6 +160,7 @@ class User extends Authenticatable implements JWTSubject
         } else {
             return '您的体验会员已过期';
         }
+
     }
 
     public function getUploadDataAttribute()

@@ -37,6 +37,7 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('customize:news-grab')->everyFiveMinutes();
 //        $schedule->command('customize:news-grab-information')->everyThirtyMinutes();
         $schedule->command('user:grade-check')->daily();
+        $schedule->command('user:thaw-bond')->hourly();
 
     }
 
