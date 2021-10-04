@@ -156,14 +156,9 @@ class User extends Authenticatable implements JWTSubject
         }
         if ($this->attributes['grade'] === self::GRADE_ZERO) {
             $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['apply_at']));
-            if ($carbon->addDays(3)->lt(Carbon::today())) {
-                $this->newQuery()
-                    ->where('id', $this->attributes['id'])
-                    ->update(['grade' => self::GRADE_ONE]);
-                return '体验会员已过期';
-            } else {
-                return $carbon->toDateString();
-            }
+            return $carbon->addDays(3)->toDateString();
+        } else {
+            return '您的体验会员已过期';
         }
     }
 
