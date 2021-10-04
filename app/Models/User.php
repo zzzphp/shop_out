@@ -149,6 +149,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getByVipAttribute()
     {
+        if ($this->attributes['apply_at'] === null && $this->attributes['grade'] === null) {
+            return null;
+        }
         if ($this->attributes['apply_at'] !== null && $this->attributes['grade'] === null) {
             $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['apply_at']));
             if ($carbon->addDays(3)->lt(Carbon::today())) {

@@ -36,9 +36,12 @@ class Collection extends Model
                 // 根据用户ID和币种生成哈希,该哈希是唯一的
                 $model->hash_key = hashKey($model->user_id, $model->type);
             }
-            $model->data = [];
         });
         static::saving(function($model){
+            if (!$model->hash_key) {
+                // 根据用户ID和币种生成哈希,该哈希是唯一的
+                $model->hash_key = hashKey($model->user_id, $model->type);
+            }
             // 验证hash_key是否一致
             if($model->hash_key !== hashKey($model->user_id, $model->type)) {
                 return false;

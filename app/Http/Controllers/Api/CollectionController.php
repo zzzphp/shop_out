@@ -42,7 +42,7 @@ class CollectionController extends Controller
         $collection = Collection::query()
             ->where('user_id', $request->user()->id)
             ->where('type', $request->input('type', Collection::TYPE_BANK))
-            ->firstOrCreate();
+            ->firstOrNew();
         $data = [];
         switch ($request->type) {
             case Collection::TYPE_BANK:
@@ -50,6 +50,8 @@ class CollectionController extends Controller
                     'bank_card' => 'required',
                     'payee' => 'required',
                 ]);
+                $collection->type = Collection::TYPE_BANK;
+                $collection->user_id = $request->user()->id;
                 $data['bank'] = $request->input('bank', '');
                 $data['bank_card'] = $request->input('bank_card', '');
                 $data['payee'] = $request->input('payee', '');
@@ -58,6 +60,8 @@ class CollectionController extends Controller
                 $request->validate(['username' => 'required',
                     'qrcode' => 'required',
                 ]);
+                $collection->type = Collection::TYPE_WEIXIN;
+                $collection->user_id = $request->user()->id;
                 $data['username'] = $request->input('username', '');
                 $data['qrcode'] = $request->input('qrcode', '');
                 break;
@@ -66,6 +70,8 @@ class CollectionController extends Controller
                     'real_name' => 'required',
                     'qrcode' => 'required',
                 ]);
+                $collection->type = Collection::TYPE_ALIPAY;
+                $collection->user_id = $request->user()->id;
                 $data['username'] = $request->input('username', '');
                 $data['real_name'] = $request->input('real_name', '');
                 $data['qrcode'] = $request->input('qrcode', '');
