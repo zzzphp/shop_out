@@ -111,7 +111,7 @@ class AuthorizationsController extends Controller
                             'name'          => '',
                             'avatar'        => 'url',
         ],[], ['code' => '验证码', 'phone' => '手机号', 'password' => '密码', 'safe_password' => '安全密码', 'avatar' => '头像']);
-
+        if (strlen($request->safe_password) !== 6) return $this->errorResponse(400, '安全密码为6位数');
         $cacheData = Cache::get($request->key);
         if(!$cacheData) {
             $this->errorResponse(400, '验证码已过期');

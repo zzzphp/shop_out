@@ -59,8 +59,7 @@ class TotalOrder extends Line
         }
         $currency_id = Cache::get('admin_currency_id', $this->defaultCoin);
         $query = \App\Models\Order::query()->with(['user'])
-            ->where('status', '!=', Order::STATUS_PENDING)
-            ->where('currency_id', $request->get('option', $currency_id));
+            ->where('status', '!=', Order::STATUS_PENDING);
         $total_amount = $query->sum('total_amount') . ' CNY';
         $this->withContent($total_amount);
         // 图表数据
@@ -70,7 +69,6 @@ class TotalOrder extends Line
         for ($i = 0; $i < 30; $i++) {
             $date = $carbon->toDateString();
             $chartArray[] = Order::query()
-                ->where('currency_id', $request->get('option', $currency_id))
                 ->whereDate('created_at', $date)
                 ->sum('total_amount');
             $categroies[] = $date;
