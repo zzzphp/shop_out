@@ -26,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
     const GRADE_FOUR  = 'four';
     const GRADE_FIVE  = 'five';
     const GRADE_SIX  = 'six';
+    const GRADE_ZERO = 'zero';
 
     public static $statusMap = [
             self::STATUS_NOT_CERTIFIED => '未提交资料',
@@ -34,6 +35,7 @@ class User extends Authenticatable implements JWTSubject
             self::STATUS_SUCCESS        => '认证成功',
         ];
     public static $gradeMap = [
+            self::GRADE_ZERO => '体验会员',
             self::GRADE_ONE => '普通会员',
             self::GRADE_TWO => '精英会员',
             self::GRADE_THREE => '银牌会员',
@@ -133,7 +135,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getGradeFullAttribute()
     {
-        return isset($this->attributes['grade']) && $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '体验会员';
+        return isset($this->attributes['grade']) && $this->attributes['grade'] ? self::$gradeMap[$this->attributes['grade']] : '普通会员';
     }
 
     public function getGradeListAttribute()
@@ -149,10 +151,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function getByVipAttribute()
     {
-        if ($this->attributes['apply_at'] === null && $this->attributes['grade'] === null) {
+        if ($this->attributes['apply_at'] === null && $this->attributes['grade'] === self::GRADE_ONE) {
             return null;
         }
-        if ($this->attributes['apply_at'] !== null && $this->attributes['grade'] === null) {
+        if ($this->attributes['grade'] === self::GRADE_ZERO) {
             $carbon = Carbon::createFromTimestamp(strtotime($this->attributes['apply_at']));
             if ($carbon->addDays(3)->lt(Carbon::today())) {
                 $this->newQuery()
@@ -163,7 +165,6 @@ class User extends Authenticatable implements JWTSubject
                 return $carbon->toDateString();
             }
         }
-        return '体验会员已过期';
     }
 
     public function getUploadDataAttribute()

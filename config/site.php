@@ -13,6 +13,7 @@ return [
     'coin_market' => explode(",", env('COIN_MARKET', 'btc,eth,fil,icp,doge,xrp,bch,ltc')),
 
     'vip_grade' => [
+        'zero' => ['condition' => 0, 'minute' => 1, 'order' => 1],
         'one' => ['condition' => 0, 'minute' => 0, 'order' => 0],
         'two' => ['condition' => 200, 'minute' => 3, 'order' => 1],
         'three' => ['condition' => 400, 'minute' => 6, 'order' => 2],

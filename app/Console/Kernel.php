@@ -36,6 +36,7 @@ class Kernel extends ConsoleKernel
 //        // 抓取资讯数据
 //        $schedule->command('customize:news-grab')->everyFiveMinutes();
 //        $schedule->command('customize:news-grab-information')->everyThirtyMinutes();
+        $schedule->command('user:grade-check')->daily();
 
     }
 

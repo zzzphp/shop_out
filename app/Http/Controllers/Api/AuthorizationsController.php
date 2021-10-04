@@ -147,6 +147,7 @@ class AuthorizationsController extends Controller
                 'avatar' => $request->input('avatar', ''),
                 'idcard_data' => [],
                 'invite_id' => $inviteCode?:0,
+                'grade'  =>User::GRADE_ONE,
                 'admin_id' => $request->input('agent_id', ''),
             ]);
 
@@ -221,6 +222,7 @@ class AuthorizationsController extends Controller
             return $this->errorResponse(400, '您已申请过体验会员！');
         }
         $user->apply_at = Carbon::today()->toDateString();
+        $user->grade    = User::GRADE_ZERO;
         return response()->json(['data' => $user->save()]);
     }
 
