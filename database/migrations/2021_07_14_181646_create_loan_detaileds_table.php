@@ -30,10 +30,10 @@ class CreateLoanDetailedsTable extends Migration
                 ->references('id')
                 ->on('loans')
                 ->onDelete('RESTRICT');
-            $table->decimal('to_be_returned', 18, 8)->comment('待还');
-            $table->decimal('interest', 18, 8)->comment('利息');
-            $table->decimal('total_amount', 18, 8)->comment('当日总收益');
-            $table->decimal('amount', 18, 8)->comment('本次还款数量');
+            $table->decimal('to_be_returned', 18, 2)->comment('待还');
+            $table->decimal('interest', 18, 2)->comment('利息');
+            $table->decimal('total_amount', 18, 2)->comment('当日总收益');
+            $table->decimal('amount', 18, 2)->comment('本次还款数量');
             $table->tinyInteger('profit_rate')->comment('收益还款比率%');
             $table->decimal('interest_rate', 10, 2)->comment('日利率%');
             $table->date('dated')->comment('还款日');

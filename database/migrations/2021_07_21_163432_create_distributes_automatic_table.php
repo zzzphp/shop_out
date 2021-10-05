@@ -29,7 +29,7 @@ class CreateDistributesAutomaticTable extends Migration
                 ->on('stages')
                 ->onDelete('RESTRICT');
             $table->date('dated')->comment('收益日期');
-            $table->decimal('amount', 18, 8)->comment('平均收益');
+            $table->decimal('amount', 18, 2)->comment('平均收益');
             $table->string('formula')->comment('计算公式');
             $table->timestamps();
         });

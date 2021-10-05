@@ -151,7 +151,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getByVipAttribute()
     {
-        if ($this->attributes['apply_at'] === null && $this->attributes['grade'] === self::GRADE_ONE) {
+        if (isset($this->attributes['apply_at']) && $this->attributes['apply_at'] === null && $this->attributes['grade'] === self::GRADE_ONE) {
             return null;
         }
         if ($this->attributes['grade'] === self::GRADE_ZERO) {

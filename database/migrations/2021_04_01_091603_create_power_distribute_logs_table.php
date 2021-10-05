@@ -37,9 +37,9 @@ class CreatePowerDistributeLogsTable extends Migration
             ->onDelete('RESTRICT');
             $table->date('dated')->comment('收益日期');
             $table->unsignedInteger('power')->comment('算力');
-            $table->decimal('all', 18, 8)->comment('全部收益');
-            $table->decimal('lock', 18, 8)->comment('锁仓收益');
-            $table->decimal('unlock', 18, 8)->comment('释放收益');
+            $table->decimal('all', 18, 2)->comment('全部收益');
+            $table->decimal('lock', 18, 2)->comment('锁仓收益');
+            $table->decimal('unlock', 18, 2)->comment('释放收益');
             $table->timestamps();
         });
     }

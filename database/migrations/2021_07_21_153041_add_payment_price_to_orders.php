@@ -15,7 +15,7 @@ class AddPaymentPriceToOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->decimal('payment_price', 18, 8)
+            $table->decimal('payment_price', 18, 2)
                 ->default(0)
                 ->after('total_amount')
                 ->nullable();

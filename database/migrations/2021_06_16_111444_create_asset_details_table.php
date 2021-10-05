@@ -25,9 +25,9 @@ class CreateAssetDetailsTable extends Migration
             ->references('id')
             ->on('currencies')
             ->onDelete('cascade');
-            $table->decimal('front_amount', 18, 8)->default(0);
-            $table->decimal('amount', 18, 8)->default(0);
-            $table->decimal('after_amount', 18, 8)->default(0);
+            $table->decimal('front_amount', 18, 2)->default(0);
+            $table->decimal('amount', 18, 2)->default(0);
+            $table->decimal('after_amount', 18, 2)->default(0);
             $table->string('type')->comment('交易类型');
             $table->string('remark')->comment('备注');
             $table->string('sign')->comment('签名，保证当前数据不得被篡改');
