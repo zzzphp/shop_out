@@ -14,26 +14,23 @@ class Order extends Model
     const STATUS_PENDING = 'pending';
     const STATUS_SUCCESS = 'success';
     const STATUS_FAILED  = 'failed';
-    const STATUS_EFFECTIVE = 'effective';
-    const STATUS_INVALID = 'invalid'; // overdue
-    const STATUS_OVERDUE = 'overdue';
-    const STATUS_PLEDGE_RETURN = 'pledge_return';
+    const STATUS_WAIT_GOODS = 'wait_goods';
+    const STATUS_RECEIVING = 'receiving';
 
     public static $statusMap = [
             self::STATUS_PENDING => '待支付',
             self::STATUS_SUCCESS => '支付成功',
             self::STATUS_FAILED => '支付失败',
-            self::STATUS_EFFECTIVE => '有效算力',
-            self::STATUS_INVALID => '算力失效',
-            self::STATUS_OVERDUE => '逾期欠费',
-            self::STATUS_PLEDGE_RETURN => '质押已退',
+            self::STATUS_WAIT_GOODS => '待发货',
+            self::STATUS_RECEIVING => '待收货',
     ];
 
     protected $fillable = [
         'remark','paid_prove', 'paid_at',
         'payment_method', 'closed', 'status','amount',
         'total_amount','profit_data','product_id','mortgage',
-        'total_powers', 'payment_price','currency_id',
+        'total_powers', 'payment_price','currency_id','address',
+        'express_data',
     ];
 
     // protected $dates = [
@@ -51,6 +48,8 @@ class Order extends Model
         //'updated_at'   => 'datetime:Y-m-d H:i:s',
         'profit_data'  => 'json',
         'mortgage'     => 'json',
+        'address'      => 'json',
+        'express_data'      => 'json',
     ];
 
     public function getIsInstallmentAttribute()

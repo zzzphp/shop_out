@@ -83,18 +83,18 @@ class OrdersController extends AdminController
                         Order::STATUS_PENDING => 'primary',
                         Order::STATUS_FAILED => 'danger',
                         Order::STATUS_SUCCESS => 'success',
-                        Order::STATUS_EFFECTIVE => Admin::color()->yellow(),
-                        Order::STATUS_OVERDUE => Admin::color()->danger(),
-                        Order::STATUS_INVALID => Admin::color()->gray(),
-                        Order::STATUS_PLEDGE_RETURN => Admin::color()->gray(),
+                        Order::STATUS_WAIT_GOODS => Admin::color()->yellow(),
                     ],
                     'primary' // 第二个参数为默认值
                 );
             }
             // $grid->column('no');
             $grid->actions(function (Grid\Displayers\Actions $actions){
-                $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
-                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
+                  if (in_array($actions->row->status, [Order::STATUS_WAIT_GOODS, Order::STATUS_RECEIVING])) {
+                      $actions->append(new \App\Admin\Actions\Grid\OrderWriteNumber());
+                  }
+//                $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
+//                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
 //                $actions->append(' ');
 //                $actions->append(new \App\Admin\Actions\Grid\SetProfitDate());
 //                $actions->append(new \App\Admin\Actions\Grid\OrderMortgage());
@@ -104,8 +104,8 @@ class OrdersController extends AdminController
 //                $actions->append(new \App\Admin\Actions\Grid\OrderSetInvalid());
 //                $actions->append(new \App\Admin\Actions\Grid\OrderMortgageReturn());
 //                $actions->append(' ');
-                $actions->append(new \App\Admin\Actions\Grid\OrderRemark());
 
+                $actions->append(new \App\Admin\Actions\Grid\OrderRemark());
             });
             // 禁用编辑按钮
             $grid->disableEditButton();

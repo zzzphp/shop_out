@@ -13,20 +13,18 @@ class Product extends Model
 {
     use HasFactory;
 
-    const TYPE_COMPLETE = 'complete';
-    const TYPE_POWER    = 'power';
+    const TYPE_AUCTION = 'auction';
+    const TYPE_ROB    = 'rob';
 
     public static $typeMap = [
-            self::TYPE_COMPLETE => '整机',
-            self::TYPE_POWER    => '算力',
+            self::TYPE_AUCTION => '转卖',
+            self::TYPE_ROB    => '抢购',
         ];
-
 
     protected $fillable = [
             'currency_id', 'title', 'description', 'original_price', 'price',
             'attributes', 'detail', 'end_at','commission','type','stage_id','on_sale',
         ];
-
 
     protected $casts = [
             'attributes' => 'json',
@@ -38,7 +36,7 @@ class Product extends Model
         ];
 
     protected $appends = [
-        'image_url','usdt_price'
+        'image_url',
         ];
 
     public function currency()
@@ -66,10 +64,9 @@ class Product extends Model
         return $this->belongsTo(Agreement::class);
     }
 
-    public function getUsdtPriceAttribute()
+    public function user()
     {
-        // 换算 USDT
-        return number_format(ceil($this->attributes['price']/usdtAmount()), 2, '.', '');
+        return $this->belongsTo(User::class);
     }
 
     public function getImage()
@@ -107,10 +104,4 @@ class Product extends Model
         $this->increment('stock', $amount);
     }
 
-    // public function getPriceAttribute()
-    // {
-    //     $fil = DB::table('currency_market_biki')->where('symbol', 'fil')->value('last') ?: 0;
-    //     $price = $fil * 6.5 * 360 * 0.07;
-    //     return number_format($price, 2);
-    // }
 }

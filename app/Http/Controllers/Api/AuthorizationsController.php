@@ -158,10 +158,11 @@ class AuthorizationsController extends Controller
     public function verificationIdentity(Request $request)
     {
         $request->validate([
+                'name'          =>'required',
+                'idcard'          =>'required',
                 'front_photo'   => 'required|url',
                 'back_photo'    => 'required|url',
             ]);
-        // 调用第三方接口识别图片
 
         $info = [
                 'name'          => $request->name,

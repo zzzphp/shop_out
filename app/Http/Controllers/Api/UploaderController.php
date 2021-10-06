@@ -14,9 +14,9 @@ class UploaderController extends Controller
         $request->validate([
             'mime' => [
                 'required',
-                Rule::in(['images', 'files'])
+                Rule::in(['images', 'files', 'video'])
             ],
-            'file' => 'required|file|mimes:jpeg,bmp,png'
+            'file' => 'required|file|mimes:jpeg,bmp,png,mp4'
         ]);
         $path = $request->file('file')->store($request->mime);
         return response()->json(['data' => Storage::url($path)]);
@@ -27,9 +27,9 @@ class UploaderController extends Controller
         $request->validate([
             'mime' => [
                 'required',
-                Rule::in(['images', 'files'])
+                Rule::in(['images', 'files', 'video'])
             ],
-            'file' => 'required|file|mimes:jpeg,bmp,png'
+            'file' => 'required|file|mimes:jpeg,bmp,png,mp4'
         ]);
         $paths = [];
         foreach ($request->file('files') as $file) {

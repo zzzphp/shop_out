@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAddressToOrders extends Migration
+class AddExpressDataToOrders extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddAddressToOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->string('address', 512)->comment('收货信息');
+            $table->string('express_data')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AddAddressToOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->dropColumn('address');
+            $table->dropColumn('express_data');
         });
     }
 }

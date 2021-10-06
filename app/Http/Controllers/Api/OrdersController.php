@@ -22,6 +22,8 @@ class OrdersController extends Controller
     public function store(OrderRequest $request)
     {
         $order = DB::transaction(function() use ($request){
+            $address = UserAddress::find($request->address_id);
+            if (!$address) return $this->errorResponse(400, '请完善收货地址');
             $product = Product::find($request->product_id);
             $open_time = $product->category->open_time;
             $now = Carbon::now();
@@ -52,15 +54,16 @@ class OrdersController extends Controller
             if ($now < strtotime($open_time['begin']) || $now > strtotime($open_time['end'])) {
                  return $this->errorResponse(400, '抢购时间未开始');
             }
-            $address = UserAddress::find($request->address_id);
+            $total_amount = $request->amount * $product->price;
             $order = new Order([
                 'amount'      => $request->amount,
-                'payment_price'      => $request->amount * $product->price,
-                'total_amount' => $request->amount * $product->price,
+                'payment_price'      => $total_amount,
+                'total_amount' => add($total_amount, mul($total_amount, config('site.service_charge'))),
                 'remark'        => $request->input('remark', ''),
                 'status'       => Order::STATUS_PENDING,
                 'payment_method'  => 'CNY',
                 'total_powers' => $product->amount * $request->amount,
+                'address'     => $address->toArray(),
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);
@@ -134,6 +137,16 @@ class OrdersController extends Controller
         });
 
         return response()->json(['data' => $order]);
+    }
+
+    public function apply_goods(Request $request)
+    {
+        $request->validate(['order_id' => 'required']);
+        $order = Order::find($request->order_id);
+        $this->authorize('own', $order);
+        $order->status = Order::STATUS_WAIT_GOODS;
+
+        return response()->json(['data' => $order->save()]);
     }
 
 }
