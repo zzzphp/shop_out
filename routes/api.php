@@ -100,6 +100,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::put('edit', 'AuthorizationsController@edit')->name('users.edit');
         // 实名认证
         Route::put('identity', 'AuthorizationsController@verificationIdentity')->name('Authorizations.identity');
+        // 视频认证
+        Route::put('identity_video', 'AuthorizationsController@verificationIdentityVideo');
         // 更改安全密码
         Route::put('safe_password', 'AuthorizationsController@safePassword')->name('Authorizations.safe_password');
         // 登录密码

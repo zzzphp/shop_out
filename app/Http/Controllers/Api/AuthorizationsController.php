@@ -169,10 +169,29 @@ class AuthorizationsController extends Controller
                 'idcard'        => $request->idcard,
                 'front_photo'   => $request->front_photo,
                 'back_photo'    => $request->back_photo,
-            ];
-        $request->user()->update(['idcard_data' => $info, 'status' => User::STATUS_AUDITING,'name' => $request->name]);
+                'video'         => '',
+        ];
+        $request->user()->update(['idcard_data' => $info, 'status' => User::STATUS_AUDITING, 'name' => $request->name]);
 
         return response()->json(['data' => $info]);
+    }
+
+    public function verificationIdentityVideo(Request $request)
+    {
+        $request->validate([
+            'video'          =>'required|url',
+        ]);
+        $user = $request->user();
+        $data = $user->idcard_data;
+        $info = [
+            'name'          => $data['name'] ?? '',
+            'idcard'        => $data['idcard'] ?? '',
+            'front_photo'   => $data['front_photo'] ?? '',
+            'back_photo'    => $data['back_photo'] ?? '',
+            'video'         => $request->video,
+        ];
+        $user->idcard_data = $info;
+        return response()->json(['data' => $user->save()]);
     }
 
     public function safePassword(Request $request)
