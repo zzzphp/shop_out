@@ -16,6 +16,7 @@ class Order extends Model
     const STATUS_FAILED  = 'failed';
     const STATUS_WAIT_GOODS = 'wait_goods';
     const STATUS_RECEIVING = 'receiving';
+    const STATUS_COMPLETE = 'complete';
 
     public static $statusMap = [
             self::STATUS_PENDING => '待支付',
@@ -23,6 +24,7 @@ class Order extends Model
             self::STATUS_FAILED => '支付失败',
             self::STATUS_WAIT_GOODS => '待发货',
             self::STATUS_RECEIVING => '待收货',
+            self::STATUS_COMPLETE   => '已收货',
     ];
 
     protected $fillable = [
@@ -107,14 +109,18 @@ class Order extends Model
 
     public function getSurplusDaysAttribute()
     {
-        if (isset($this->attributes['profit_data']) && $this->attributes['profit_data']) {
-            $profit_data = json_decode($this->attributes['profit_data'], true);
-            if (Carbon::today()->gte($profit_data['begin'])) {
-                $days = (strtotime($profit_data['end']) - strtotime(Carbon::today()->toDateString()))/86400;
+        if ($this->attributes['status'] === self::STATUS_RECEIVING) {
+            $last = strtotime($this->attributes['updated_at']);
+            $days = round((time() - $last) / 86400);
+            $days = (15 - $days);
+            if ($days <= 0) {
+                // 已收货
+                $this->newQuery()
+                    ->where('id', $this->getKey())
+                    ->update(['status' => self::STATUS_COMPLETE]);
             } else {
-                $days = (strtotime($profit_data['end']) - strtotime($profit_data['begin']))/86400;
+                return '距离自动收货还剩：' . $days . ' 天';
             }
-            return $days > 0 ? $days : 0;
         }
     }
 }

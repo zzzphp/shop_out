@@ -37,6 +37,7 @@ class OrderNumberForm extends Form implements LazyRenderable
     {
         $this->text('company', '物流公司')->required();
         $this->text('number', '订单号')->required();
+        $this->textarea('address', '收货信息');
     }
 
     /**
@@ -46,10 +47,14 @@ class OrderNumberForm extends Form implements LazyRenderable
      */
     public function default()
     {
-        $data = Order::where('id', $this->payload['id'])->value('express_data');
+        $order = Order::where('id', $this->payload['id'])->first();
+        $express_data = $order->express_data;
+        $address_data = $order->address;
+        $address = "联系姓名：{$address_data['contact_name']}\r\n联系电话：{$address_data['contact_phone']}\r\n收货地址：{$address_data['full_address']}";
         return [
-            'company'  => $data['company'] ?? '',
-            'number'  => $data['number'] ?? '',
+            'company'  => $express_data['company'] ?? '',
+            'number'  => $express_data['number'] ?? '',
+            'address' => $address,
         ];
     }
 }

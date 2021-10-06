@@ -32,44 +32,11 @@ class OrdersController extends AdminController
                 ->whereNotNull('paid_at')
                 ->where('closed', false)
                 ->orderBy('id', 'desc');
-            // $grid->column('id')->sortable();
-            if(isMobile()) {
-                $grid->column('full_data', '数据')->display(function(){
-                    // dd($this->user->idcard_data);
-                    $name = isset($this->user->idcard_data['name']) ? $this->user->idcard_data['name'] : '';
-                    $profit = $this->profit_data ? $this->profit_data['begin'] : '未设置';
-                    $html  = "<p><span style='color:blue;font-size:12px;'>收益日期:$profit</span></p>";
-                    $html  .= "<p>". $name . "</p>";
-                    $html .= "<p><span style='color:blue;font-size:12px;'>账号:{$this->user->phone}</span></p>";
-                    $html .= "<p style='font-size:12px;'>币种：{$this->currency->name}</p>";
-                    $html .= "<p style='font-size:10px;'>{$this->product->title}</p>";
-                    $html .= "<p><span class='label' style='background:#21b978'>数量：".$this->amount."</span></p>";
-                    $html .= "<p><span class='label' style='background:#21b978'>总额：".$this->total_amount."</span></p>";
 
-                    switch ($this->status) {
-                        case Order::STATUS_PENDING:
-                            $html .= "<p><span class='label' style='background:#3085d6'>状态：".Order::$statusMap[$this->status]."</span></p>";
-                            break;
-                        case Order::STATUS_FAILED:
-                            $html .= "<p><span class='label' style='background:#DC143C'>状态：".Order::$statusMap[$this->status]."</span></p>";
-                            break;
-                        case Order::STATUS_SUCCESS:
-                            $html .= "<p><span class='label' style='background:#21b978'>状态：".Order::$statusMap[$this->status]."</span></p>";
-                            break;
-                        default:
-                            $html .= "<p><span class='label' style='background:#21b978'>状态：".Order::$statusMap[$this->status]."</span></p>";
-                            break;
-                    }
-
-                    return $html;
-                });
-                $grid->column('paid_prove')->image('', 30,30);
-
-            } else {
                 $grid->column('user.idcard_data.name', '姓名');
                 $grid->column('user.phone', '账号')->copyable();
-                $grid->column('currency.name', '币种')->badge();
-                $grid->column('product.stage.name', '期数');
+//                $grid->column('currency.name', '币种')->badge();
+//                $grid->column('product.stage.name', '期数');
                 $grid->column('product.title', '产品名')->limit(6, '...');
                 $grid->column('amount')->label('success');
                 $grid->column('total_amount')->label('success');
@@ -87,7 +54,6 @@ class OrdersController extends AdminController
                     ],
                     'primary' // 第二个参数为默认值
                 );
-            }
             // $grid->column('no');
             $grid->actions(function (Grid\Displayers\Actions $actions){
                   if (in_array($actions->row->status, [Order::STATUS_WAIT_GOODS, Order::STATUS_RECEIVING])) {
