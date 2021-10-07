@@ -90,11 +90,12 @@ class OrdersController extends Controller
 
     public function index(Request $request)
     {
-        $builder = Order::query()->orderBy('id','desc')
+        $builder = Order::query()
+        ->orderBy('id','desc')
         ->with(['product'])
         ->where('user_id', $request->user()->id);
-        if ($status = $request->input('status', '')) {
-            switch ($status) {
+        if ($request->input('status', '')) {
+            switch ($request->status) {
                 case 0:
                     $builder->whereIn('status', [Order::STATUS_SUCCESS,
                                                         Order::STATUS_PENDING,
