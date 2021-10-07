@@ -32,6 +32,10 @@ class Withdrawal extends Model
         'remark'
     ];
 
+    protected $casts = [
+        'coin_address' => 'json',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

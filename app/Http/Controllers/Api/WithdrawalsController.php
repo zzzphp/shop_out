@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\AssetDetails;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\Currency;
 use App\Models\Withdrawal;
@@ -21,7 +22,16 @@ class WithdrawalsController extends Controller
                 'currency_id'  => ['required', 'exists:currencies,id'],
                 'code'         => 'required',
                 'key'         => 'required',
+                'type'        => 'required',
             ]);
+        // 验证收款信息
+        $collection = Collection::query()
+            ->where('user_id', $request->user()->id)
+            ->where('type', $request->type)
+            ->first();
+        if (!$collection->data) {
+            $this->errorResponse(400, '请完善收款信息!');
+        }
         // 增加短信验证
         $this->validateSmsCode($request->user()->phone, $request->key, $request->code);
 
