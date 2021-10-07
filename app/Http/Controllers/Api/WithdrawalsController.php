@@ -16,7 +16,6 @@ class WithdrawalsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-                'chain' => 'required',
                 'amount'       => 'required',
                 'currency_id'  => ['required', 'exists:currencies,id'],
                 'code'         => 'required',
@@ -35,7 +34,7 @@ class WithdrawalsController extends Controller
         $this->validateSmsCode($request->user()->phone, $request->key, $request->code);
 
         $currency = Currency::find($request->currency_id);
-        $chain = $currency->chainConf($request->chain);
+        $chain = $currency->chainConf($request->input('chain', 'CNY'));
         if(!$chain) {
             $this->errorResponse(400, '链名不存在，请重试！');
         }

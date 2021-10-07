@@ -36,7 +36,7 @@ class Product extends Model
         ];
 
     protected $appends = [
-        'image_url',
+        'image_url', 'service_charge',
         ];
 
     public function currency()
@@ -75,6 +75,11 @@ class Product extends Model
             return $this->attributes['image'];
         }
         return Storage::disk('admin')->url($this->attributes['image']);
+    }
+
+    public function getServiceChargeAttribute()
+    {
+        return mul($this->attributes['price'], config('site.service_charge'));
     }
 
     public function getImageUrlAttribute()

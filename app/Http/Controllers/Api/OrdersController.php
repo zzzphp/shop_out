@@ -93,8 +93,19 @@ class OrdersController extends Controller
         $builder = Order::query()->orderBy('id','desc')
         ->with(['product'])
         ->where('user_id', $request->user()->id);
-        if ($request->input('status', '')) {
-            $builder->where('status', $request->input('status'));
+        if ($status = $request->input('status', '')) {
+            switch ($status) {
+                case 0:
+                    $builder->whereIn('status', [Order::STATUS_SUCCESS,
+                                                        Order::STATUS_PENDING,
+                                                        Order::STATUS_FAILED
+                        ]);
+                    break;
+
+                default:
+                    $builder->where('status', $request->input('status'));
+                    break;
+            }
         }
 
         return response()->json(['data' => $builder->get()]);
@@ -143,8 +154,24 @@ class OrdersController extends Controller
     {
         $request->validate(['order_id' => 'required']);
         $order = Order::find($request->order_id);
+        if ($order->status !== Order::STATUS_SUCCESS) {
+            return $this->errorResponse(400, '该订单状态不正确');
+        }
         $this->authorize('own', $order);
         $order->status = Order::STATUS_WAIT_GOODS;
+
+        return response()->json(['data' => $order->save()]);
+    }
+
+    public function apply_sell(Request $request)
+    {
+        $request->validate(['order_id' => 'required']);
+        $order = Order::find($request->order_id);
+        if ($order->status !== Order::STATUS_SUCCESS) {
+            return $this->errorResponse(400, '该订单状态不正确');
+        }
+        $this->authorize('own', $order);
+        $order->status = Order::STATUS_SELL;
 
         return response()->json(['data' => $order->save()]);
     }

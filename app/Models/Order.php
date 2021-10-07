@@ -17,14 +17,18 @@ class Order extends Model
     const STATUS_WAIT_GOODS = 'wait_goods';
     const STATUS_RECEIVING = 'receiving';
     const STATUS_COMPLETE = 'complete';
+    const STATUS_SELL = 'sell';
 
     public static $statusMap = [
             self::STATUS_PENDING => '待支付',
             self::STATUS_SUCCESS => '支付成功',
             self::STATUS_FAILED => '支付失败',
+
             self::STATUS_WAIT_GOODS => '待发货',
             self::STATUS_RECEIVING => '待收货',
             self::STATUS_COMPLETE   => '已收货',
+
+            self::STATUS_SELL => '待转卖',
     ];
 
     protected $fillable = [

@@ -94,6 +94,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
             ->name('orders.prove');
         // 申请提货
         Route::put('apply_goods', 'OrdersController@apply_goods');
+        // 申请转卖
+        Route::put('apply_sell', 'OrdersController@apply_sell');
         // 申请体验会员
         Route::put('apply', 'AuthorizationsController@apply_vip');
         // 更改资料
