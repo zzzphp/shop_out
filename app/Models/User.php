@@ -165,7 +165,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getUploadDataAttribute()
     {
-        if (isset($this->attributes['status']) && $this->attributes['status'] !== User::STATUS_SUCCESS) {
+        if (isset($this->attributes['status']) && $this->attributes['status'] != self::STATUS_SUCCESS) {
             if (!isset($this->attributes['idcard_data']['video']) ||
                 !isset($this->attributes['idcard_data']['front_photo']) ||
                 !isset($this->attributes['idcard_data']['back_photo'])
@@ -179,6 +179,8 @@ class User extends Authenticatable implements JWTSubject
                 return 'address';
             }
         }
+
+        return null;
     }
 
     /**
