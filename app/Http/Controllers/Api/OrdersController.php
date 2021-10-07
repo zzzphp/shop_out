@@ -96,7 +96,7 @@ class OrdersController extends Controller
         ->where('user_id', $request->user()->id);
         if ($request->input('status', '')) {
             switch ($request->status) {
-                case 0:
+                case '0':
                     $builder->whereIn('status', [Order::STATUS_SUCCESS,
                                                         Order::STATUS_PENDING,
                                                         Order::STATUS_FAILED
