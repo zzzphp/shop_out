@@ -17,7 +17,6 @@ class WithdrawalsController extends Controller
     {
         $request->validate([
                 'chain' => 'required',
-                'coin_address' => 'required',
                 'amount'       => 'required',
                 'currency_id'  => ['required', 'exists:currencies,id'],
                 'code'         => 'required',
@@ -58,7 +57,7 @@ class WithdrawalsController extends Controller
                 'user_id' => $request->user()->id,
                 'currency_id' => $request->currency_id,
                 'chain'   => $chain['chain'],
-                'coin_address' => $request->coin_address,
+                'coin_address' => $collection->data,
                 'amount'        => $request->amount,
                 'service_charge' => $chain['service_charge'],
                 'actual_amount' => sub($request->amount, $chain['service_charge']), // 实际到账减去手续费
