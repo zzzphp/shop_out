@@ -42,7 +42,7 @@ class UserRealNameController extends AdminController
                         </div>
 <div style='padding:10px 10px 0'>
 <video width="320" height="240" controls>
-  <source src="{$data['video']}" type="video/mp4">
+
 您的浏览器不支持Video标签。
 </video>
 </div>
