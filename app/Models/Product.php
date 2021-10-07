@@ -36,7 +36,7 @@ class Product extends Model
         ];
 
     protected $appends = [
-        'image_url', 'service_charge',
+        'image_url', 'service_charge','collection',
         ];
 
     public function currency()
@@ -69,6 +69,11 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getCollectionAttribute()
+    {
+        return null;
+    }
+
     public function getImage()
     {
         if (Str::startsWith($this->attributes['image'], ['http://', 'https://'])) {
@@ -79,7 +84,7 @@ class Product extends Model
 
     public function getServiceChargeAttribute()
     {
-        return mul($this->attributes['price'], config('site.service_charge'));
+        return mul($this->attributes['original_price'], config('site.service_charge'));
     }
 
     public function getImageUrlAttribute()

@@ -22,6 +22,7 @@ return [
         'six' => ['condition' => 1000, 'minute' => 15, 'order' => 5],
     ],
     'bond' => 200,
-    'service_charge' => 0.015, // 1.5%
+    'service_charge' => 0.015, // 1.5% 手续费
+    'premium' => 0.015, // 1.5%  // 溢价
 
 ];

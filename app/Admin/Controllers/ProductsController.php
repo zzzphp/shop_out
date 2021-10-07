@@ -6,6 +6,7 @@ use App\Admin\Repositories\Products;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\PayMethod;
+use App\Models\Product;
 use App\Models\Stage;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -24,7 +25,9 @@ class ProductsController extends AdminController
         return Grid::make(Products::with(['currency','stage']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('image')->image('', 50, 50);
-            $grid->column('title');
+            $grid->column('title')->display(function ($title){
+                return "【". Product::$typeMap[$this->type] ."】" . $title;
+            });
             $grid->column('original_price');
             $grid->column('price');
             // $grid->column('attributes');
