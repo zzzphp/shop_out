@@ -18,6 +18,7 @@ class Order extends Model
     const STATUS_RECEIVING = 'receiving';
     const STATUS_COMPLETE = 'complete';
     const STATUS_SELL = 'sell';
+    const STATUS_BUY = 'buy';
 
     public static $statusMap = [
             self::STATUS_PENDING => '待支付',
@@ -29,6 +30,8 @@ class Order extends Model
             self::STATUS_COMPLETE   => '已收货',
 
             self::STATUS_SELL => '待转卖',
+
+            self::STATUS_BUY => '待抢购',
     ];
 
     protected $fillable = [

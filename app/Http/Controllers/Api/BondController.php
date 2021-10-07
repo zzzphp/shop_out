@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\AssetDetails;
+use App\Models\Order;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,7 @@ class BondController extends Controller
         $bond = config('site.bond');
         $data['every_bond'] = $bond;
         $data['max'] = 1;
-        $data['total_bond'] = add($wallet->bond, $wallet->lock) / $bond;
+        $data['total_bond'] = Order::where('user_id', $request->user()->id)->sum('amount');
         $data['leftover_bond'] = $wallet->bond / $bond;
 
         return response()->json(['data' => $data]);

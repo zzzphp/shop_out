@@ -55,10 +55,12 @@ class OrdersController extends Controller
                  return $this->errorResponse(400, '抢购时间未开始');
             }
             $total_amount = $request->amount * $product->price;
+            // 手续费
+            $service_charge = mul($total_amount, config('site.service_charge')) * $request->amount;
             $order = new Order([
                 'amount'      => $request->amount,
                 'payment_price'      => $total_amount,
-                'total_amount' => add($total_amount, mul($total_amount, config('site.service_charge'))),
+                'total_amount' => $total_amount,
                 'remark'        => $request->input('remark', ''),
                 'status'       => Order::STATUS_PENDING,
                 'payment_method'  => 'CNY',
@@ -78,7 +80,8 @@ class OrdersController extends Controller
                             ->first();
             $amount = $request->amount * config('site.bond');
             $wallet->subBondAmount($amount);
-            $wallet->addLockAmount($amount);
+            // 从保证金中 扣除手续费
+            $wallet->addLockAmount(sub($amount, $service_charge));
             $order->save();
            return $order;
         });
