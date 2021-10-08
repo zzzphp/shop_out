@@ -59,7 +59,7 @@ class OrdersController extends AdminController
                   if (in_array($actions->row->status, [Order::STATUS_WAIT_GOODS, Order::STATUS_RECEIVING])) {
                       $actions->append(new \App\Admin\Actions\Grid\OrderWriteNumber());
                   }
-//                $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
+                $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
 //                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
 //                $actions->append(' ');
 //                $actions->append(new \App\Admin\Actions\Grid\SetProfitDate());

@@ -36,7 +36,7 @@ class OrderPaidVerifyRow extends RowAction
     public function handle(Request $request)
     {
         $order = Order::find($this->getKey());
-        if($order->closed === true || $order->status !== Order::STATUS_PENDING) {
+        if($order->closed === true || $order->status !== Order::STATUS_RELEASE) {
             return $this->response()
             ->error('订单状态不正确 '.$this->getKey());
         }
@@ -45,14 +45,7 @@ class OrderPaidVerifyRow extends RowAction
             // 先将订单划为购买成功
             $order->status = Order::STATUS_SUCCESS;
             $order->save();
-            // 生成订单分期付款数据
-            if (isset($order->product->installment_data['switch']) && $order->product->installment_data['switch']) {
-                $server = new InstallmentService();
-                $server->store($order);
-            }
         });
-        // 开通用户钱包
-        (new WalletService())->generateWallets($order->user);
         return $this->response()
             ->success('操作成功'.$this->getKey())->refresh();
     }
