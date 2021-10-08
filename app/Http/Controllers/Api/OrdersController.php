@@ -109,6 +109,9 @@ class OrdersController extends Controller
                         $builder->where('status' , Order::STATUS_RELEASE)
                                 ->whereHas('product', function ($query) use ($request){
                                     $query->where('user_id', $request->user()->id);
+                                })->orWhere( function ($query) use ($request){
+                                    $query->where('user_id', $request->user()->id)
+                                        ->where('status', Order::STATUS_RELEASE);
                                 });
 //                case Order::STATUS_COMPLETE_SELL:
 //                    $builder->where('status' , Order::STATUS_SUCCESS)
@@ -233,6 +236,9 @@ class OrdersController extends Controller
         DB::transaction(function () use ($request) {
             // 更改订单状态为支付成
             $order = Order::find($request->order_id);
+            if ($order->user_id === $request->user()->id) {
+                return $this->errorResponse(400, '请勿操作自己订单');
+            }
             if ($order->status !== Order::STATUS_RELEASE) {
                 return $this->errorResponse(400, '订单状态不正确');
             }
