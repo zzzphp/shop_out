@@ -148,7 +148,7 @@ class OrdersController extends Controller
         if ($order->status !== Order::STATUS_PENDING) {
             $this->errorResponse(400, '订单状态不正确');
         }
-        $order = DB::transaction(function () use ($order){
+        $order = DB::transaction(function () use ($order, $request){
             $order->paid_prove = $request->paid_prove;
             $order->payment_method = '转账';
             $order->payment_price = $order->total_amount;
@@ -202,7 +202,7 @@ class OrdersController extends Controller
         // 确认支付密码
         $safe_password = DB::table('users')
             ->where('id', $request->user()->id)
-            ->first();
+            ->value('safe_password');
         if (!Hash::check($safe_password, $request->safe_password)) {
             return $this->errorResponse(400, '安全密码错误，请重试！');
         }
@@ -229,7 +229,8 @@ class OrdersController extends Controller
     public function release_goods(Request $request)
     {
         // 放货，确认付款
-        //$request->validate()
+        $request->validate(['order_id' => 'required']);
+
     }
 
 }
