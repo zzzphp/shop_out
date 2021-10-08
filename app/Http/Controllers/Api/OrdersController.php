@@ -267,7 +267,8 @@ class OrdersController extends Controller
     {
         $data = [];
         foreach (Order::$statusMap as $k => $v) {
-            $data[$k] = DB::table('orders')
+            $data[$k]['name'] = $v;
+            $data[$k]['count'] = DB::table('orders')
                             ->where('user_id', $request->user()->id)
                             ->where('status', $k)->count();
         }
