@@ -203,8 +203,8 @@ class OrdersController extends Controller
         $safe_password = DB::table('users')
             ->where('id', $request->user()->id)
             ->value('safe_password');
-        if (!Hash::check($safe_password, $request->safe_password)) {
-            return $this->errorResponse(400, '安全密码错误，请重试！');
+        if (!Hash::check($request->safe_password, $safe_password)) {
+            return $this->errorResponse(400, '安全密码错误');
         }
         // 从余额扣除手续费
         if ($order->status !== Order::STATUS_SUCCESS) {
@@ -230,7 +230,26 @@ class OrdersController extends Controller
     {
         // 放货，确认付款
         $request->validate(['order_id' => 'required']);
-
+        DB::transaction(function () use ($request) {
+            // 更改订单状态为支付成
+            $order = Order::find($request->order_id);
+            if ($order->status !== Order::STATUS_PENDING) {
+                return $this->errorResponse(400, '订单状态不正确');
+            }
+            $order->status = Order::STATUS_SUCCESS;
+            $order->save();
+            // 将自己的订单数量减少
+            $self_order = Order::find($order->product->origin_order);
+            if ($self_order->status !== Order::STATUS_SELL) {
+                return $this->errorResponse(400, '订单状态不正确');
+            }
+            $self_order->amount = $self_order->amount - $order->amount;
+            if ($self_order->amount <= 0) {
+                $self_order = Order::STATUS_COMPLETE_SELL;
+            }
+            $self_order->save();
+        });
+        return response()->json(['data' => true]);
     }
 
 }
