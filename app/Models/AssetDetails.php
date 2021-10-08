@@ -28,6 +28,7 @@ class AssetDetails extends Model
     const TYPE_FROZEN_RETURN = 'return_frozen';
     const TYPE_BOND = 'bond';
     const TYPE_BOND_RETURN = 'bond_return';
+    const TYPE_SERVICE = 'service';
 
     const SECRET_KEY = 'e3ksp8o921hjdjx6';
 
@@ -44,6 +45,7 @@ class AssetDetails extends Model
             self::TYPE_FROZEN_RETURN => '冻结退回',
             self::TYPE_BOND => '缴纳保证金',
             self::TYPE_BOND_RETURN => '保证金解冻',
+            self::TYPE_SERVICE => '手续费',
         ];
 
     public function user()

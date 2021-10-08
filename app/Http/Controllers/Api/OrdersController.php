@@ -14,6 +14,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\InternalException;
 use App\Jobs\CloseOrder;
+use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\callback;
 
 class OrdersController extends Controller
@@ -183,15 +184,33 @@ class OrdersController extends Controller
 
     public function apply_sell(Request $request)
     {
-        $request->validate(['order_id' => 'required']);
+        $request->validate(['order_id' => 'required', 'safe_password' => 'required']);
         $order = Order::find($request->order_id);
+        // 确认支付密码
+        $safe_password = DB::table('users')
+            ->where('user_id', $request->user()->id)
+            ->first();
+        if (!Hash::check($safe_password, $request->safe_password)) {
+            return $this->errorResponse(400, '安全密码错误，请重试！');
+        }
+        // 从余额扣除手续费
         if ($order->status !== Order::STATUS_SUCCESS) {
             return $this->errorResponse(400, '该订单状态不正确');
         }
         $this->authorize('own', $order);
-        $order->status = Order::STATUS_SELL;
+        $order = DB::transaction(function () use ($order){
+            $order->status = Order::STATUS_SELL;
+            $order->save();
+            // 从余额扣除手续费
+            $wallet = Wallet::query()
+                ->where('user_id', $order->user_id)
+                ->where('currency_id', 1)
+                ->first();
+            $wallet->subAmount(mul($order->total_amount, config('site.service_charge')), AssetDetails::TYPE_SERVICE);
+            return $order;
+        });
 
-        return response()->json(['data' => $order->save()]);
+        return response()->json(['data' => $order]);
     }
 
 }
