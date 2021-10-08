@@ -25,11 +25,7 @@ class ProductsController extends Controller
 
     public function show(Product $product)
     {
-        $product->collection = !$product->user_id ?
-              Currency::query()->first()
-            : Collection::where('user_id', $product->user_id)->get();
         $product->image = check_url($product->image);
-
         return response()->json(['data' => $product]);
     }
 }
