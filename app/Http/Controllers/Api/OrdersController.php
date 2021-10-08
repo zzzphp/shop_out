@@ -251,7 +251,7 @@ class OrdersController extends Controller
             $order->save();
             // 将自己的订单数量减少
             $self_order = Order::find($order->product->origin_order);
-            if ($self_order->status !== Order::STATUS_SELL) {
+            if ($self_order->status !== Order::STATUS_BUY) {
                 return $this->errorResponse(400, '订单状态不正确');
             }
             $self_order->amount = $self_order->amount - $order->amount;
