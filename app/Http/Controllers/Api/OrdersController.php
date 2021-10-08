@@ -56,7 +56,6 @@ class OrdersController extends Controller
             }
             $total_amount = $request->amount * $product->price;
             // 手续费
-            $service_charge = mul($total_amount, config('site.service_charge')) * $request->amount;
             $order = new Order([
                 'amount'      => $request->amount,
                 'payment_price'      => $total_amount,
@@ -82,13 +81,12 @@ class OrdersController extends Controller
             $amount = $request->amount * config('site.bond');
             $wallet->subBondAmount($amount);
             // 从保证金中 扣除手续费
-            $wallet->addLockAmount(sub($amount, $service_charge));
+            $wallet->addLockAmount($amount);
             $order->save();
            return $order;
         });
         // 延时队列关闭未支付的订单
         dispatch(new CloseOrder($order, config('app.order_ttl')));
-        $order->usdt_amount = round($order->total_amount/config('site.usdt'), 2);
         return response()->json(['data' => $order]);
     }
 
@@ -127,6 +125,7 @@ class OrdersController extends Controller
     {
         $request->validate([
             'id' => 'required',
+            'paid_prove' => 'required',
         ]);
         $order = Order::find($request->input('id'));
         $this->authorize('own', $order);
@@ -136,22 +135,13 @@ class OrdersController extends Controller
             $this->errorResponse(400, '订单状态不正确');
         }
         $order = DB::transaction(function () use ($order){
-            $order->paid_prove = 'true';
-            $order->status = Order::STATUS_SUCCESS;
-            $order->payment_method = '余额';
+            $order->paid_prove = $request->paid_prove;
+            $order->payment_method = '转账';
             $order->payment_price = $order->total_amount;
             $order->paid_at = Carbon::now()->toDateTimeString();
-            // 扣除余额
-            $wallet = Wallet::query()
-                            ->where('user_id', $order->user_id)
-                            ->where(['currency_id' => 1, 'type' => Currency::TYPE_LEFAL])
-                            ->first();
-            $wallet->subAmount($order->total_amount, AssetDetails::TYPE_BUY);
-
             $order->save();
             return $order;
         });
-
         return response()->json(['data' => $order]);
     }
 
