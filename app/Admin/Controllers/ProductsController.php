@@ -23,6 +23,7 @@ class ProductsController extends AdminController
     protected function grid()
     {
         return Grid::make(Products::with(['currency','stage']), function (Grid $grid) {
+            $grid->model()->where('type', Product::TYPE_ROB);
             $grid->column('id')->sortable();
             $grid->column('image')->image('', 50, 50);
             $grid->column('title')->display(function ($title){
