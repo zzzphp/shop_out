@@ -138,7 +138,7 @@ class OrdersController extends Controller
         if ($order->product->user_id !== $request->user()->id) {
              $this->authorize('own', $order);
         }
-        $order->prodct = Product::find($order->product_id);
+//        $order->prodct = Product::find($order->product_id);
         return response()->json(['data' => $order]);
     }
 
