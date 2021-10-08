@@ -73,7 +73,7 @@ class Product extends Model
     {
         return !$this->attributes['user_id'] ?
             Currency::query()->first()->toArray()
-            : Collection::where('user_id', $product->user_id)->get()->toArray();
+            : Collection::where('user_id', $this->attributes['user_id'])->get()->toArray();
     }
 
     public function getImage()
