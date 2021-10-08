@@ -106,10 +106,9 @@ class OrdersController extends Controller
                         ]);
                     break;
                 case Order::STATUS_RELEASE:
-                        $builder->where('status' , Order::STATUS_PENDING)
+                        $builder->where('status' , Order::STATUS_RELEASE)
                                 ->whereHas('product', function ($query) use ($request){
                                     $query->where('user_id', $request->user()->id)
-                                        ->whereNotNull('paid_at');
                                 });
 //                case Order::STATUS_COMPLETE_SELL:
 //                    $builder->where('status' , Order::STATUS_SUCCESS)
@@ -152,6 +151,7 @@ class OrdersController extends Controller
             $order->paid_prove = $request->paid_prove;
             $order->payment_method = '转账';
             $order->payment_price = $order->total_amount;
+            $order->status = Order::STATUS_RELEASE;
             $order->paid_at = Carbon::now()->toDateTimeString();
             $order->save();
             return $order;
@@ -233,7 +233,7 @@ class OrdersController extends Controller
         DB::transaction(function () use ($request) {
             // 更改订单状态为支付成
             $order = Order::find($request->order_id);
-            if ($order->status !== Order::STATUS_PENDING) {
+            if ($order->status !== Order::STATUS_RELEASE) {
                 return $this->errorResponse(400, '订单状态不正确');
             }
             $order->status = Order::STATUS_SUCCESS;
