@@ -256,7 +256,7 @@ class OrdersController extends Controller
             }
             $self_order->amount = $self_order->amount - $order->amount;
             if ($self_order->amount <= 0) {
-                $self_order = Order::STATUS_COMPLETE_SELL;
+                $self_order->status = Order::STATUS_COMPLETE_SELL;
             }
             $self_order->save();
         });
