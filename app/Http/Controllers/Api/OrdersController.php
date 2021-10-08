@@ -154,6 +154,29 @@ class OrdersController extends Controller
         return response()->json(['data' => $order]);
     }
 
+    public function auction_pay(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+        ]);
+        $order = Order::find($request->input('id'));
+        $this->authorize('own', $order);
+        if ($order->closed)
+            $this->errorResponse(400, '订单已关闭，请重新下单！');
+        if ($order->status !== Order::STATUS_PENDING) {
+            $this->errorResponse(400, '订单状态不正确');
+        }
+        $order = DB::transaction(function () use ($order){
+            $order->paid_prove = 'true';
+            $order->status = Order::STATUS_SUCCESS;
+            $order->payment_method = '余额';
+            $order->payment_price = $order->total_amount;
+            $order->paid_at = Carbon::now()->toDateTimeString();
+            $order->save();
+            return $order;
+        });
+    }
+
     public function apply_goods(Request $request)
     {
         $request->validate(['order_id' => 'required']);
