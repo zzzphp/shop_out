@@ -27,7 +27,8 @@ class OrderRequest extends FormRequest
             //
             'product_id' => ['required', 'integer', 'exists:products,id'],
             'amount'     => ['required','integer'],
-            'address_id'     => ['required'],
+            'address_id' => ['required'],
+            'collection'       => ['required'],
         ];
     }
 }

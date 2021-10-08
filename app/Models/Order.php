@@ -39,7 +39,7 @@ class Order extends Model
         'payment_method', 'closed', 'status','amount',
         'total_amount','profit_data','product_id','mortgage',
         'total_powers', 'payment_price','currency_id','address',
-        'express_data',
+        'express_data', 'collection',
     ];
 
     // protected $dates = [
@@ -107,6 +107,11 @@ class Order extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getCollectionAttribute()
+    {
+        return json_decode($this->attributes['collection'], true);
     }
 
     public function currency()

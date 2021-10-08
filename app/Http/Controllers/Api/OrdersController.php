@@ -66,6 +66,7 @@ class OrdersController extends Controller
                 'payment_method'  => 'CNY',
                 'total_powers' => $product->amount * $request->amount,
                 'address'     => $address->toArray(),
+                'collection' => $request->collection,
             ]);
             $order->user()->associate($request->user());
             $order->product()->associate($product);
