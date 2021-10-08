@@ -263,4 +263,15 @@ class OrdersController extends Controller
         return response()->json(['data' => true]);
     }
 
+    public function order_count(Request $request)
+    {
+        $data = [];
+        foreach (Order::$statusMap as $k => $v) {
+            $data[$k] = DB::table('orders')
+                            ->where('user_id', $request->user()->id)
+                            ->where('status', $k)->count();
+        }
+        return response()->json(['data' => $data]);
+    }
+
 }
