@@ -133,9 +133,11 @@ class OrdersController extends Controller
         return response()->json(['data' => $builder->get()]);
     }
 
-    public function show(Order $order)
+    public function show(Order $order, Request $request)
     {
-        $this->authorize('own', $order);
+        if ($order->product->user_id !== $request->user()->id) {
+             $this->authorize('own', $order);
+        }
         $order->prodct = Product::find($order->product_id);
         return response()->json(['data' => $order]);
     }
