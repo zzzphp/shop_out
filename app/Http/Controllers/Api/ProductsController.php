@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Collection;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -24,7 +25,9 @@ class ProductsController extends Controller
 
     public function show(Product $product)
     {
-        $product->collection = Collection::where('user_id', $product->user_id)->get();
+        $product->collection = $product->user_id === 0 ?
+              Currency::query()->first()
+            : Collection::where('user_id', $product->user_id)->get();
         $product->image = check_url($product->image);
         return response()->json(['data' => $product]);
     }
