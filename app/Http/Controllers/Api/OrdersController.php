@@ -26,6 +26,9 @@ class OrdersController extends Controller
             $address = UserAddress::find($request->address_id);
             if (!$address) return $this->errorResponse(400, '请完善收货地址');
             $product = Product::find($request->product_id);
+            if ($product->user_id === $request->user()->id) {
+                return $this->errorResponse(400, '您不能竞拍自己');
+            }
             $open_time = $product->category->open_time;
             $now = Carbon::now();
             // 判断用户的等级，提前抢单
