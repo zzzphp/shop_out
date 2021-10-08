@@ -24,6 +24,7 @@ class Product extends Model
     protected $fillable = [
             'currency_id', 'title', 'description', 'original_price', 'price',
             'attributes', 'detail', 'end_at','commission','type','stage_id','on_sale',
+            'origin_order',
         ];
 
     protected $casts = [

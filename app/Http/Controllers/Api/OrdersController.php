@@ -95,19 +95,32 @@ class OrdersController extends Controller
     {
         $builder = Order::query()
         ->orderBy('id','desc')
-        ->with(['product'])
-        ->where('user_id', $request->user()->id);
+        ->with(['product']);
         if ($request->input('status', '')) {
             switch ($request->status) {
                 case '0':
-                    $builder->whereIn('status', [Order::STATUS_SUCCESS,
+                    $builder->where('user_id', $request->user()->id)
+                    ->whereIn('status', [Order::STATUS_SUCCESS,
                                                         Order::STATUS_PENDING,
                                                         Order::STATUS_FAILED
                         ]);
                     break;
-
+                case Order::STATUS_RELEASE:
+                        $builder->where('status' , Order::STATUS_PENDING)
+                                ->whereHas('product', function ($query) use ($request){
+                                    $query->where('user_id', $request->user()->id)
+                                        ->whereNotNull('paid_at');
+                                });
+//                case Order::STATUS_COMPLETE_SELL:
+//                    $builder->where('status' , Order::STATUS_SUCCESS)
+//                        ->whereHas('product', function ($query) use ($request){
+//                            $query->where('user_id', $request->user()->id)
+//                                ->whereNotNull('paid_at');
+//                        });
+//                    break;
                 default:
-                    $builder->where('status', $request->input('status'));
+                    $builder->where('user_id', $request->user()->id)
+                    ->where('status', $request->input('status'));
                     break;
             }
         }
@@ -188,7 +201,7 @@ class OrdersController extends Controller
         $order = Order::find($request->order_id);
         // 确认支付密码
         $safe_password = DB::table('users')
-            ->where('user_id', $request->user()->id)
+            ->where('id', $request->user()->id)
             ->first();
         if (!Hash::check($safe_password, $request->safe_password)) {
             return $this->errorResponse(400, '安全密码错误，请重试！');
@@ -211,6 +224,12 @@ class OrdersController extends Controller
         });
 
         return response()->json(['data' => $order]);
+    }
+
+    public function release_goods(Request $request)
+    {
+        // 放货，确认付款
+        //$request->validate()
     }
 
 }

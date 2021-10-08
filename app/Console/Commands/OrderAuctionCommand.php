@@ -59,6 +59,7 @@ class OrderAuctionCommand extends Command
                         $new_product->stock =$order->amount;
                         $new_product->type = Product::TYPE_AUCTION;
                         $new_product->price = add($new_product->price, add($premium, $service_charge));
+                        $new_product->origin_order = $order->id;
                         $new_product->save();
                         $order->status = Order::STATUS_BUY;
                         $order->save();
