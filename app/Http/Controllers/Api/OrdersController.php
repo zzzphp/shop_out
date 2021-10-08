@@ -108,7 +108,7 @@ class OrdersController extends Controller
                 case Order::STATUS_RELEASE:
                         $builder->where('status' , Order::STATUS_RELEASE)
                                 ->whereHas('product', function ($query) use ($request){
-                                    $query->where('user_id', $request->user()->id)
+                                    $query->where('user_id', $request->user()->id);
                                 });
 //                case Order::STATUS_COMPLETE_SELL:
 //                    $builder->where('status' , Order::STATUS_SUCCESS)
