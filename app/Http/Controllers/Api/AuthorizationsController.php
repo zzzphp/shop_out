@@ -50,7 +50,10 @@ class AuthorizationsController extends Controller
         $request->validate(['phone' => 'required', 'password' => 'required']);
         $user = User::where(['phone' => $request->phone])->first();
         if (!$user) {
-            $this->errorResponse(400, '该用户不存在');
+            return $this->errorResponse(400, '该用户不存在');
+        }
+        if ($user->is_ban) {
+            return $this->errorResponse(400, '该用户违规，已被永久封号');
         }
         $credentials['phone'] = $request->phone;
         $credentials['password'] = $request->password;

@@ -42,7 +42,7 @@ class OrderAuctionCommand extends Command
     public function handle()
     {
         Order::query()
-            ->whereDate('created_at', Carbon::yesterday()->toDateString())
+//            ->whereDate('created_at', Carbon::yesterday()->toDateString())
             ->where('status', Order::STATUS_SELL)
             ->where('closed', false)
             ->chunk(200, function ($orders){
@@ -54,8 +54,9 @@ class OrderAuctionCommand extends Command
                         $service_charge = mul($new_product->price, config('site.service_charge'));
                         // 溢价
                         $premium = mul($new_product->price, config('site.premium'));
+
                         $new_product->user_id =$order->user_id;
-                        $new_product->original_price =$order->price;
+                        $new_product->original_price = $order->total_amount;
                         $new_product->stock =$order->amount;
                         $new_product->type = Product::TYPE_AUCTION;
                         $new_product->price = add($new_product->price, add($premium, $service_charge));

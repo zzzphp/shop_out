@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,6 +45,11 @@ class CloseOrder implements ShouldQueue
         DB::transaction(function (){
             $this->order->update(['closed' => true]);
             $this->order->product->addStock($this->order->amount);
+            if (Order::query()->where('user_id', $this->order->user_id)->count() >= 2) {
+                User::query()
+                    ->where('id', $this->order->user_id)
+                    ->update(['is_ban' => true]);
+            }
         });
     }
 }
