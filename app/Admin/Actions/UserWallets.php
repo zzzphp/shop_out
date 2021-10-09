@@ -27,7 +27,6 @@ class UserWallets extends LazyRenderable
             $wallet['user_id'] = PowerDistributeLog::query()
                 ->where(['user_id' => $wallet['user_id'], 'currency_id' => $wallet['currency_id']])
                 ->sum('all');
-            $wallet['currency'] = $wallet['currency']['name'];
 
             unset($wallet['currency_id']);
             $wallets[$k] = $wallet;
@@ -39,7 +38,6 @@ class UserWallets extends LazyRenderable
             '锁仓收益',
             '已释放',
             '总收益',
-            '币种名',
         ];
 
         return Table::make($titles, $wallets);
