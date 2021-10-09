@@ -34,7 +34,7 @@ class WithdrawalsController extends Controller
         $this->validateSmsCode($request->user()->phone, $request->key, $request->code);
 
         $currency = Currency::find($request->currency_id);
-        $chain = $currency->chainConf($request->input('chain', 'CNY'));
+        $chain = $currency->chainConf('CNY');
         if(!$chain) {
             $this->errorResponse(400, '链名不存在，请重试！');
         }
@@ -50,7 +50,6 @@ class WithdrawalsController extends Controller
         if($wallet->amount < $request->amount) {
             $this->errorResponse(400, '当前可用资产不足');
         }
-
         $withdrawal = DB::transaction(function () use($request, $chain, $wallet) {
              $withdrawal = Withdrawal::create([
                 'user_id' => $request->user()->id,
