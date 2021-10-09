@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Jobs\CommissionOrder;
 use App\Jobs\ConfirmOrder;
+use App\Jobs\UserGardeCheckUpJob;
 use App\Models\AssetDetails;
 use App\Models\Currency;
 use App\Models\Order;
@@ -266,6 +267,7 @@ class OrdersController extends Controller
             return $order;
         });
         dispatch(new CommissionOrder($order));
+        dispatch(new UserGardeCheckUpJob($request->user()));
         return response()->json(['data' => true]);
     }
 
