@@ -233,6 +233,7 @@ return [
 
     ],
 
-    'order_ttl' => 900,
+    'order_ttl' => 3600,
+    'order_confirm_ttl' => 3600,
 
 ];

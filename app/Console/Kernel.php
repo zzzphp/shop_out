@@ -36,8 +36,9 @@ class Kernel extends ConsoleKernel
 //        // 抓取资讯数据
 //        $schedule->command('customize:news-grab')->everyFiveMinutes();
 //        $schedule->command('customize:news-grab-information')->everyThirtyMinutes();
-        $schedule->command('user:grade-check')->daily();
-        $schedule->command('user:thaw-bond')->hourly();
+        $schedule->command('user:grade-check')->daily(); // 体验会员检测
+        $schedule->command('order:order-auction')->daily(); // 客户转卖
+        $schedule->command('user:thaw-bond')->hourly(); // 定时解冻保证金
 
     }
 

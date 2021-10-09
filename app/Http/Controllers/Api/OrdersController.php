@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Jobs\ConfirmOrder;
 use App\Models\AssetDetails;
 use App\Models\Currency;
 use App\Models\Order;
@@ -164,6 +165,7 @@ class OrdersController extends Controller
             $order->save();
             return $order;
         });
+        dispatch(new ConfirmOrder($order, config('app.order_confirm_ttl')));
         return response()->json(['data' => $order]);
     }
 
