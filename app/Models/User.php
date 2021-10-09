@@ -63,6 +63,7 @@ class User extends Authenticatable implements JWTSubject
         'openid',
         'created_at',
         'apply_at',
+        'share_rate',
     ];
 
     protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data'];
@@ -191,8 +192,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
         'idcard_data' => 'json',
-        // 'created_at' => 'datetime:Y-m-d H:i:s',
-        // 'updated_at' => 'datetime:Y-m-d H:i:s',
+        'share_rate' => 'json',
     ];
 
     public function getJWTIdentifier()

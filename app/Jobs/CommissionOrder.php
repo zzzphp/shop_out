@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\AssetDetails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,55 +40,57 @@ class CommissionOrder implements ShouldQueue
      */
     public function handle()
     {
-        //
-        DB::transaction(function () {
-            // 下单用户
-            $order_user = User::find($this->order->user_id);
-            // 产品
-            $product = Product::find($this->order->product_id);
-            // 佣金参数
-            $commission = $product->commission;
-            // 该产品未设置分佣
-            if(!$commission) {
-                return;
-            }
-            // 该用户没有邀请人直接退出
-            if(!$order_user->invite_id) {
-                return;
-            }
-            // 一级用户
-            $oneUser = User::find($order_user->invite_id);
+        // 溢价比例
+        $premium = config('site.premium');
+        // 卖家用户
+        $order_user = User::find($this->order->user_id);
+        // 产品
+        $product = Product::find($this->order->product_id);
+        // 本次收益
+        $profit = mul($product->original_price, $premium);
+        // 该用户没有邀请人直接退出
+        if(!$order_user->invite_id) {
+            return;
+        }
+        $oneUser = User::find($order_user->invite_id);
+        // 一级用户
+        DB::transaction(function () use ($order_user, $oneUser){
+            // 获取账号设置的佣金比例
+            $rate = $oneUser->share_rate;
+            $one = $rate['one'] ?? 10 / 100;
             //一级分佣
-            Commission::create([
-                    'level' => Commission::LEVEL_ONE,
-                    'amount' => $commission['one_level'],
-                    'user_id'=> $oneUser->id,
-                    'order_id' => $this->order->id,
-                    'status' => Commission::STATUS_SUCCESS,
+            $commission = Commission::create([
+                'level' => Commission::LEVEL_ONE,
+                'amount' => mul($profit, $one),
+                'user_id'=> $oneUser->id,
+                'order_id' => $this->order->id,
+                'status' => Commission::STATUS_SUCCESS,
             ]);
             // 钱包增加余额
-            $wallet = Wallet::where(['user_id'=>$oneUser->id, 'currency_id'=>$commission['reward_currency']])->first();
-            $wallet->amount = add($wallet->amount, $commission['one_level']);
-            $wallet->save();
-            /**************************/
-            if(!$oneUser->invite_id) {
-                return;
-            }
-            $twoUser = User::find($oneUser->invite_id);
-            // 二级分佣
-            $wallet = Wallet::where(['user_id'=>$twoUser->id, 'currency_id'=>$commission['reward_currency']])->first();
-            Commission::create([
-                    'level' => Commission::LEVEL_TWO,
-                    'amount' => $commission['two_level'],
-                    'user_id'=> $twoUser->id,
-                    'order_id' => $this->order->id,
-                    'status' => Commission::STATUS_SUCCESS,
-            ]);
-            // 钱包增加余额
-            $wallet = Wallet::where(['user_id'=>$twoUser->id, 'currency_id'=>$commission['reward_currency']])->first();
-            $wallet->amount = add($wallet->amount, $commission['two_level']);
-            $wallet->save();
-            /*************************/
+            $wallet = Wallet::where(['user_id'=>$oneUser->id, 'currency_id'=> 1])
+                ->first();
+            $wallet->addAmount($commission->amount, AssetDetails::TYPE_REWARD);
         });
+        /**************************/
+        if(!$oneUser->invite_id) {
+            return;
+        }
+        DB::transaction(function () use ($oneUser){
+            $twoUser = User::find($oneUser->invite_id);
+            $rate = $twoUser->share_rate;
+            $two = $rate['two'] ?? 10 / 100;
+            // 二级分佣
+            $commission = Commission::create([
+                'level' => Commission::LEVEL_TWO,
+                'amount' => mul($profit, $two),
+                'user_id'=> $twoUser->id,
+                'order_id' => $this->order->id,
+                'status' => Commission::STATUS_SUCCESS,
+            ]);
+            $wallet = Wallet::where(['user_id' => $twoUser->id, 'currency_id' => 1])->first();
+            // 钱包增加余额
+            $wallet->addAmount($commission->amount, AssetDetails::TYPE_REWARD);
+        });
+        /*************************/
     }
 }

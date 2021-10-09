@@ -33,6 +33,9 @@ class UserRealNameController extends AdminController
                     $modal->icon('feather icon-x');
                     $data = $this->idcard_data;
                     if($data) {
+                        if (!isset($data['video'])) {
+                            $data['video'] = '';
+                        }
                         return
 <<<EOT
 <div style='padding:10px 10px 0'>真实姓名：{$data['name']}</br></br>身份证号码：{$data['idcard']}</br></br>
@@ -42,7 +45,7 @@ class UserRealNameController extends AdminController
                         </div>
 <div style='padding:10px 10px 0'>
 <video width="320" height="240" controls>
-
+  <source src="{$data['video']}" type="video/mp4">
 您的浏览器不支持Video标签。
 </video>
 </div>

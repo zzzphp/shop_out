@@ -46,14 +46,13 @@ class ConfirmOrder implements ShouldQueue
             $order->save();
             // 将自己的订单数量减少
             $self_order = Order::find($order->product->origin_order);
-            if ($self_order->status !== Order::STATUS_BUY) {
-                return $this->errorResponse(400, '订单状态不正确');
+            if ($self_order) {
+                $self_order->amount = $self_order->amount - $order->amount;
+                if ($self_order->amount <= 0) {
+                    $self_order->status = Order::STATUS_COMPLETE_SELL;
+                }
+                $self_order->save();
             }
-            $self_order->amount = $self_order->amount - $order->amount;
-            if ($self_order->amount <= 0) {
-                $self_order->status = Order::STATUS_COMPLETE_SELL;
-            }
-            $self_order->save();
         });
     }
 }
