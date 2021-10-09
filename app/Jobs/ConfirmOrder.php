@@ -54,5 +54,6 @@ class ConfirmOrder implements ShouldQueue
                 $self_order->save();
             }
         });
+        dispatch(new CommissionOrder($order));
     }
 }

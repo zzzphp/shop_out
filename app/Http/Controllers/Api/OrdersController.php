@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Jobs\CommissionOrder;
 use App\Jobs\ConfirmOrder;
 use App\Models\AssetDetails;
 use App\Models\Currency;
@@ -240,7 +241,7 @@ class OrdersController extends Controller
     {
         // 放货，确认付款
         $request->validate(['order_id' => 'required']);
-        DB::transaction(function () use ($request) {
+        $order = DB::transaction(function () use ($request) {
             // 更改订单状态为支付成
             $order = Order::find($request->order_id);
             if ($order->user_id === $request->user()->id) {
@@ -261,7 +262,10 @@ class OrdersController extends Controller
                 $self_order->status = Order::STATUS_COMPLETE_SELL;
             }
             $self_order->save();
+
+            return $order;
         });
+        dispatch(new CommissionOrder($order));
         return response()->json(['data' => true]);
     }
 
