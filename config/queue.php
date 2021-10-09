@@ -62,7 +62,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'gaogeyun_queue'),
+            'queue' => env('REDIS_QUEUE', 'shop_queue'),
             'retry_after' => 9000,
             'block_for' => null,
         ],
