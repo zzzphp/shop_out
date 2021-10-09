@@ -53,6 +53,9 @@ class CommissionOrder implements ShouldQueue
             return;
         }
         $oneUser = User::find($order_user->invite_id);
+        if (Commission::query()->where(['user_id' => $oneUser->id, 'order_id' => $this->order->id])->exists()) {
+            return;
+        }
         // 一级
         DB::transaction(function () use ($oneUser, $profit){
             // 获取账号设置的佣金比例
