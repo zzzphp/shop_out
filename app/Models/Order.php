@@ -51,7 +51,7 @@ class Order extends Model
     // ];
 
     protected $appends = [
-        'is_installment', 'surplus_days'
+        'is_installment', 'surplus_days','created_time'
     ];
 
     protected $casts = [
@@ -138,5 +138,10 @@ class Order extends Model
                 return '距离自动收货还剩：' . $days . ' 天';
             }
         }
+    }
+
+    public function getCreatedTimeAttribute()
+    {
+        return strtotime($this->attributes['created_at']) * 1000;
     }
 }
