@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     'labels' => [
         'Commission' => '邀请奖励',
@@ -8,7 +8,7 @@ return [
         'order_id' => 'order_id',
         'user_id' => 'user_id',
         'level' => '分佣级别',
-        'amount' => 'USDT数量',
+        'amount' => '金额',
         'status' => '状态',
     ],
     'options' => [

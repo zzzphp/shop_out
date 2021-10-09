@@ -39,7 +39,6 @@ class UserWallets extends LazyRenderable
             '锁仓收益',
             '已释放',
             '总收益',
-            '人民币￥',
             '币种名',
         ];
 

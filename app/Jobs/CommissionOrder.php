@@ -53,8 +53,8 @@ class CommissionOrder implements ShouldQueue
             return;
         }
         $oneUser = User::find($order_user->invite_id);
-        // 一级用户
-        DB::transaction(function () use ($order_user, $oneUser){
+        // 一级
+        DB::transaction(function () use ($oneUser, $profit){
             // 获取账号设置的佣金比例
             $rate = $oneUser->share_rate;
             $one = $rate['one'] ?? 10 / 100;
@@ -75,7 +75,7 @@ class CommissionOrder implements ShouldQueue
         if(!$oneUser->invite_id) {
             return;
         }
-        DB::transaction(function () use ($oneUser){
+        DB::transaction(function () use ($oneUser, $profit){
             $twoUser = User::find($oneUser->invite_id);
             $rate = $twoUser->share_rate;
             $two = $rate['two'] ?? 10 / 100;

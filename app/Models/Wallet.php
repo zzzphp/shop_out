@@ -32,8 +32,6 @@ class Wallet extends Model
         'bond',
     ];
 
-    protected $appends = ['cny'];
-
     protected static function boot()
     {
         parent::boot();
@@ -55,15 +53,6 @@ class Wallet extends Model
     public function currency()
     {
         return $this->belongsTo(Currency::class);
-    }
-
-    public function getCnyAttribute()
-    {
-        if($this->currency->type == \App\Models\Currency::TYPE_LEFAL) {
-            return number_format($this->attributes['amount'] * usdtAmount(), 2);
-        }
-        $last = DB::table('currency_market_biki')->where('symbol', strtolower($this->currency->name))->value('last');
-        return $last ? number_format($this->attributes['amount'] * usdtAmount() * $last, 2) : number_format(0.00, 2);
     }
 
     public function subAmount($amount, $detail_type, $remark = '')
