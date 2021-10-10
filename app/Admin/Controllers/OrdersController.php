@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Orders;
 use App\Models\Currency;
+use App\Models\Product;
 use App\Models\Stage;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -23,12 +24,10 @@ class OrdersController extends AdminController
     protected function grid()
     {
         return Grid::make(Orders::with(['currency', 'product.stage', 'user']), function (Grid $grid) {
-            if(Admin::user()->isRole('agent')) {
-               $grid->model()->whereHas('user', function($builder){
-                   $builder->where('admin_id', Admin::user()->id);
-               });
-            }
             $grid->model()
+                ->whereHas('product', function ($query){
+                    $query->where('type', Product::TYPE_ROB);
+                })
                 ->whereNotNull('paid_at')
                 ->where('closed', false)
                 ->orderBy('id', 'desc');
