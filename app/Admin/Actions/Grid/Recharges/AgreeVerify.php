@@ -39,7 +39,6 @@ class AgreeVerify extends RowAction
         DB::transaction(function () use($recharge) {
             $wallet = Wallet::where(['user_id' => $recharge->user_id,
                                     'currency_id' => $recharge->currency_id,
-                                    'type'   => Wallet::TYPE_COIN,
                             ])
                         ->first();
             if(!$wallet) {
