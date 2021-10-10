@@ -27,7 +27,7 @@ class CreateCommissionTable extends Migration
             ->on('users')
             ->onDelete('RESTRICT');
             $table->string('level');
-            $table->decimal('amount', 18,8)->comment('USDT数量');
+            $table->decimal('amount', 18,2)->comment('USDT数量');
             $table->string('status');
             $table->timestamps();
         });

@@ -118,7 +118,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::get('orders', 'OrdersController@index')->name('orders.index');
         // 订单详情
         Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
-
+        // 分享佣金
+        Route::get('commissions', 'CommissionsController@index');
 //        // 申请列表
 //        Route::get('recharges', 'RechargesController@index')->name('recharges.index');
         // 钱包列表

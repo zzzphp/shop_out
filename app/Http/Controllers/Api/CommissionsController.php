@@ -10,12 +10,12 @@ class CommissionsController extends Controller
     //
     public function index(Request $request)
     {
-        $request->validate(['currency_id' => 'required']);
         $commissions = Commission::where('user_id', $request->user()->id)
-        ->where('currency_id', $request->currency_id)
-        ->with(['order', 'order.product', 'order.user'])
+        ->orderBy('id', 'DESC')
         ->get();
-        return response()->json(['data' => $commissions]);
+        $data['total'] = Commission::where('user_id', $request->user()->id)->sum('amount');
+        $data['commissions'] = $commissions;
+        return response()->json(['data' => $data]);
     }
 
     public function index_not(Request $request)
