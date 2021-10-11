@@ -119,13 +119,16 @@ class OrdersController extends Controller
                                     $query->where('user_id', $request->user()->id)
                                         ->where('status', Order::STATUS_RELEASE);
                                 });
-//                case Order::STATUS_COMPLETE_SELL:
-//                    $builder->where('status' , Order::STATUS_SUCCESS)
-//                        ->whereHas('product', function ($query) use ($request){
-//                            $query->where('user_id', $request->user()->id)
-//                                ->whereNotNull('paid_at');
-//                        });
-//                    break;
+                        break;
+                case Order::STATUS_LOCK:
+                    $builder->where('status' , Order::STATUS_LOCK)
+                        ->whereHas('product', function ($query) use ($request){
+                            $query->where('user_id', $request->user()->id);
+                        })->orWhere( function ($query) use ($request){
+                            $query->where('user_id', $request->user()->id)
+                                ->where('status', Order::STATUS_LOCK);
+                        });
+                    break;
                 default:
                     $builder->where('user_id', $request->user()->id)
                     ->where('status', $request->input('status'));
