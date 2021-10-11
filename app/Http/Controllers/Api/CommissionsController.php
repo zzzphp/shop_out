@@ -29,4 +29,17 @@ class CommissionsController extends Controller
         $users = User::where('invite_id', $request->user()->id)->get(['id','name', 'created_at']);
         return response()->json(['data' => $users]);
     }
+
+    public function rate(Request $request)
+    {
+        $request->validate(['one' => 'required', 'two' => 'required']);
+        $rate['one'] = $request->one;
+        $rate['two'] = $request->two;
+        if (($rate['one'] + $rate['two']) > 20) {
+            return $this->errorResponse(400, '');
+        }
+        $request->user()->update(['share_rate' => $rate]);
+
+        return response()->json(['data' => true]);
+    }
 }

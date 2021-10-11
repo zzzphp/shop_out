@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
         'share_rate',
     ];
 
-    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status'];
 
     protected static function boot()
     {
@@ -132,6 +132,11 @@ class User extends Authenticatable implements JWTSubject
         }
 
         return $powers;
+    }
+
+    public function getFullStatusAttribute()
+    {
+        return self::$statusMap[$this->attributes['status']];
     }
 
     public function getGradeFullAttribute()
