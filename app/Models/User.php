@@ -35,7 +35,7 @@ class User extends Authenticatable implements JWTSubject
             self::STATUS_SUCCESS        => '认证成功',
         ];
     public static $gradeMap = [
-            self::GRADE_ZERO => '体验会员',
+            self::GRADE_ZERO => '新会员',
             self::GRADE_ONE => '普通会员',
             self::GRADE_TWO => '精英会员',
             self::GRADE_THREE => '银牌会员',
