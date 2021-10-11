@@ -14,6 +14,12 @@ class CommissionsController extends Controller
         ->orderBy('id', 'DESC')
         ->get();
         $data['total'] = Commission::where('user_id', $request->user()->id)->sum('amount');
+        $data['one'] = Commission::where('user_id', $request->user()->id)
+            ->where('level', Commission::LEVEL_ONE)
+            ->sum('amount');
+        $data['two'] = Commission::where('user_id', $request->user()->id)
+            ->where('level', Commission::LEVEL_TWO)
+            ->sum('amount');
         $data['commissions'] = $commissions;
         return response()->json(['data' => $data]);
     }
