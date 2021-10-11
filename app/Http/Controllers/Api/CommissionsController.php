@@ -54,6 +54,7 @@ class CommissionsController extends Controller
             ->where('status', User::STATUS_SUCCESS)
             ->get();
         $data = [];
+        $data['team'] = [];
         foreach ($users as $user) {
             $data['team'][] = $service->team($user, $request->date);
         }
