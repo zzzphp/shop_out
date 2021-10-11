@@ -50,7 +50,7 @@ class WithdrawalsController extends Controller
         if($wallet->amount < $request->amount) {
             $this->errorResponse(400, '当前可用资产不足');
         }
-        $withdrawal = DB::transaction(function () use($request, $chain, $wallet) {
+        $withdrawal = DB::transaction(function () use($request, $chain, $wallet, $collection) {
              $withdrawal = Withdrawal::create([
                 'user_id' => $request->user()->id,
                 'currency_id' => $request->currency_id,
