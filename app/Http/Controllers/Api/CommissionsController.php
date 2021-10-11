@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Order;
+use App\Models\Stage;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Models\Commission;
 use App\Models\User;
@@ -42,4 +45,25 @@ class CommissionsController extends Controller
 
         return response()->json(['data' => true]);
     }
+
+    public function team(Request $request)
+    {
+        $service = new UserService();
+        $users = User::query()
+            ->where('invite_id', $request->user()->id)
+            ->where('status', User::STATUS_SUCCESS)
+            ->get();
+        $data = [];
+        foreach ($users as $user) {
+            $data['team'][] = $service->team($user);
+        }
+        $self_ids = $service->team_amount($request->user());
+        $data['self']['team_amount'] = Order::query()
+            ->whereIn('user_id', $self_ids)
+            ->sum('total_amount');
+        $data['self']['team_count'] = count($self_ids);
+
+        return response()->json(['data' => $data]);
+    }
+
 }

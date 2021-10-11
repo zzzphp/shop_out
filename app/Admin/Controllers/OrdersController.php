@@ -25,9 +25,9 @@ class OrdersController extends AdminController
     {
         return Grid::make(Orders::with(['currency', 'product.stage', 'user']), function (Grid $grid) {
             $grid->model()
-                ->whereHas('product', function ($query){
-                    $query->where('type', Product::TYPE_ROB);
-                })
+//                ->whereHas('product', function ($query){
+//                    $query->where('type', Product::TYPE_ROB);
+//                })
                 ->whereNotNull('paid_at')
                 ->where('closed', false)
                 ->orderBy('id', 'desc');
@@ -36,6 +36,9 @@ class OrdersController extends AdminController
                 $grid->column('user.phone', '账号')->copyable();
 //                $grid->column('currency.name', '币种')->badge();
 //                $grid->column('product.stage.name', '期数');
+                $grid->column('product.type', '订单类型')->display(function ($title){
+                   return Product::$typeMap[$title];
+                });
                 $grid->column('product.title', '产品名')->limit(6, '...');
                 $grid->column('amount')->label('success');
                 $grid->column('total_amount')->label('success');

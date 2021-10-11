@@ -122,6 +122,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::get('commissions', 'CommissionsController@index');
         // 设置分享佣金比例
         Route::put('rate', 'CommissionsController@rate');
+        Route::get('team', 'CommissionsController@team');
 //        // 申请列表
 //        Route::get('recharges', 'RechargesController@index')->name('recharges.index');
         // 钱包列表
