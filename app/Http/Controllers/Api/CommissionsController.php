@@ -55,12 +55,16 @@ class CommissionsController extends Controller
             ->get();
         $data = [];
         foreach ($users as $user) {
-            $data['team'][] = $service->team($user);
+            $data['team'][] = $service->team($user, $request->date);
         }
         $self_ids = $service->team_amount($request->user());
-        $data['self']['team_amount'] = Order::query()
+        $builder = Order::query()
             ->whereIn('user_id', $self_ids)
-            ->sum('total_amount');
+            ->whereNotNull('paid_at');
+        if ($request->date) {
+            $builder->whereDate('paid_at', $request->date);
+        }
+        $data['self']['team_amount'] = $builder->sum('total_amount');
         $data['self']['team_count'] = count($self_ids);
 
         return response()->json(['data' => $data]);

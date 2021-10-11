@@ -7,11 +7,12 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use function GuzzleHttp\Psr7\uri_for;
 
 class UserService
 {
 
-    public function team(User $user)
+    public function team(User $user, $date = '')
     {
         $data = [];
         $data['name'] = $user->name;
@@ -20,9 +21,13 @@ class UserService
             ->where('user_id', $user->id)
             ->sum('total_amount');
         $user_ids = $this->team_amount($user);
-        $data['team_amount'] = Order::query()
-                        ->whereIn('user_id', $user_ids)
-                        ->sum('total_amount');
+        $builder = Order::query()
+            ->whereNotNull('paid_at')
+            ->whereIn('user_id', $user_ids);
+        if ($data) {
+            $builder->whereDate('paid_at', $date);
+        }
+        $data['team_amount'] = $builder->sum('total_amount');
         $data['team_count'] = count($user_ids);
         $data['shops'] = Product::query()->where('user_id', $user->id)->count();
 
