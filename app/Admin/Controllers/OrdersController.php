@@ -98,6 +98,9 @@ class OrdersController extends AdminController
                 $filter->equal('currency_id', '币种')->select(function (){
                     return Currency::query()->pluck('name', 'id');
                 })->width(4);
+                $filter->equal('product.type', '订单类型')->select(function (){
+                    return Product::$typeMap;
+                })->width(4);
             });
         });
     }
