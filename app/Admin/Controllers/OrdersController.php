@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\OrderUnlock;
 use App\Admin\Repositories\Orders;
 use App\Models\Currency;
 use App\Models\Product;
@@ -64,6 +65,9 @@ class OrdersController extends AdminController
                   if ($actions->row->status === Order::STATUS_PENDING) {
                       $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
                       $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
+                  }
+                  if ($actions->row->status === Order::STATUS_LOCK) {
+                      $actions->append(new OrderUnlock());
                   }
 //                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
 //                $actions->append(' ');
