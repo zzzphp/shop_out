@@ -10,12 +10,12 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class OrderUnlock extends RowAction
+class OrderTakeGoods extends RowAction
 {
     /**
      * @return string
      */
-	protected $title = '驳回反馈';
+	protected $title = '强制提货';
 
     /**
      * Handle the action request.
@@ -29,14 +29,14 @@ class OrderUnlock extends RowAction
         // dump($this->getKey());
         $id = $this->getKey();
         $order = Order::find($id);
-        if ($order->status !== Order::STATUS_LOCK) {
+        if ($order->status !== Order::STATUS_SUCCESS) {
             return $this->response()->error('订单状态不正确');
         }
-        $order->status = Order::STATUS_RELEASE;
+        $order->status = Order::STATUS_TAKE;
         $order->save();
         return $this->response()
             ->success('Processed successfully: '.$this->getKey())
-            ->refresh();
+            ->redirect('/');
     }
 
     /**
@@ -44,7 +44,7 @@ class OrderUnlock extends RowAction
 	 */
 	public function confirm()
 	{
-		 return ['确认驳回反馈?', '驳回后 订单将进入待收货状态，需要卖家手动放货！'];
+		 return ['确认强制提货？', '订单将只能进行提货'];
 	}
 
     /**
