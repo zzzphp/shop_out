@@ -68,6 +68,7 @@ class OrdersController extends AdminController
                   }
                   if ($actions->row->status === Order::STATUS_LOCK) {
                       $actions->append(new OrderUnlock());
+
                   }
 //                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
 //                $actions->append(' ');

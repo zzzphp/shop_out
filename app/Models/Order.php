@@ -22,6 +22,7 @@ class Order extends Model
     const STATUS_RELEASE = 'release';
     const STATUS_COMPLETE_SELL = 'complete_sell';
     const STATUS_LOCK = 'lock';
+    const STATUS_TAKE = 'take';
 
     public static $statusMap = [
             self::STATUS_PENDING => '待支付',
@@ -38,6 +39,7 @@ class Order extends Model
             self::STATUS_RELEASE => '待放货',
             self::STATUS_COMPLETE_SELL => '转拍完成',
             self::STATUS_LOCK => '已锁单',
+            self::STATUS_TAKE => '待提货',
     ];
 
     protected $fillable = [
