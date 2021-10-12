@@ -125,6 +125,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         Route::get('team', 'CommissionsController@team');
 //        // 申请列表
 //        Route::get('recharges', 'RechargesController@index')->name('recharges.index');
+        // 客服介入
+        Route::put('complaint', 'OrdersController@complaint');
         // 钱包列表
         Route::get('wallets', 'WalletsController@index')->name('wallets.index');
         // 用户邀请连接
