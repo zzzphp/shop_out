@@ -647,6 +647,17 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 0,
                     "created_at" => "2021-06-18 17:23:29",
                     "updated_at" => "2021-06-18 17:23:29"
+                ],
+                [
+                    "id" => 14,
+                    "name" => "products",
+                    "slug" => "products",
+                    "http_method" => "GET,POST",
+                    "http_path" => "/products/create*,/products,/products/*/edit,/products/*",
+                    "order" => 14,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-12 16:01:35",
+                    "updated_at" => "2021-10-12 16:07:40"
                 ]
             ]
         );
@@ -656,17 +667,17 @@ class AdminTablesSeeder extends Seeder
             [
                 [
                     "id" => 1,
-                    "name" => "Administrator",
+                    "name" => "超级管理员",
                     "slug" => "administrator",
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-03-05 03:11:11"
+                    "updated_at" => "2021-10-12 15:38:26"
                 ],
                 [
-                    "id" => 2,
-                    "name" => "agent",
-                    "slug" => "agent",
-                    "created_at" => "2021-06-14 10:13:16",
-                    "updated_at" => "2021-06-14 10:13:51"
+                    "id" => 3,
+                    "name" => "产品管理员",
+                    "slug" => "products",
+                    "created_at" => "2021-10-12 15:39:29",
+                    "updated_at" => "2021-10-12 15:39:29"
                 ]
             ]
         );
@@ -719,6 +730,18 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 28,
                     "created_at" => "2021-06-18 14:27:24",
                     "updated_at" => "2021-06-18 14:27:24"
+                ],
+                [
+                    "permission_id" => 14,
+                    "menu_id" => 11,
+                    "created_at" => "2021-10-12 16:01:35",
+                    "updated_at" => "2021-10-12 16:01:35"
+                ],
+                [
+                    "permission_id" => 14,
+                    "menu_id" => 26,
+                    "created_at" => "2021-10-12 16:01:35",
+                    "updated_at" => "2021-10-12 16:01:35"
                 ]
             ]
 		);
@@ -959,6 +982,18 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 33,
                     "created_at" => "2021-06-25 16:56:24",
                     "updated_at" => "2021-06-25 16:56:24"
+                ],
+                [
+                    "role_id" => 3,
+                    "menu_id" => 11,
+                    "created_at" => "2021-10-12 15:39:29",
+                    "updated_at" => "2021-10-12 15:39:29"
+                ],
+                [
+                    "role_id" => 3,
+                    "menu_id" => 26,
+                    "created_at" => "2021-10-12 15:39:29",
+                    "updated_at" => "2021-10-12 15:39:29"
                 ]
             ]
         );
@@ -967,46 +1002,10 @@ class AdminTablesSeeder extends Seeder
         DB::table('admin_role_permissions')->insert(
             [
                 [
-                    "role_id" => 2,
-                    "permission_id" => 7,
-                    "created_at" => "2021-06-14 10:19:01",
-                    "updated_at" => "2021-06-14 10:19:01"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 8,
-                    "created_at" => "2021-06-14 10:25:20",
-                    "updated_at" => "2021-06-14 10:25:20"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 9,
-                    "created_at" => "2021-06-14 10:32:31",
-                    "updated_at" => "2021-06-14 10:32:31"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 10,
-                    "created_at" => "2021-06-14 10:32:31",
-                    "updated_at" => "2021-06-14 10:32:31"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 11,
-                    "created_at" => "2021-06-14 17:01:22",
-                    "updated_at" => "2021-06-14 17:01:22"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 12,
-                    "created_at" => "2021-06-18 17:21:20",
-                    "updated_at" => "2021-06-18 17:21:20"
-                ],
-                [
-                    "role_id" => 2,
-                    "permission_id" => 13,
-                    "created_at" => "2021-06-18 17:24:23",
-                    "updated_at" => "2021-06-18 17:24:23"
+                    "role_id" => 3,
+                    "permission_id" => 14,
+                    "created_at" => "2021-10-12 16:02:09",
+                    "updated_at" => "2021-10-12 16:02:09"
                 ]
             ]
         );
