@@ -36,11 +36,11 @@ class ConfirmOrder implements ShouldQueue
      */
     public function handle()
     {
+        $order = Order::find($this->order->id);
         // 该订单必须为 待放货状态
-        if($this->order->status !== Order::STATUS_RELEASE) {
+        if($order->status !== Order::STATUS_RELEASE) {
             return;
         }
-        $order = $this->order;
         DB::transaction(function () use ($order) {
             $order->status = Order::STATUS_SUCCESS;
             $order->save();

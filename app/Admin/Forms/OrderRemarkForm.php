@@ -20,13 +20,14 @@ class OrderRemarkForm extends Form implements LazyRenderable
     public function handle(array $input)
     {
         $id = $this->payload['id'];
-        Order::query()
-            ->where('id', $id)
-            ->limit(1)
-            ->update(['remark' => $input['remark']]);
+        $order = Order::find($id);
+        $remrks = $order->remark;
+        $remrks[] = "平台：{$input['remark']}";
+        $order->remark = $remrks;
+        $order->save();
         return $this
 				->response()
-				->success('备注成功.')
+				->success('成功.')
 				->refresh();
     }
 
@@ -35,7 +36,8 @@ class OrderRemarkForm extends Form implements LazyRenderable
      */
     public function form()
     {
-        $this->textarea('remark')->required();
+        $this->textarea('remarks')->disable();
+        $this->text('remark')->required();
     }
 
     /**
@@ -46,8 +48,9 @@ class OrderRemarkForm extends Form implements LazyRenderable
     public function default()
     {
         $data = Order::where('id', $this->payload['id'])->value('remark');
+        $data = $data ? implode("\r\n", $data) : '';
         return [
-            'remark'  => $data,
+            'remarks'  => $data,
         ];
     }
 }

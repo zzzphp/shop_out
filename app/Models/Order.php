@@ -65,6 +65,7 @@ class Order extends Model
         'mortgage'     => 'json',
         'address'      => 'json',
         'express_data'      => 'json',
+        'remark'      => 'json',
     ];
 
     public function getIsInstallmentAttribute()

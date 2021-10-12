@@ -286,4 +286,18 @@ class OrdersController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function complaint(Request $request)
+    {
+        $request->validate(['order_id' => 'required', 'info' => 'required']);
+        $order = Order::find($request->order_id);
+        if ($order->status !== Order::STATUS_RELEASE) {
+            return $this->errorResponse(400, '订单状态不正确，请联系客服');
+        }
+        $remarks = $order->remarks;
+        $remarks[] = "{$request->user()->name}({$request->user()->phone})：{$request->info}";
+        $order->remark = $remarks;
+        $order->status = Order::STATUS_LOCK;
+        return response()->json(['data' => $order->save()]);
+    }
+
 }

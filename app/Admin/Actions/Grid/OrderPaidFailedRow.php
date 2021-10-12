@@ -9,13 +9,14 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class OrderPaidFailedRow extends RowAction
 {
     /**
      * @return string
      */
-	protected $title = '未收到打款';
+	protected $title = '支付失败，取消订单';
 
     /**
      * Handle the action request.
@@ -32,10 +33,13 @@ class OrderPaidFailedRow extends RowAction
             return $this->response()
             ->error('该订单已被审核 '.$this->getKey());
         }
-
 //        $order->closed = true; // 关闭订单
-        $order->status = Order::STATUS_FAILED; // 将订单设置为失败
-        $order->save();
+        DB::transaction(function () use ($order){
+            // 增加库存
+            $this->order->product->addStock($this->order->amount);
+            $order->status = Order::STATUS_FAILED; // 将订单设置为失败
+            $order->save();
+        });
         return $this->response()
             ->success('操作成功 '.$this->getKey())->refresh();
     }
