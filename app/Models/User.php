@@ -184,6 +184,8 @@ class User extends Authenticatable implements JWTSubject
             if (UserAddress::query()->where('user_id', $this->attributes['id'])->doesntExist()) {
                 return 'address';
             }
+
+            return 'idcard';
         }
 
         return null;
