@@ -63,7 +63,7 @@ class OrdersController extends AdminController
                   if (in_array($actions->row->status, [Order::STATUS_WAIT_GOODS, Order::STATUS_RECEIVING])) {
                       $actions->append(new \App\Admin\Actions\Grid\OrderWriteNumber());
                   }
-                  if ($actions->row->status === Order::STATUS_PENDING) {
+                  if ($actions->row->status === Order::STATUS_PENDING && $actions->row->product->type === Product::TYPE_ROB) {
                       $actions->append(new \App\Admin\Actions\Grid\OrderPaidVerifyRow());
                       $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
                   }
