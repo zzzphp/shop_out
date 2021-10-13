@@ -6,6 +6,7 @@ use App\Admin\Actions\Tables\UserAddressTable;
 use App\Admin\Actions\Tables\UserCollectionTable;
 use App\Models\User;
 use App\Models\UserAddress;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -21,6 +22,11 @@ class UserRealNameController extends AdminController
     protected function grid()
     {
         return Grid::make(new User(), function (Grid $grid) {
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->where('admin_id', Admin::user()->id);
+            }
+            $grid->model()->orderBy('id','DESC');
+
             $grid->column('id')->sortable();
             $grid->column('name')->title()->title();
             $grid->column('phone');

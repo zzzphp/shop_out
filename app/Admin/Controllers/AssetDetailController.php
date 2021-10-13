@@ -25,7 +25,7 @@ class AssetDetailController extends AdminController
     {
         return Grid::make(AssetDetail::with(['user', 'currency']), function (Grid $grid) {
             $grid->model()->orderBy('id','desc');
-            if(Admin::user()->isRole('agent')) {
+            if(Admin::user()->isRole('curator')) {
                $grid->model()->whereHas('user', function($builder){
                    $builder->where('admin_id', Admin::user()->id);
                });

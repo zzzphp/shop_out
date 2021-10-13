@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\PayMethod;
 use App\Models\Product;
 use App\Models\Stage;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -23,6 +24,9 @@ class ProductsController extends AdminController
     protected function grid()
     {
         return Grid::make(Products::with(['currency','stage']), function (Grid $grid) {
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->where('admin_id', Admin::user()->id);
+            }
             $grid->model()->where('type', Product::TYPE_ROB);
             $grid->column('id')->sortable();
             $grid->column('image')->image('', 50, 50);
@@ -106,6 +110,7 @@ class ProductsController extends AdminController
             $form->image('image')->uniqueName()->required();
             $form->text('original_price')->required();
             $form->text('price')->required();
+            $form->hidden('admin_id');
             $form->array('attributes', function($form){
                 $form->column(8, function ($form){
                     $form->text('title', '属性标题');
@@ -136,6 +141,7 @@ class ProductsController extends AdminController
                     }
                     $form->attributes = $arr;
                 }
+                $form->admin_id = Admin::user()->id;
             });
         });
     }

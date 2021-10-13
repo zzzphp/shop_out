@@ -23,7 +23,7 @@ class UsersController extends AdminController
     protected function grid()
     {
         return Grid::make(Users::with(['admin']), function (Grid $grid) {
-            if(Admin::user()->isRole('agent')) {
+            if(Admin::user()->isRole('curator')) {
                $grid->model()->where('admin_id', Admin::user()->id);
             }
             $grid->tools(new \App\Admin\Actions\AgentLink());
@@ -66,7 +66,7 @@ class UsersController extends AdminController
                 $grid->column('name');
                 $grid->column('avatar')->image('', 30,30);
                 $grid->column('admin.username','所属')->display(function($value){
-                    return $value ? $value.'[代理平台]' : '总平台';
+                    return $value ? $value.'[会馆]' : '总平台';
                 });
                 $grid->column('phone')->copyable();
                 $grid->column('names', '查看认证信息')

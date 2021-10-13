@@ -26,6 +26,11 @@ class OrdersController extends AdminController
     protected function grid()
     {
         return Grid::make(Orders::with(['currency', 'product.stage', 'user']), function (Grid $grid) {
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->whereHas('user', function($builder){
+                    $builder->where('admin_id', Admin::user()->id);
+                });
+            }
             $grid->model()
 //                ->whereHas('product', function ($query){
 //                    $query->where('type', Product::TYPE_ROB);

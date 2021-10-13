@@ -25,7 +25,7 @@ class WithdrawalController extends AdminController
     {
         return Grid::make(Withdrawal::with(['user','currency']), function (Grid $grid) {
             $grid->model()->orderBy('id', 'DESC');
-            if(Admin::user()->isRole('agent')) {
+            if(Admin::user()->isRole('curator')) {
                $grid->model()->whereHas('user', function($builder){
                    $builder->where('admin_id', Admin::user()->id);
                });
