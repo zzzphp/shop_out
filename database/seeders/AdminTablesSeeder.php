@@ -119,13 +119,13 @@ class AdminTablesSeeder extends Seeder
                     "id" => 9,
                     "parent_id" => 0,
                     "order" => 29,
-                    "title" => "资讯公告",
+                    "title" => "新闻中心",
                     "icon" => "fa-hacker-news",
                     "uri" => "news",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 05:48:03",
-                    "updated_at" => "2021-10-05 11:51:24"
+                    "updated_at" => "2021-10-13 15:04:25"
                 ],
                 [
                     "id" => 10,
@@ -498,6 +498,30 @@ class AdminTablesSeeder extends Seeder
                     "show" => 1,
                     "created_at" => "2021-10-05 11:51:02",
                     "updated_at" => "2021-10-05 11:51:14"
+                ],
+                [
+                    "id" => 42,
+                    "parent_id" => 9,
+                    "order" => 41,
+                    "title" => "资讯中心",
+                    "icon" => NULL,
+                    "uri" => "information",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2021-10-13 15:02:27",
+                    "updated_at" => "2021-10-13 15:02:27"
+                ],
+                [
+                    "id" => 43,
+                    "parent_id" => 9,
+                    "order" => 42,
+                    "title" => "活动公告",
+                    "icon" => NULL,
+                    "uri" => "news",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2021-10-13 15:03:49",
+                    "updated_at" => "2021-10-13 15:03:49"
                 ]
             ]
         );
@@ -576,11 +600,11 @@ class AdminTablesSeeder extends Seeder
                     "name" => "users",
                     "slug" => "customer",
                     "http_method" => "",
-                    "http_path" => "/users",
-                    "order" => 7,
+                    "http_path" => "/users*",
+                    "order" => 8,
                     "parent_id" => 0,
                     "created_at" => "2021-06-14 10:18:23",
-                    "updated_at" => "2021-06-18 17:24:01"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 8,
@@ -588,10 +612,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "orders",
                     "http_method" => "",
                     "http_path" => "/orders",
-                    "order" => 8,
+                    "order" => 9,
                     "parent_id" => 0,
                     "created_at" => "2021-06-14 10:25:03",
-                    "updated_at" => "2021-06-15 18:21:06"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 9,
@@ -599,10 +623,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "recharges",
                     "http_method" => "",
                     "http_path" => "/recharges",
-                    "order" => 9,
+                    "order" => 10,
                     "parent_id" => 0,
                     "created_at" => "2021-06-14 10:31:45",
-                    "updated_at" => "2021-06-15 18:21:19"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 10,
@@ -610,10 +634,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "withdrawals",
                     "http_method" => "",
                     "http_path" => "/withdrawals",
-                    "order" => 10,
+                    "order" => 11,
                     "parent_id" => 0,
                     "created_at" => "2021-06-14 10:32:19",
-                    "updated_at" => "2021-06-15 18:21:28"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 11,
@@ -621,10 +645,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "agents",
                     "http_method" => "",
                     "http_path" => "/agents*",
-                    "order" => 11,
+                    "order" => 12,
                     "parent_id" => 0,
                     "created_at" => "2021-06-14 17:01:07",
-                    "updated_at" => "2021-06-14 17:01:07"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 12,
@@ -632,10 +656,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "asset_details",
                     "http_method" => "GET",
                     "http_path" => "/asset_details",
-                    "order" => 12,
+                    "order" => 13,
                     "parent_id" => 0,
                     "created_at" => "2021-06-18 17:20:58",
-                    "updated_at" => "2021-06-18 17:20:58"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 13,
@@ -643,10 +667,10 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "agent_statistics",
                     "http_method" => "GET",
                     "http_path" => "/agent_statistics",
-                    "order" => 13,
+                    "order" => 14,
                     "parent_id" => 0,
                     "created_at" => "2021-06-18 17:23:29",
-                    "updated_at" => "2021-06-18 17:23:29"
+                    "updated_at" => "2021-10-13 14:27:41"
                 ],
                 [
                     "id" => 14,
@@ -654,10 +678,76 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "products",
                     "http_method" => "GET,POST",
                     "http_path" => "/products/create*,/products,/products/*/edit,/products/*",
-                    "order" => 14,
+                    "order" => 15,
                     "parent_id" => 0,
                     "created_at" => "2021-10-12 16:01:35",
-                    "updated_at" => "2021-10-12 16:07:40"
+                    "updated_at" => "2021-10-13 14:27:42"
+                ],
+                [
+                    "id" => 15,
+                    "name" => "realname",
+                    "slug" => "realname",
+                    "http_method" => "",
+                    "http_path" => "/real_names*",
+                    "order" => 7,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 12:20:36",
+                    "updated_at" => "2021-10-13 14:27:41"
+                ],
+                [
+                    "id" => 16,
+                    "name" => "categories",
+                    "slug" => "categories",
+                    "http_method" => "",
+                    "http_path" => "/categories*",
+                    "order" => 16,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 14:46:36",
+                    "updated_at" => "2021-10-13 14:46:36"
+                ],
+                [
+                    "id" => 17,
+                    "name" => "children",
+                    "slug" => "children",
+                    "http_method" => "",
+                    "http_path" => "/children*",
+                    "order" => 17,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 14:51:08",
+                    "updated_at" => "2021-10-13 14:51:08"
+                ],
+                [
+                    "id" => 18,
+                    "name" => "news",
+                    "slug" => "news",
+                    "http_method" => "",
+                    "http_path" => "/news*",
+                    "order" => 18,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 15:06:24",
+                    "updated_at" => "2021-10-13 15:06:24"
+                ],
+                [
+                    "id" => 19,
+                    "name" => "information",
+                    "slug" => "information",
+                    "http_method" => "",
+                    "http_path" => "/information*",
+                    "order" => 19,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 15:06:58",
+                    "updated_at" => "2021-10-13 15:06:58"
+                ],
+                [
+                    "id" => 20,
+                    "name" => "commissions",
+                    "slug" => "commissions",
+                    "http_method" => "",
+                    "http_path" => "/commissions*",
+                    "order" => 20,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-13 15:14:10",
+                    "updated_at" => "2021-10-13 15:14:10"
                 ]
             ]
         );
@@ -678,6 +768,27 @@ class AdminTablesSeeder extends Seeder
                     "slug" => "products",
                     "created_at" => "2021-10-12 15:39:29",
                     "updated_at" => "2021-10-12 15:39:29"
+                ],
+                [
+                    "id" => 5,
+                    "name" => "馆长",
+                    "slug" => "curator",
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "id" => 6,
+                    "name" => "客服",
+                    "slug" => "service",
+                    "created_at" => "2021-10-13 15:09:31",
+                    "updated_at" => "2021-10-13 15:09:31"
+                ],
+                [
+                    "id" => 7,
+                    "name" => "财务",
+                    "slug" => "finance",
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:41"
                 ]
             ]
         );
@@ -742,6 +853,36 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 26,
                     "created_at" => "2021-10-12 16:01:35",
                     "updated_at" => "2021-10-12 16:01:35"
+                ],
+                [
+                    "permission_id" => 15,
+                    "menu_id" => 41,
+                    "created_at" => "2021-10-13 12:20:36",
+                    "updated_at" => "2021-10-13 12:20:36"
+                ],
+                [
+                    "permission_id" => 16,
+                    "menu_id" => 27,
+                    "created_at" => "2021-10-13 14:48:12",
+                    "updated_at" => "2021-10-13 14:48:12"
+                ],
+                [
+                    "permission_id" => 18,
+                    "menu_id" => 43,
+                    "created_at" => "2021-10-13 15:06:24",
+                    "updated_at" => "2021-10-13 15:06:24"
+                ],
+                [
+                    "permission_id" => 19,
+                    "menu_id" => 42,
+                    "created_at" => "2021-10-13 15:06:58",
+                    "updated_at" => "2021-10-13 15:06:58"
+                ],
+                [
+                    "permission_id" => 20,
+                    "menu_id" => 15,
+                    "created_at" => "2021-10-13 15:14:10",
+                    "updated_at" => "2021-10-13 15:14:10"
                 ]
             ]
 		);
@@ -994,6 +1135,138 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 26,
                     "created_at" => "2021-10-12 15:39:29",
                     "updated_at" => "2021-10-12 15:39:29"
+                ],
+                [
+                    "role_id" => 4,
+                    "menu_id" => 8,
+                    "created_at" => "2021-10-13 09:30:35",
+                    "updated_at" => "2021-10-13 09:30:35"
+                ],
+                [
+                    "role_id" => 4,
+                    "menu_id" => 25,
+                    "created_at" => "2021-10-13 09:30:35",
+                    "updated_at" => "2021-10-13 09:30:35"
+                ],
+                [
+                    "role_id" => 4,
+                    "menu_id" => 41,
+                    "created_at" => "2021-10-13 09:30:35",
+                    "updated_at" => "2021-10-13 09:30:35"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 8,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 11,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 12,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 14,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 17,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 25,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 26,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 30,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 33,
+                    "created_at" => "2021-10-13 14:25:01",
+                    "updated_at" => "2021-10-13 14:25:01"
+                ],
+                [
+                    "role_id" => 5,
+                    "menu_id" => 41,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 6,
+                    "menu_id" => 9,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "menu_id" => 25,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "menu_id" => 41,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "menu_id" => 42,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "menu_id" => 43,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 7,
+                    "menu_id" => 15,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "menu_id" => 17,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "menu_id" => 25,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "menu_id" => 30,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
                 ]
             ]
         );
@@ -1006,6 +1279,108 @@ class AdminTablesSeeder extends Seeder
                     "permission_id" => 14,
                     "created_at" => "2021-10-12 16:02:09",
                     "updated_at" => "2021-10-12 16:02:09"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 7,
+                    "created_at" => "2021-10-13 14:28:06",
+                    "updated_at" => "2021-10-13 14:28:06"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 8,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 9,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 10,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 12,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 14,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 15,
+                    "created_at" => "2021-10-13 14:25:00",
+                    "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 17,
+                    "created_at" => "2021-10-13 14:52:47",
+                    "updated_at" => "2021-10-13 14:52:47"
+                ],
+                [
+                    "role_id" => 6,
+                    "permission_id" => 7,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "permission_id" => 15,
+                    "created_at" => "2021-10-13 15:09:32",
+                    "updated_at" => "2021-10-13 15:09:32"
+                ],
+                [
+                    "role_id" => 6,
+                    "permission_id" => 18,
+                    "created_at" => "2021-10-13 15:11:14",
+                    "updated_at" => "2021-10-13 15:11:14"
+                ],
+                [
+                    "role_id" => 6,
+                    "permission_id" => 19,
+                    "created_at" => "2021-10-13 15:11:14",
+                    "updated_at" => "2021-10-13 15:11:14"
+                ],
+                [
+                    "role_id" => 7,
+                    "permission_id" => 7,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "permission_id" => 8,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "permission_id" => 10,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "permission_id" => 12,
+                    "created_at" => "2021-10-13 15:13:31",
+                    "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "permission_id" => 20,
+                    "created_at" => "2021-10-13 15:14:47",
+                    "updated_at" => "2021-10-13 15:14:47"
                 ]
             ]
         );
