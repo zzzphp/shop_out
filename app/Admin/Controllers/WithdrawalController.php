@@ -51,8 +51,19 @@ class WithdrawalController extends AdminController
             ->expand(function () {
                 // 返回显示的详情
                 // 这里返回 content 字段内容，并用 Card 包裹起来
-                $data = $this->coin_address;
                 $s = '';
+                $data = $this->coin_address;
+                switch ($data['type']) {
+                    case 'bank':
+                        $data['type'] = '银行收款';
+                        break;
+                    case 'alipay':
+                        $data['type'] = '支付宝收款';
+                        break;
+                    case 'weixin':
+                        $data['type'] = '微信收款';
+                        break;
+                }
                 foreach ($data as $item) {
                     $s .= '<br>' . $item;
                 }
