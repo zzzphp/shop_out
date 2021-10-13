@@ -47,6 +47,11 @@ class NewRecharge extends Card
         $this->currency = $currency->name;
 
         $query = Recharge::query();
+        if(Admin::user()->isRole('curator')) {
+            $query->whereHas('user', function($builder){
+                $builder->where('admin_id', Admin::user()->id);
+            });
+        }
         switch ($request->get('option')) {
             case '1':
                 // 卡片内容

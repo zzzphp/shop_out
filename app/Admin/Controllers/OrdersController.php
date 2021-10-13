@@ -96,6 +96,7 @@ class OrdersController extends AdminController
             // 禁用删除按钮
             $grid->disableDeleteButton();
             $grid->disableCreateButton();
+            $grid->disableViewButton();
             // 导出功能
             $grid->export();
             $grid->export()->rows(function (array $rows){

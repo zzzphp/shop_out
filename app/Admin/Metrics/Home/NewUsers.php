@@ -37,7 +37,11 @@ class NewUsers extends Card
      */
     public function handle(Request $request)
     {
+
         $query = User::query();
+        if(Admin::user()->isRole('curator')) {
+            $query->where('admin_id', Admin::user()->id);
+        }
         switch ($request->get('option')) {
             case '365':
                 // 卡片内容

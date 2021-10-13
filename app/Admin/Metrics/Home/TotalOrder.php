@@ -27,7 +27,7 @@ class TotalOrder extends Line
     protected function init()
     {
         parent::init();
-        $this->title('平台订单销售总额');
+        $this->title('订单销售总额');
         $options = Currency::query()
             ->orderBy('sort')
             ->pluck('name', 'id')
@@ -60,6 +60,11 @@ class TotalOrder extends Line
         $currency_id = Cache::get('admin_currency_id', $this->defaultCoin);
         $query = \App\Models\Order::query()->with(['user'])
             ->where('status', '!=', Order::STATUS_PENDING);
+        if(Admin::user()->isRole('curator')) {
+            $query->whereHas('user', function($builder){
+                $builder->where('admin_id', Admin::user()->id);
+            });
+        }
         $total_amount = $query->sum('total_amount') . ' CNY';
         $this->withContent($total_amount);
         // 图表数据

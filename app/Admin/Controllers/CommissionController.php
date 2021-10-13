@@ -32,10 +32,11 @@ class CommissionController extends AdminController
             });
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+            $grid->disableActions();
+            $grid->disableCreateButton();
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -75,7 +76,7 @@ class CommissionController extends AdminController
             $form->text('level');
             $form->text('amount');
             $form->text('status');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
