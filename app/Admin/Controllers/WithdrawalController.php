@@ -54,7 +54,7 @@ class WithdrawalController extends AdminController
                 $data = $this->coin_address;
                 $s = '';
                 foreach ($data as $item) {
-                    $s .= '--' . $item;
+                    $s .= '<br>' . $item;
                 }
                 $card = new Card(null, $s);
                 return "<div style='padding:10px 10px 0'>$card</div>";

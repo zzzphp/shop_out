@@ -27,9 +27,11 @@ class WithdrawalsController extends Controller
             ->where('user_id', $request->user()->id)
             ->where('type', $request->type)
             ->first();
-        if (!$collection->data) {
+        if (!$collection) {
             $this->errorResponse(400, '请完善收款信息!');
         }
+        $data = $collection->data;
+        $data['type'] = $collection->type;
         // 增加短信验证
         $this->validateSmsCode($request->user()->phone, $request->key, $request->code);
 
@@ -50,12 +52,12 @@ class WithdrawalsController extends Controller
         if($wallet->amount < $request->amount) {
             $this->errorResponse(400, '当前可用资产不足');
         }
-        $withdrawal = DB::transaction(function () use($request, $chain, $wallet, $collection) {
+        $withdrawal = DB::transaction(function () use($request, $chain, $wallet, $data) {
              $withdrawal = Withdrawal::create([
                 'user_id' => $request->user()->id,
                 'currency_id' => $request->currency_id,
                 'chain'   => $chain['chain'],
-                'coin_address' => $collection,
+                'coin_address' => $data,
                 'amount'        => $request->amount,
                 'service_charge' => $chain['service_charge'],
                 'actual_amount' => sub($request->amount, $chain['service_charge']), // 实际到账减去手续费
