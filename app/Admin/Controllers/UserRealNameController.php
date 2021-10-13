@@ -71,7 +71,7 @@ EOT;
                     return UserCollectionTable::make();
                 });
             $grid->column('status','认证状态')->select(User::$statusMap);
-
+            $grid->disableActions();
             $grid->disableCreateButton();
             $grid->disableDeleteButton();
             $grid->disableBatchActions();

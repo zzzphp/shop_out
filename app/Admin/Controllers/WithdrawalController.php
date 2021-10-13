@@ -47,11 +47,16 @@ class WithdrawalController extends AdminController
                 'primary' // 第二个参数为默认值
             );
             $grid->column('created_at');
-            $grid->column('remark')->display('查看') // 设置按钮名称
+            $grid->column('coin_address')->display('查看') // 设置按钮名称
             ->expand(function () {
                 // 返回显示的详情
                 // 这里返回 content 字段内容，并用 Card 包裹起来
-                $card = new Card(null, $this->remark);
+                $data = $this->coin_address;
+                $s = '';
+                foreach ($data as $item) {
+                    $s .= '--' . $item;
+                }
+                $card = new Card(null, $s);
                 return "<div style='padding:10px 10px 0'>$card</div>";
             });
             // $grid->column('updated_at')->sortable();

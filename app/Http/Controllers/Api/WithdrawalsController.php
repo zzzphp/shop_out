@@ -55,7 +55,7 @@ class WithdrawalsController extends Controller
                 'user_id' => $request->user()->id,
                 'currency_id' => $request->currency_id,
                 'chain'   => $chain['chain'],
-                'coin_address' => $collection->data,
+                'coin_address' => $collection,
                 'amount'        => $request->amount,
                 'service_charge' => $chain['service_charge'],
                 'actual_amount' => sub($request->amount, $chain['service_charge']), // 实际到账减去手续费

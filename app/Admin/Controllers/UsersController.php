@@ -102,6 +102,7 @@ class UsersController extends AdminController
                 $grid->column('updated_at')->sortable();
 
             }
+            $grid->disableActions();
             $grid->disableEditButton();
             // 禁用删除按钮
             $grid->disableDeleteButton();
