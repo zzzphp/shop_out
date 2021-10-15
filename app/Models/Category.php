@@ -26,18 +26,18 @@ class Category extends Model
 
 
 
-//	protected $appends = ['icon_url'];
+	protected $appends = ['icon_url'];
 
-//	public function getIconUrlAttribute()
-//    {
-//        if (!isset($this->attributes['icon'])) {
-//            return;
-//        }
-//        if (Str::startsWith($this->attributes['icon'], ['http://', 'https://'])) {
-//            return $this->attributes['icon'];
-//        }
-//        return Storage::disk('admin')->url($this->attributes['icon']);
-//    }
+	public function getIconUrlAttribute()
+    {
+        if (!isset($this->attributes['icon'])) {
+            return;
+        }
+        if (Str::startsWith($this->attributes['icon'], ['http://', 'https://'])) {
+            return $this->attributes['icon'];
+        }
+        return Storage::disk('admin')->url($this->attributes['icon']);
+    }
 
     public function children()
     {
