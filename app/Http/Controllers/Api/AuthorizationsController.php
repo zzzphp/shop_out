@@ -113,7 +113,7 @@ class AuthorizationsController extends Controller
                             'safe_password' => 'required',
                             'name'          => '',
                             'avatar'        => 'url',
-                            'admin_id'      => 'required',
+//                            'admin_id'      => 'required',
         ],[], ['code' => '验证码', 'phone' => '手机号', 'password' => '密码', 'safe_password' => '安全密码', 'avatar' => '头像']);
         if (strlen($request->safe_password) !== 6) return $this->errorResponse(400, '安全密码为6位数');
         $cacheData = Cache::get($request->key);
@@ -152,7 +152,7 @@ class AuthorizationsController extends Controller
                 'idcard_data' => [],
                 'invite_id' => $inviteCode?:0,
                 'grade'  =>User::GRADE_ONE,
-                'admin_id' => $request->admin_id,
+                'admin_id' => $request->input('admin_id', null),
             ]);
 
         return response()->json(['data' => $user]);
@@ -200,7 +200,8 @@ class AuthorizationsController extends Controller
 
     public function apply_realname(Request $request)
     {
-        return response()->json(['data' => $request->user()->update(['status' => User::STATUS_AUDITING])]);
+        return response()->json(['data' => $request->user()
+            ->update(['status' => User::STATUS_AUDITING])]);
     }
 
     public function safePassword(Request $request)

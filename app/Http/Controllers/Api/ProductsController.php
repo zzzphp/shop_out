@@ -17,10 +17,11 @@ class ProductsController extends Controller
         $products = Product::query()
         ->where(['category_id' => $request->input('category_id'), 'on_sale' => true])
         ->where('stock', '>', 0)
-        ->orderBy('id', 'DESC')
-        ->get();
-
-        return response()->json(['data' => $products]);
+        ->orderBy('id', 'DESC');
+        if ($request->user()->admin_id) {
+            $products->where('admin_id', $request->user()->admin_id);
+        }
+        return response()->json(['data' => $products->get()]);
     }
 
     public function show(Product $product)
