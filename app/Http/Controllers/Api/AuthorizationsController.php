@@ -175,7 +175,7 @@ class AuthorizationsController extends Controller
                 'back_photo'    => $request->back_photo,
                 'video'         => '',
         ];
-        $request->user()->update(['idcard_data' => $info, 'status' => User::STATUS_AUDITING, 'name' => $request->name]);
+        $request->user()->update(['idcard_data' => $info, 'name' => $request->name]);
 
         return response()->json(['data' => $info]);
     }
@@ -196,6 +196,11 @@ class AuthorizationsController extends Controller
         ];
         $user->idcard_data = $info;
         return response()->json(['data' => $user->save()]);
+    }
+
+    public function apply_realname(Request $request)
+    {
+        return response()->json(['data' => $request->user()->update(['status' => User::STATUS_AUDITING])]);
     }
 
     public function safePassword(Request $request)

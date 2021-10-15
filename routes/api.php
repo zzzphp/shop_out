@@ -81,6 +81,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('agreements/{agreement}', 'AgreementsController@show');
     // 登录后可访问
     Route::middleware('auth:api')->group(function(){
+        // 实名申请
+        Route::put('apply_realname', 'AuthorizationsController@apply_realname');
         // 充币申请
         Route::get('recharges', 'RechargesController@store')->name('recharges.store');
         // 节流处理防止攻击
