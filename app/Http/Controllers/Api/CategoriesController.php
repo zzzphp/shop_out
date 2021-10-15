@@ -29,7 +29,7 @@ class CategoriesController extends Controller
                 $list[$k]['image_url'] = full_url($url);
             }
         }
-        return response()->json(['data' => $builder->get()]);
+        return response()->json(['data' => $list]);
     }
 
 }
