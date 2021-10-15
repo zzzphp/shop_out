@@ -60,7 +60,8 @@ class CommissionOrder implements ShouldQueue
         DB::transaction(function () use ($oneUser, $profit){
             // 获取账号设置的佣金比例
             $rate = $oneUser->share_rate;
-            $one = $rate['one'] ?? 10 / 100;
+            $one = $rate['one'] ?? 10;
+            $one = $one / 100;
             //一级分佣
             $commission = Commission::create([
                 'level' => Commission::LEVEL_ONE,
@@ -81,7 +82,8 @@ class CommissionOrder implements ShouldQueue
         DB::transaction(function () use ($oneUser, $profit){
             $twoUser = User::find($oneUser->invite_id);
             $rate = $twoUser->share_rate;
-            $two = $rate['two'] ?? 10 / 100;
+            $two = $rate['two'] ?? 10;
+            $two = $two / 100;
             // 二级分佣
             $commission = Commission::create([
                 'level' => Commission::LEVEL_TWO,
