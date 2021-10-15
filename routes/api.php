@@ -49,10 +49,6 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     // 行情列表
     Route::get('market', 'CurrencyMarketController@index')->name('CurrencyMarket.index');
     Route::get('market_index', 'CurrencyMarketController@index_center')->name('CurrencyMarket.index_center');
-    // 产品列表
-    Route::get('products', 'ProductsController@index')->name('products.index');
-    // 产品详情
-    Route::get('products/{product}', 'ProductsController@show')->name('products.show');
     // 币种列表
     Route::get('currencies', 'CurrenciesController@index')->name('currencies.index');
     // 首页轮播图
@@ -81,6 +77,10 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('agreements/{agreement}', 'AgreementsController@show');
     // 登录后可访问
     Route::middleware('auth:api')->group(function(){
+        // 产品列表
+        Route::get('products', 'ProductsController@index')->name('products.index');
+        // 产品详情
+        Route::get('products/{product}', 'ProductsController@show')->name('products.show');
         // 实名申请
         Route::put('apply_realname', 'AuthorizationsController@apply_realname');
         // 充币申请

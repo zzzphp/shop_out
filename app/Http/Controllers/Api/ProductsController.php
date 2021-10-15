@@ -18,7 +18,7 @@ class ProductsController extends Controller
         ->where(['category_id' => $request->input('category_id'), 'on_sale' => true])
         ->where('stock', '>', 0)
         ->orderBy('id', 'DESC');
-        if ($request->user->admin_id) {
+        if ($request->user()->admin_id) {
             $products->where('admin_id', $request->user()->admin_id);
         }
         return response()->json(['data' => $products->get()]);
