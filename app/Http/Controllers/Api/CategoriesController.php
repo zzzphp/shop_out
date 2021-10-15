@@ -31,7 +31,6 @@ class CategoriesController extends Controller
                 $list[$k]['icon_url'] = full_url($url);
             }
         }
-        dd($list);
         return response()->json(['data' => $list]);
     }
 
