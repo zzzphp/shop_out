@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
         'share_rate',
     ];
 
-    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status', 'parent'];
 
     protected static function boot()
     {
@@ -167,6 +167,16 @@ class User extends Authenticatable implements JWTSubject
             return '您的体验会员已过期';
         }
 
+    }
+
+    public function getParentAttribute()
+    {
+        $data = [];
+        $parent = User::query()->where('id', $this->attributes['invite_id'])->first()->toArray();
+        $data['parent'] = $parent['name'] ?? '';
+        $data['phone'] = $parent['phone'] ?? '';
+
+        return $data;
     }
 
     public function getUploadDataAttribute()
