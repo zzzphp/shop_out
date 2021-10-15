@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -19,7 +20,15 @@ class CategoriesController extends Controller
         if($category_id = $request->category_id) {
             $builder->where('parent_id', $category_id);
         }
-
+        $list = $builder->get();
+        foreach ($list as $k => $value) {
+            if ($value->parent_id === 0 && $request->user()->admin_id) {
+                $url = DB::table('admin_users')
+                    ->where('id', $request->user()->admin_id)
+                    ->value('avatar');
+                $list[$k]['image_url'] = full_url($url);
+            }
+        }
         return response()->json(['data' => $builder->get()]);
     }
 

@@ -59,8 +59,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('ores', 'OrePoolController@index')->name('ores.index');
     // 同步矿池数据
     Route::post('ores', 'OrePoolController@store')->name('ores.store');
-    // 分类
-    Route::get('categories', 'CategoriesController@index')->name('categories.index');
+
     // 获取版本更新
     Route::get('version', 'VersionsController@version');
     // 获取当前版本信息
@@ -77,6 +76,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
     Route::get('agreements/{agreement}', 'AgreementsController@show');
     // 登录后可访问
     Route::middleware('auth:api')->group(function(){
+        // 分类
+        Route::get('categories', 'CategoriesController@index')->name('categories.index');
         // 产品列表
         Route::get('products', 'ProductsController@index')->name('products.index');
         // 产品详情

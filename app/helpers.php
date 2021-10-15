@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 function hashKey($user_id, $currency_id, $other = '')
 {
     return substr(md5($user_id.$currency_id.$other), 8, 16);
@@ -32,6 +35,17 @@ function comp($left, $rigth, int $scale = 2) {
 function usdtAmount()
 {
     return config('site.usdt');
+}
+
+function full_url($url)
+{
+    if (!$url) {
+        return;
+    }
+    if (Str::startsWith($url, ['http://', 'https://'])) {
+        return $url;
+    }
+    return Storage::disk('admin')->url($url);
 }
 
 function currency_last($symbol)
