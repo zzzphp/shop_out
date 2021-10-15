@@ -14,7 +14,7 @@ class RechargesController extends Controller
     // 充币
     public function store(Request $request)
     {
-        return response()->json(['data' => '充值通道已关闭']);
+        return $this->errorResponse(400, '充值通道已关闭');
         $request->validate([
                 'amount'         => 'required',
                 'currency_id'    => 'required',
