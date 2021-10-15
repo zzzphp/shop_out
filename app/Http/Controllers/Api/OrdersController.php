@@ -221,7 +221,7 @@ class OrdersController extends Controller
         if (!Hash::check($request->safe_password, $safe_password)) {
             return $this->errorResponse(400, '安全密码错误');
         }
-        // 从余额扣除手续费
+        // 从通宝扣除手续费
         if ($order->status !== Order::STATUS_SUCCESS) {
             return $this->errorResponse(400, '该订单状态不正确');
         }
@@ -232,9 +232,12 @@ class OrdersController extends Controller
             // 从余额扣除手续费
             $wallet = Wallet::query()
                 ->where('user_id', $order->user_id)
-                ->where('currency_id', 1)
+                ->where('currency_id', 2)
                 ->first();
-            $wallet->subAmount(mul($order->total_amount, config('site.service_charge')), AssetDetails::TYPE_SERVICE);
+            $wallet->subAmount(mul($order->total_amount,
+                config('site.service_charge')),
+                AssetDetails::TYPE_SERVICE,
+                $order->product()->title . '-' . $order->id);
             return $order;
         });
 

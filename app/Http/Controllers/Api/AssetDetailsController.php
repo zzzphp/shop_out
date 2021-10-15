@@ -13,6 +13,7 @@ class AssetDetailsController extends Controller
     {
         $details = AssetDetails::with(['currency'])
             ->where('user_id', $request->user()->id)
+            ->where('currency_id', $request->input('currency_id', 1))
             ->orderBy('id', 'DESC')
             ->paginate(10);
 
