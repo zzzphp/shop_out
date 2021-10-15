@@ -22,13 +22,16 @@ class CategoriesController extends Controller
         }
         $list = $builder->get();
         foreach ($list as $k => $value) {
+
             if ($value->parent_id === 0 && $request->user()->admin_id) {
                 $url = DB::table('admin_users')
                     ->where('id', $request->user()->admin_id)
                     ->value('avatar');
-                $list[$k]['image_url'] = full_url($url);
+
+                $list[$k]['icon_url'] = full_url($url);
             }
         }
+        dd($list);
         return response()->json(['data' => $list]);
     }
 
