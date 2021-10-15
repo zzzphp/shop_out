@@ -172,9 +172,14 @@ class User extends Authenticatable implements JWTSubject
     public function getParentAttribute()
     {
         $data = [];
-        $parent = User::query()->where('id', $this->attributes['invite_id'])->first()->toArray();
-        $data['parent'] = $parent['name'] ?? '';
-        $data['phone'] = $parent['phone'] ?? '';
+        $parent = User::query()->where('id', $this->attributes['invite_id'])->first();
+        if ($parent) {
+            $data['parent'] = $parent->name;
+            $data['phone'] = $parent->phone;
+        } else {
+            $data['parent'] = '';
+            $data['phone'] = '';
+        }
 
         return $data;
     }
