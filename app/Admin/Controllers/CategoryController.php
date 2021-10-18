@@ -66,9 +66,7 @@ class CategoryController extends AdminController
     {
         return Form::make(new Category(), function (Form $form) {
             if(Admin::user()->isRole('curator')) {
-                $grid->model()->whereHas('user', function($builder){
-                    $builder->where('admin_id', Admin::user()->id);
-                });
+                $grid->model()->where('admin_id', Admin::user()->id);
             }
             $form->display('id');
             $form->number('sort');
