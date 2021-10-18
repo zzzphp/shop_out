@@ -61,7 +61,6 @@ class Currency extends Model
             }
             return $data;
         }
-
     }
 
     public function chainConf($chain_name) {

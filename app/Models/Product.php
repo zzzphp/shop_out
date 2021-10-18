@@ -72,12 +72,20 @@ class Product extends Model
 
     public function getUserAttribute()
     {
+        $data = [];
         if($this->attributes['type'] === Product::TYPE_AUCTION) {
             $user = User::find($this->attributes['user_id']);
 
-            return ['name' => $user->name, 'phone' => $user->phone];
+            $data = ['name' => $user->name, 'phone' => $user->phone];
+        } else {
+            if ($this->attributes['admin_id']) {
+                $shop = Shop::query()->where('admin_id', $this->attributes['admin_id'])->first();
+                $data = ['name' => $shop->name, 'phone' => $shop->phone];
+            } else {
+                $data = ['name' => '总馆', 'phone' => '111111111'];
+            }
         }
-        return null;
+        return $data;
     }
 
     public function getCollectionAttribute()

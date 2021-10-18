@@ -130,6 +130,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection summary
      * @property Grid\Column|Collection thumbnail
      * @property Grid\Column|Collection closed
+     * @property Grid\Column|Collection collection
+     * @property Grid\Column|Collection express_data
      * @property Grid\Column|Collection mortgage
      * @property Grid\Column|Collection paid_prove
      * @property Grid\Column|Collection payment_price
@@ -152,11 +154,13 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection commission
      * @property Grid\Column|Collection end_at
      * @property Grid\Column|Collection on_sale
+     * @property Grid\Column|Collection origin_order
      * @property Grid\Column|Collection original_price
      * @property Grid\Column|Collection price
      * @property Grid\Column|Collection stock
      * @property Grid\Column|Collection currency
      * @property Grid\Column|Collection recharge_prove
+     * @property Grid\Column|Collection logo
      * @property Grid\Column|Collection city
      * @property Grid\Column|Collection contact_name
      * @property Grid\Column|Collection contact_phone
@@ -170,8 +174,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection grade
      * @property Grid\Column|Collection idcard_data
      * @property Grid\Column|Collection invite_id
+     * @property Grid\Column|Collection is_ban
      * @property Grid\Column|Collection openid
      * @property Grid\Column|Collection safe_password
+     * @property Grid\Column|Collection share_rate
      * @property Grid\Column|Collection md5file
      * @property Grid\Column|Collection min_version
      * @property Grid\Column|Collection new_version
@@ -179,7 +185,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection terminal
      * @property Grid\Column|Collection update_description
      * @property Grid\Column|Collection url
+     * @property Grid\Column|Collection bond
      * @property Grid\Column|Collection frozen_amount
+     * @property Grid\Column|Collection integral
      * @property Grid\Column|Collection withdrawal_amount
      * @property Grid\Column|Collection actual_amount
      * @property Grid\Column|Collection coin_address
@@ -303,6 +311,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection summary(string $label = null)
      * @method Grid\Column|Collection thumbnail(string $label = null)
      * @method Grid\Column|Collection closed(string $label = null)
+     * @method Grid\Column|Collection collection(string $label = null)
+     * @method Grid\Column|Collection express_data(string $label = null)
      * @method Grid\Column|Collection mortgage(string $label = null)
      * @method Grid\Column|Collection paid_prove(string $label = null)
      * @method Grid\Column|Collection payment_price(string $label = null)
@@ -325,11 +335,13 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection commission(string $label = null)
      * @method Grid\Column|Collection end_at(string $label = null)
      * @method Grid\Column|Collection on_sale(string $label = null)
+     * @method Grid\Column|Collection origin_order(string $label = null)
      * @method Grid\Column|Collection original_price(string $label = null)
      * @method Grid\Column|Collection price(string $label = null)
      * @method Grid\Column|Collection stock(string $label = null)
      * @method Grid\Column|Collection currency(string $label = null)
      * @method Grid\Column|Collection recharge_prove(string $label = null)
+     * @method Grid\Column|Collection logo(string $label = null)
      * @method Grid\Column|Collection city(string $label = null)
      * @method Grid\Column|Collection contact_name(string $label = null)
      * @method Grid\Column|Collection contact_phone(string $label = null)
@@ -343,8 +355,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection grade(string $label = null)
      * @method Grid\Column|Collection idcard_data(string $label = null)
      * @method Grid\Column|Collection invite_id(string $label = null)
+     * @method Grid\Column|Collection is_ban(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
      * @method Grid\Column|Collection safe_password(string $label = null)
+     * @method Grid\Column|Collection share_rate(string $label = null)
      * @method Grid\Column|Collection md5file(string $label = null)
      * @method Grid\Column|Collection min_version(string $label = null)
      * @method Grid\Column|Collection new_version(string $label = null)
@@ -352,7 +366,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection terminal(string $label = null)
      * @method Grid\Column|Collection update_description(string $label = null)
      * @method Grid\Column|Collection url(string $label = null)
+     * @method Grid\Column|Collection bond(string $label = null)
      * @method Grid\Column|Collection frozen_amount(string $label = null)
+     * @method Grid\Column|Collection integral(string $label = null)
      * @method Grid\Column|Collection withdrawal_amount(string $label = null)
      * @method Grid\Column|Collection actual_amount(string $label = null)
      * @method Grid\Column|Collection coin_address(string $label = null)
@@ -481,6 +497,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection summary
      * @property Show\Field|Collection thumbnail
      * @property Show\Field|Collection closed
+     * @property Show\Field|Collection collection
+     * @property Show\Field|Collection express_data
      * @property Show\Field|Collection mortgage
      * @property Show\Field|Collection paid_prove
      * @property Show\Field|Collection payment_price
@@ -503,11 +521,13 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection commission
      * @property Show\Field|Collection end_at
      * @property Show\Field|Collection on_sale
+     * @property Show\Field|Collection origin_order
      * @property Show\Field|Collection original_price
      * @property Show\Field|Collection price
      * @property Show\Field|Collection stock
      * @property Show\Field|Collection currency
      * @property Show\Field|Collection recharge_prove
+     * @property Show\Field|Collection logo
      * @property Show\Field|Collection city
      * @property Show\Field|Collection contact_name
      * @property Show\Field|Collection contact_phone
@@ -521,8 +541,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection grade
      * @property Show\Field|Collection idcard_data
      * @property Show\Field|Collection invite_id
+     * @property Show\Field|Collection is_ban
      * @property Show\Field|Collection openid
      * @property Show\Field|Collection safe_password
+     * @property Show\Field|Collection share_rate
      * @property Show\Field|Collection md5file
      * @property Show\Field|Collection min_version
      * @property Show\Field|Collection new_version
@@ -530,7 +552,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection terminal
      * @property Show\Field|Collection update_description
      * @property Show\Field|Collection url
+     * @property Show\Field|Collection bond
      * @property Show\Field|Collection frozen_amount
+     * @property Show\Field|Collection integral
      * @property Show\Field|Collection withdrawal_amount
      * @property Show\Field|Collection actual_amount
      * @property Show\Field|Collection coin_address
@@ -654,6 +678,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection summary(string $label = null)
      * @method Show\Field|Collection thumbnail(string $label = null)
      * @method Show\Field|Collection closed(string $label = null)
+     * @method Show\Field|Collection collection(string $label = null)
+     * @method Show\Field|Collection express_data(string $label = null)
      * @method Show\Field|Collection mortgage(string $label = null)
      * @method Show\Field|Collection paid_prove(string $label = null)
      * @method Show\Field|Collection payment_price(string $label = null)
@@ -676,11 +702,13 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection commission(string $label = null)
      * @method Show\Field|Collection end_at(string $label = null)
      * @method Show\Field|Collection on_sale(string $label = null)
+     * @method Show\Field|Collection origin_order(string $label = null)
      * @method Show\Field|Collection original_price(string $label = null)
      * @method Show\Field|Collection price(string $label = null)
      * @method Show\Field|Collection stock(string $label = null)
      * @method Show\Field|Collection currency(string $label = null)
      * @method Show\Field|Collection recharge_prove(string $label = null)
+     * @method Show\Field|Collection logo(string $label = null)
      * @method Show\Field|Collection city(string $label = null)
      * @method Show\Field|Collection contact_name(string $label = null)
      * @method Show\Field|Collection contact_phone(string $label = null)
@@ -694,8 +722,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection grade(string $label = null)
      * @method Show\Field|Collection idcard_data(string $label = null)
      * @method Show\Field|Collection invite_id(string $label = null)
+     * @method Show\Field|Collection is_ban(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)
      * @method Show\Field|Collection safe_password(string $label = null)
+     * @method Show\Field|Collection share_rate(string $label = null)
      * @method Show\Field|Collection md5file(string $label = null)
      * @method Show\Field|Collection min_version(string $label = null)
      * @method Show\Field|Collection new_version(string $label = null)
@@ -703,7 +733,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection terminal(string $label = null)
      * @method Show\Field|Collection update_description(string $label = null)
      * @method Show\Field|Collection url(string $label = null)
+     * @method Show\Field|Collection bond(string $label = null)
      * @method Show\Field|Collection frozen_amount(string $label = null)
+     * @method Show\Field|Collection integral(string $label = null)
      * @method Show\Field|Collection withdrawal_amount(string $label = null)
      * @method Show\Field|Collection actual_amount(string $label = null)
      * @method Show\Field|Collection coin_address(string $label = null)

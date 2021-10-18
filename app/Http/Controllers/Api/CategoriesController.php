@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +30,9 @@ class CategoriesController extends Controller
         $list = $builder->get()->toArray();
         foreach ($list as $k => $value) {
             if ($value['parent_id'] === 0 && $request->user()->admin_id) {
-                $url = DB::table('admin_users')
-                    ->where('id', $request->user()->admin_id)
-                    ->value('avatar');
+                $url = Shop::query()
+                    ->where('admin_id', $request->user()->admin_id)
+                    ->value('logo');
                 $list[$k]['icon_url'] = full_url($url);
             }
         }

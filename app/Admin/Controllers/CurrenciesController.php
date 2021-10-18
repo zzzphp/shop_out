@@ -72,7 +72,7 @@ class CurrenciesController extends AdminController
             $form->array('address_data', function ($table) {
                 $table->text('chain','支付名称');
                 $table->textarea('data','数据');
-                $table->image('qrcode', '图标')->uniqueName();
+                $table->image('qrcode', '收款二维码')->uniqueName();
             })->required();
             $form->array('chains', function ($table) {
                 $table->text('chain','币种名称')->required();
