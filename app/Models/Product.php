@@ -102,7 +102,7 @@ class Product extends Model
             } else {
                 // 总平台
                 return Currency::query()
-                    ->where('currency_id', 1)
+                    ->where('id', 1)
                     ->first();
             }
         }
