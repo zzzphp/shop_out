@@ -92,17 +92,22 @@ class ProductsController extends AdminController
     {
         return Form::make(new Products(), function (Form $form) {
             $form->display('id');
-            $form->select('', '顶级分类')->options(function($value){
-                return \App\Models\Category::all()
-                    ->where('parent_id', 0)
-                    ->pluck('name', 'id');
-            })->load('category_id', 'children');
+//            $form->select('', '顶级分类')->options(function($value){
+//                return \App\Models\Category::all()
+//                    ->where('parent_id', 0)
+//                    ->pluck('name', 'id');
+//            })->load('category_id', 'children');
             $form->select('category_id', '产品分类')
                 ->options(function ($value){
-                    $parent_id = Category::query()->where('id', $value)->value('parent_id');
-                    return \App\Models\Category::all()
-                        ->where('parent_id', $parent_id)
-                        ->pluck('name', 'id');
+//                    $parent_id = Category::query()
+//                        ->where('id', $value)
+//                        ->value('parent_id');
+                    $builder =  \App\Models\Category::query()
+                        ->where('parent_id', 1);
+                    if (Admin::user()->isRole('curator')) {
+                        $builder->where('admin_id', Admin::user()->id);
+                    }
+                    return $builder->pluck('name', 'id');
                 })
                 ->required();
             $form->text('title')->required();
