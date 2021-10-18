@@ -13,7 +13,7 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         $builder = Category::query()
-            ->with('children', function ($builder){
+            ->with('children', function ($builder) use ($request){
                 if ($request->user()->admin_id) {
                     $builder->where('admin_id', $request->user()->admin_id);
                 } else {
