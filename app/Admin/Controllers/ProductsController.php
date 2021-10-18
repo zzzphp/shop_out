@@ -107,7 +107,7 @@ class ProductsController extends AdminController
                     if (Admin::user()->isRole('curator')) {
                         $builder->where('admin_id', Admin::user()->id);
                     } else {
-                        $builder->whereNull('admin_id', Admin::user()->id);
+                        $builder->whereNull('admin_id');
                     }
                     return $builder->pluck('name', 'id');
                 })
