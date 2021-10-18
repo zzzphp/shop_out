@@ -21,6 +21,9 @@ class CategoryController extends AdminController
     protected function grid()
     {
         return Grid::make(new Category(), function (Grid $grid) {
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->where('admin_id', Admin::user()->id);
+            }
             $grid->title->tree(false, false);
             $grid->column('id')->sortable();
             $grid->column('sort');
@@ -65,9 +68,6 @@ class CategoryController extends AdminController
     protected function form()
     {
         return Form::make(new Category(), function (Form $form) {
-            if(Admin::user()->isRole('curator')) {
-                $grid->model()->where('admin_id', Admin::user()->id);
-            }
             $form->display('id');
             $form->number('sort');
             $form->select('parent_id')->options(function (){
