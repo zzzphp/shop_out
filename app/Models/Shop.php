@@ -30,7 +30,7 @@ class Shop extends Model
         return Storage::disk('admin')->url($this->attributes['logo']);
     }
 
-    public function getLogoAttribute()
+    public function getCollectionAttribute()
     {
         if(isset($this->attributes['collection']) && $this->attributes['collection']) {
             $data = json_decode($this->attributes['collection'], true);
