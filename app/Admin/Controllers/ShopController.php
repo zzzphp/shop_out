@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Shop;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -19,6 +20,9 @@ class ShopController extends AdminController
     protected function grid()
     {
         return Grid::make(new Shop(), function (Grid $grid) {
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->where('admin_id', Admin::user()->id);
+            }
             $grid->column('id')->sortable();
             $grid->column('title');
             $grid->column('name');
