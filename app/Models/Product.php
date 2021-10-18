@@ -90,9 +90,20 @@ class Product extends Model
 
     public function getCollectionAttribute()
     {
-        return !$this->attributes['user_id'] ?
-            Currency::query()->first()->toArray()
-            : Collection::where('user_id', $this->attributes['user_id'])->get()->toArray();
+        if($this->attributes['type'] === Product::TYPE_AUCTION) {
+            return Collection::where('user_id', $this->attributes['user_id'])->get()->toArray();
+        } else {
+            if ($this->attributes['admin_id']) {
+                // 馆长
+                $data['address_data'] = Shop::query()
+                    ->where('admin_id', $this->attributes['admin_id'])
+                    ->value('collection');
+                return $data;
+            } else {
+                // 总平台
+                return Currency::query()->where('currency_id', 1)->first()->toArray();
+            }
+        }
     }
 
     public function getImage()
