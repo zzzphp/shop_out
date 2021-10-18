@@ -27,12 +27,15 @@ class ShopController extends AdminController
             $grid->column('title');
             $grid->column('name');
             $grid->column('phone');
+            $grid->column('logo')->image('', '', 50);
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
             if(!Admin::user()->isRole('admin')) {
                 $grid->disableCreateButton();
-                $grid->disableActions();
                 $grid->disableBatchActions();
+                $grid->disableFilterButton();
+                $grid->disableDeleteButton();
+                $grid->disableViewButton();
             }
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
@@ -87,6 +90,8 @@ class ShopController extends AdminController
                 $table->textarea('data','数据');
                 $table->image('qrcode', '收款二维码')->uniqueName();
             })->required();
+            $form->disableViewButton();
+            $form->disableDeleteButton();
         });
     }
 }
