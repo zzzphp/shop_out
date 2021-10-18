@@ -101,7 +101,9 @@ class Product extends Model
                 return $data;
             } else {
                 // 总平台
-                return Currency::query()->where('currency_id', 1)->first()->toArray();
+                return Currency::query()
+                    ->where('currency_id', 1)
+                    ->first();
             }
         }
     }
