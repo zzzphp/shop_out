@@ -141,7 +141,9 @@ class ProductsController extends AdminController
                     }
                     $form->attributes = $arr;
                 }
-                $form->admin_id = Admin::user()->id;
+                if(Admin::user()->isRole('curator')) {
+                    $form->admin_id = Admin::user()->id;
+                }
             });
         });
     }
