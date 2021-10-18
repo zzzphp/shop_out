@@ -237,7 +237,7 @@ class OrdersController extends Controller
             $wallet->subAmount(mul($order->total_amount,
                 config('site.service_charge')),
                 AssetDetails::TYPE_SERVICE,
-                $order->product()->title . '-' . $order->id);
+                $order->product->title . '-' . $order->id);
             return $order;
         });
 

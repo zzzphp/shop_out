@@ -13,7 +13,13 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         $builder = Category::query()
-            ->with(['children'])
+            ->with(['children'], function ($builder){
+                if ($request->user()->admin_id) {
+                    $builder->where('admin_id', $request->user()->admin_id);
+                } else {
+                    $builder->whereNull('admin_id');
+                }
+            })
             ->where('parent_id', 0)
             ->where('is_show', true)
             ->orderBy('sort', 'ASC');

@@ -37,7 +37,7 @@ class Product extends Model
         ];
 
     protected $appends = [
-        'image_url', 'service_charge','collection',
+        'image_url', 'service_charge','collection','user'
         ];
 
     public function currency()
@@ -68,6 +68,16 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getUserAttribute()
+    {
+        if($this->attributes['type'] === Product::TYPE_AUCTION) {
+            $user = User::find($this->attributes['user_id']);
+
+            return ['name' => $user->name, 'phone' => $user->phone];
+        }
+        return null;
     }
 
     public function getCollectionAttribute()

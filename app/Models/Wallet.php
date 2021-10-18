@@ -58,7 +58,8 @@ class Wallet extends Model
     public function subAmount($amount, $detail_type, $remark = '')
     {
         if (comp($amount, $this->attributes['amount'])) {
-            throw new InternalException("当前资产不足，请充值");
+            $currency = Currency::find($this->attributes['currency_id']);
+            throw new InternalException("当前". $currency->name ."资产不足，请充值");
         }
         $after_amount = sub($this->attributes['amount'], $amount);
         // 增加流水

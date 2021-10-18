@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Category;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -67,12 +68,12 @@ class CategoryController extends AdminController
             $form->display('id');
             $form->number('sort');
             $form->select('parent_id')->options(function (){
-
                $categories = \App\Models\Category::query()
                    ->where('parent_id', 0)
                    ->pluck('name', 'id');
-                $categories[0] = '顶级分类';
-
+                if(!Admin::user()->isRole('curator')) {
+                    $categories[0] = '顶级分类';
+                }
                 return $categories;
             });
             $form->text('name');
