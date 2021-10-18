@@ -30,10 +30,10 @@ class CategoriesController extends Controller
         $list = $builder->get()->toArray();
         foreach ($list as $k => $value) {
             if ($value['parent_id'] === 0 && $request->user()->admin_id) {
-                $url = Shop::query()
+                $shop = Shop::query()
                     ->where('admin_id', $request->user()->admin_id)
-                    ->value('logo');
-                $list[$k]['icon_url'] = full_url($url);
+                    ->first();
+                $list[$k]['icon_url'] = full_url($shop->logo);
             }
         }
         return response()->json(['data' => $list]);
