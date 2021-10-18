@@ -29,7 +29,11 @@ class ShopController extends AdminController
             $grid->column('phone');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-
+            if(!Admin::user()->isRole('admin')) {
+                $grid->disableCreateButton();
+                $grid->disableActions();
+                $grid->disableBatchActions();
+            }
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
 
