@@ -32,7 +32,7 @@ class Shop extends Model
 
     public function getLogoAttribute()
     {
-        if($this->attributes['collection']) {
+        if(isset($this->attributes['collection']) && $this->attributes['collection']) {
             $data = json_decode($this->attributes['collection'], true);
             foreach ($data as $k => $value) {
                 if (!Str::startsWith($value['qrcode'], ['http://', 'https://'])) {
