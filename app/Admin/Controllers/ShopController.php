@@ -30,7 +30,7 @@ class ShopController extends AdminController
             $grid->column('logo')->image('', '', 50);
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-            if(!Admin::user()->isRole('admin')) {
+            if(!Admin::user()->isRole('administrator')) {
                 $grid->disableCreateButton();
                 $grid->disableBatchActions();
                 $grid->disableFilterButton();
@@ -85,6 +85,10 @@ class ShopController extends AdminController
             $form->text('name');
             $form->text('phone');
             $form->image('logo');
+            $form->array('collection', function (Form $table) {
+                $table->select('currency_id', '货币');
+                $table->decimal('amount','当前额度');
+            })->required();
             $form->array('collection', function ($table) {
                 $table->text('chain','支付名称');
                 $table->textarea('data','数据');

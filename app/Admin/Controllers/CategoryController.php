@@ -23,8 +23,9 @@ class CategoryController extends AdminController
         return Grid::make(new Category(), function (Grid $grid) {
             if(Admin::user()->isRole('curator')) {
                 $grid->model()->where('admin_id', Admin::user()->id);
+            } else {
+                $grid->title->tree(false, false);
             }
-            $grid->title->tree(false, false);
             $grid->column('id')->sortable();
             $grid->column('sort');
             $grid->column('name');
@@ -86,6 +87,12 @@ class CategoryController extends AdminController
             $form->embeds('open_time', '开放时间',function ($form){
                $form->time('begin', '开始');
                $form->time('end', '结束');
+            });
+            $form->hidden('admin_id');
+            $form->saving(function (Form $form){
+                if(Admin::user()->isRole('curator')) {
+                    $form->admin_id = Admin::user()->id;
+                }
             });
             $form->display('created_at');
             $form->display('updated_at');

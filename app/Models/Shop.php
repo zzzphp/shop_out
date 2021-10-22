@@ -16,7 +16,8 @@ class Shop extends Model
         'collection', 'logo', 'name', 'phone', 'title'
     ];
 	protected $casts = [
-	    'collection' => 'json'
+	    'collection' => 'json',
+        'quota_data'  => 'json',
     ];
 
 	protected $appends = ['logo_url'];
