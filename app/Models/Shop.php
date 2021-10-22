@@ -13,7 +13,7 @@ class Shop extends Model
 	use HasDateTimeFormatter;
 
     protected $fillable = [
-        'collection', 'logo', 'name', 'phone', 'title'
+        'collection', 'logo', 'name', 'phone', 'title', 'quota_data'
     ];
 	protected $casts = [
 	    'collection' => 'json',

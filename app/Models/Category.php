@@ -44,6 +44,11 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'admin_id', 'admin_id');
+    }
+
 
 
 }

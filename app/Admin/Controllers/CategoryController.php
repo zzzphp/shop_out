@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Category;
+use App\Models\Shop;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -20,7 +21,7 @@ class CategoryController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Category(), function (Grid $grid) {
+        return Grid::make(Category::with(['shop']), function (Grid $grid) {
             if(Admin::user()->isRole('curator')) {
                 $grid->model()->where('admin_id', Admin::user()->id);
             } else {
@@ -28,6 +29,9 @@ class CategoryController extends AdminController
             }
             $grid->column('id')->sortable();
             $grid->column('sort');
+            $grid->column('shop.title', '分馆')->display(function ($value){
+                return $value ?: '总馆';
+            });
             $grid->column('name');
             $grid->column('describe');
             $grid->column('icon')->image('', 50, 50);
@@ -79,21 +83,25 @@ class CategoryController extends AdminController
                     $categories[0] = '顶级分类';
                 }
                 return $categories;
-            });
+            })->required();
+            $form->select('admin_id', '选择分馆')->options(function (){
+                $query = Shop::query()
+                    ->whereNotNull('admin_id');
+                if(Admin::user()->isRole('curator')) {
+                    $query->where('admin_id', Admin::user()->id);
+                }
+                return $query->pluck('title', 'admin_id');
+            })->required();
             $form->text('name');
             $form->text('describe');
             $form->image('icon')->uniqueName();
             $form->switch('is_show')->default(true);
-            $form->embeds('open_time', '开放时间',function ($form){
-               $form->time('begin', '开始');
-               $form->time('end', '结束');
-            });
-            $form->hidden('admin_id');
-            $form->saving(function (Form $form){
-                if(Admin::user()->isRole('curator')) {
-                    $form->admin_id = Admin::user()->id;
-                }
-            });
+            if(Admin::user()->isRole('administrator')) {
+                $form->embeds('open_time', '开放时间', function ($form) {
+                    $form->time('begin', '开始');
+                    $form->time('end', '结束');
+                });
+            }
             $form->display('created_at');
             $form->display('updated_at');
         });

@@ -37,7 +37,7 @@ class RefuseVerify extends RowAction
         $recharge->status = Recharge::STATUS_FALED;
         $recharge->save();
         return $this->response()
-            ->success('操作成功 '.$this->getKey());
+            ->success('操作成功 '.$this->getKey())->refresh();
     }
 
     /**

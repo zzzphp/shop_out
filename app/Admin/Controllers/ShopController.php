@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Shop;
+use App\Models\Currency;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -85,8 +86,10 @@ class ShopController extends AdminController
             $form->text('name');
             $form->text('phone');
             $form->image('logo');
-            $form->array('collection', function (Form $table) {
-                $table->select('currency_id', '货币');
+            $form->array('quota_data','货币额度', function ($table) {
+                $table->select('currency_id', '货币')->options(function (){
+                    return Currency::query()->pluck('name', 'id');
+                });
                 $table->decimal('amount','当前额度');
             })->required();
             $form->array('collection', function ($table) {
