@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\Shops\QuickLogin;
 use App\Admin\Repositories\Shop;
 use App\Models\Currency;
 use Dcat\Admin\Admin;
@@ -37,6 +38,9 @@ class ShopController extends AdminController
                 $grid->disableFilterButton();
                 $grid->disableDeleteButton();
                 $grid->disableViewButton();
+            }
+            if(Admin::user()->isRole('administrator')) {
+                $grid->actions(new QuickLogin());
             }
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');

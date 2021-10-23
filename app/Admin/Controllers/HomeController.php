@@ -8,6 +8,10 @@ use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Dropdown;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -38,4 +42,5 @@ class HomeController extends Controller
 //                });
             });
     }
+
 }
