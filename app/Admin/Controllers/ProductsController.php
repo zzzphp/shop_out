@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\PayMethod;
 use App\Models\Product;
+use App\Models\Shop;
 use App\Models\Stage;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
@@ -31,7 +32,8 @@ class ProductsController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('image')->image('', 50, 50);
             $grid->column('title')->display(function ($title){
-                return "【". Product::$typeMap[$this->type] ."】" . $title;
+                $shop = $this->admin_id ?'':"【总馆】";
+                return $shop . "【". Product::$typeMap[$this->type] ."】" . $title;
             });
             $grid->column('original_price');
             $grid->column('price');
@@ -49,8 +51,8 @@ class ProductsController extends AdminController
                 $filter->panel();
                 // 展开过滤器
                 $filter->expand();
-                $filter->equal('stage.id', '期数')->select(function (){
-                    return Stage::query()->pluck('name', 'id');
+                $filter->equal('admin_id', '店铺')->select(function (){
+                    return Shop::query()->pluck('title', 'admin_id');
                 })->width(4);
             });
         });

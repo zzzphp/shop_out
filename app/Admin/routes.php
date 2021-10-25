@@ -44,4 +44,6 @@ Route::group([
     $router->resource('information', NewsInformationController::class);
     $router->resource('real_names', UserRealNameController::class);
     $router->resource('shops', ShopController::class);
+
+    $router->resource('admin_user', AdminUserController::class);
 });
