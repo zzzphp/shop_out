@@ -45,7 +45,7 @@ class ShopController extends AdminController
                 $grid->disableDeleteButton();
                 $grid->disableViewButton();
             }
-            if(Admin::user()->isRole('administrator')) {
+            if(!Admin::user()->isRole('curator')) {
                 $grid->actions(new QuickLogin());
             }
             $grid->filter(function (Grid\Filter $filter) {
