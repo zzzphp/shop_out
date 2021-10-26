@@ -34,74 +34,74 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 2,
                     "parent_id" => 0,
-                    "order" => 38,
+                    "order" => 40,
                     "title" => "Admin",
                     "icon" => "feather icon-settings",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:31"
                 ],
                 [
                     "id" => 3,
                     "parent_id" => 2,
-                    "order" => 39,
+                    "order" => 41,
                     "title" => "Users",
                     "icon" => "",
                     "uri" => "auth/users",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:32"
                 ],
                 [
                     "id" => 4,
                     "parent_id" => 2,
-                    "order" => 40,
+                    "order" => 42,
                     "title" => "Roles",
                     "icon" => "",
                     "uri" => "auth/roles",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:44"
+                    "updated_at" => "2021-10-26 15:03:32"
                 ],
                 [
                     "id" => 5,
                     "parent_id" => 2,
-                    "order" => 41,
+                    "order" => 43,
                     "title" => "Permission",
                     "icon" => "",
                     "uri" => "auth/permissions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:44"
+                    "updated_at" => "2021-10-26 15:03:32"
                 ],
                 [
                     "id" => 6,
                     "parent_id" => 2,
-                    "order" => 42,
+                    "order" => 44,
                     "title" => "Menu",
                     "icon" => "",
                     "uri" => "auth/menu",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:44"
+                    "updated_at" => "2021-10-26 15:03:32"
                 ],
                 [
                     "id" => 7,
                     "parent_id" => 2,
-                    "order" => 43,
+                    "order" => 45,
                     "title" => "Extensions",
                     "icon" => "",
                     "uri" => "auth/extensions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 03:11:11",
-                    "updated_at" => "2021-10-18 16:57:44"
+                    "updated_at" => "2021-10-26 15:03:32"
                 ],
                 [
                     "id" => 8,
@@ -118,14 +118,14 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 9,
                     "parent_id" => 0,
-                    "order" => 30,
+                    "order" => 32,
                     "title" => "新闻中心",
                     "icon" => "fa-hacker-news",
                     "uri" => "news",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 05:48:03",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:30"
                 ],
                 [
                     "id" => 10,
@@ -142,158 +142,158 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 11,
                     "parent_id" => 0,
-                    "order" => 16,
+                    "order" => 18,
                     "title" => "产品管理",
                     "icon" => "fa-product-hunt",
                     "uri" => "products",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-05 07:35:19",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:27"
                 ],
                 [
                     "id" => 12,
                     "parent_id" => 0,
-                    "order" => 22,
+                    "order" => 24,
                     "title" => "订单管理",
                     "icon" => "fa-first-order",
                     "uri" => "orders",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-09 06:52:54",
-                    "updated_at" => "2021-10-18 16:57:41"
+                    "updated_at" => "2021-10-26 15:03:28"
                 ],
                 [
                     "id" => 14,
                     "parent_id" => 8,
-                    "order" => 7,
+                    "order" => 8,
                     "title" => "充值管理",
                     "icon" => "fa-sign-in",
                     "uri" => "recharges",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-11 11:13:40",
-                    "updated_at" => "2021-10-18 16:57:38"
+                    "updated_at" => "2021-10-26 15:03:25"
                 ],
                 [
                     "id" => 15,
                     "parent_id" => 0,
-                    "order" => 33,
+                    "order" => 35,
                     "title" => "邀请奖励",
                     "icon" => "fa-usd",
                     "uri" => "commissions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-16 06:20:22",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:30"
                 ],
                 [
                     "id" => 16,
                     "parent_id" => 0,
-                    "order" => 25,
+                    "order" => 27,
                     "title" => "发币管理",
                     "icon" => "fa-foursquare",
                     "uri" => "distributes",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-03-16 09:16:18",
-                    "updated_at" => "2021-10-18 16:57:41"
+                    "updated_at" => "2021-10-26 15:03:29"
                 ],
                 [
                     "id" => 17,
                     "parent_id" => 8,
-                    "order" => 8,
+                    "order" => 9,
                     "title" => "提现管理",
                     "icon" => "fa-text-width",
                     "uri" => "withdrawals",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-18 08:38:29",
-                    "updated_at" => "2021-10-18 16:57:38"
+                    "updated_at" => "2021-10-26 15:03:25"
                 ],
                 [
                     "id" => 18,
                     "parent_id" => 0,
-                    "order" => 34,
+                    "order" => 36,
                     "title" => "客户端配置",
                     "icon" => "fa-gears",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-28 13:11:13",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:31"
                 ],
                 [
                     "id" => 19,
                     "parent_id" => 18,
-                    "order" => 35,
+                    "order" => 37,
                     "title" => "首页轮播图",
                     "icon" => NULL,
                     "uri" => "carousels",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-03-28 13:11:54",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:31"
                 ],
                 [
                     "id" => 20,
                     "parent_id" => 11,
-                    "order" => 17,
+                    "order" => 19,
                     "title" => "期数管理",
                     "icon" => "fa-sort-numeric-asc",
                     "uri" => "stages",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-03-31 09:01:13",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:27"
                 ],
                 [
                     "id" => 21,
                     "parent_id" => 16,
-                    "order" => 26,
+                    "order" => 28,
                     "title" => "整机发币",
                     "icon" => NULL,
                     "uri" => "distributes",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-04-01 06:21:13",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:29"
                 ],
                 [
                     "id" => 22,
                     "parent_id" => 16,
-                    "order" => 27,
+                    "order" => 29,
                     "title" => "算力发币",
                     "icon" => NULL,
                     "uri" => "power_distributes",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-04-01 07:35:00",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:29"
                 ],
                 [
                     "id" => 23,
                     "parent_id" => 16,
-                    "order" => 28,
+                    "order" => 30,
                     "title" => "发币记录",
                     "icon" => NULL,
                     "uri" => "logs",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-05-12 12:02:56",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:29"
                 ],
                 [
                     "id" => 24,
                     "parent_id" => 0,
-                    "order" => 13,
+                    "order" => 15,
                     "title" => "代理管理",
                     "icon" => "fa-american-sign-language-interpreting",
                     "uri" => "agents",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-06-14 12:19:01",
-                    "updated_at" => "2021-10-18 16:57:39"
+                    "updated_at" => "2021-10-26 15:03:26"
                 ],
                 [
                     "id" => 25,
@@ -310,218 +310,218 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 26,
                     "parent_id" => 11,
-                    "order" => 18,
+                    "order" => 20,
                     "title" => "产品列表",
                     "icon" => "fa-desktop",
                     "uri" => "products",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-15 15:39:16",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:27"
                 ],
                 [
                     "id" => 27,
                     "parent_id" => 11,
-                    "order" => 19,
+                    "order" => 21,
                     "title" => "产品分类",
                     "icon" => "fa-dedent",
                     "uri" => "categories",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-15 15:40:31",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:27"
                 ],
                 [
                     "id" => 28,
                     "parent_id" => 24,
-                    "order" => 14,
+                    "order" => 16,
                     "title" => "代理列表",
                     "icon" => "fa-user-md",
                     "uri" => "agents",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-18 14:27:24",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:26"
                 ],
                 [
                     "id" => 29,
                     "parent_id" => 24,
-                    "order" => 15,
+                    "order" => 17,
                     "title" => "业绩统计",
                     "icon" => "fa-copyright",
                     "uri" => "agent_statistics",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-18 14:31:21",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:27"
                 ],
                 [
                     "id" => 30,
                     "parent_id" => 8,
-                    "order" => 9,
+                    "order" => 10,
                     "title" => "资金明细",
                     "icon" => "fa-sort-amount-desc",
                     "uri" => "asset_details",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-18 17:08:04",
-                    "updated_at" => "2021-10-18 16:57:39"
+                    "updated_at" => "2021-10-26 15:03:25"
                 ],
                 [
                     "id" => 31,
                     "parent_id" => 11,
-                    "order" => 20,
+                    "order" => 22,
                     "title" => "协议管理",
                     "icon" => "fa-paste",
                     "uri" => "agreements",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-21 10:33:43",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:28"
                 ],
                 [
                     "id" => 32,
                     "parent_id" => 12,
-                    "order" => 24,
+                    "order" => 26,
                     "title" => "分期管理",
                     "icon" => "fa-stack-overflow",
                     "uri" => "installment_items",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-06-25 16:55:48",
-                    "updated_at" => "2021-10-18 16:57:41"
+                    "updated_at" => "2021-10-26 15:03:29"
                 ],
                 [
                     "id" => 33,
                     "parent_id" => 12,
-                    "order" => 23,
+                    "order" => 25,
                     "title" => "订单列表",
                     "icon" => "fa-first-order",
                     "uri" => "orders",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-06-25 16:56:24",
-                    "updated_at" => "2021-10-18 16:57:41"
+                    "updated_at" => "2021-10-26 15:03:28"
                 ],
                 [
                     "id" => 34,
                     "parent_id" => 11,
-                    "order" => 21,
+                    "order" => 23,
                     "title" => "支付管理",
                     "icon" => "fa-paypal",
                     "uri" => "pay_methods",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-06-26 15:34:08",
-                    "updated_at" => "2021-10-18 16:57:40"
+                    "updated_at" => "2021-10-26 15:03:28"
                 ],
                 [
                     "id" => 35,
                     "parent_id" => 8,
-                    "order" => 10,
+                    "order" => 11,
                     "title" => "有效算力",
                     "icon" => "fa-file-powerpoint-o",
                     "uri" => "powers",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-06-27 15:00:46",
-                    "updated_at" => "2021-10-18 16:57:39"
+                    "updated_at" => "2021-10-26 15:03:25"
                 ],
                 [
                     "id" => 36,
                     "parent_id" => 0,
-                    "order" => 11,
+                    "order" => 13,
                     "title" => "借贷管理",
                     "icon" => "fa-database",
                     "uri" => NULL,
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-07-13 17:48:09",
-                    "updated_at" => "2021-10-18 16:57:39"
+                    "updated_at" => "2021-10-26 15:03:26"
                 ],
                 [
                     "id" => 37,
                     "parent_id" => 36,
-                    "order" => 12,
+                    "order" => 14,
                     "title" => "借款信息",
                     "icon" => NULL,
                     "uri" => "loans",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-07-14 11:58:08",
-                    "updated_at" => "2021-10-18 16:57:39"
+                    "updated_at" => "2021-10-26 15:03:26"
                 ],
                 [
                     "id" => 38,
                     "parent_id" => 18,
-                    "order" => 36,
+                    "order" => 38,
                     "title" => "BIKI行情配置",
                     "icon" => NULL,
                     "uri" => "market_biki",
                     "extension" => "",
                     "show" => 0,
                     "created_at" => "2021-07-16 09:40:47",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:31"
                 ],
                 [
                     "id" => 39,
                     "parent_id" => 16,
-                    "order" => 29,
+                    "order" => 31,
                     "title" => "自动发币",
                     "icon" => NULL,
                     "uri" => "automatics",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-07-24 14:11:15",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:30"
                 ],
                 [
                     "id" => 40,
                     "parent_id" => 18,
-                    "order" => 37,
+                    "order" => 39,
                     "title" => "APP版本更新配置",
                     "icon" => "fa-angle-double-up",
                     "uri" => "versions",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-08-02 15:40:57",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:31"
                 ],
                 [
                     "id" => 41,
                     "parent_id" => 8,
-                    "order" => 6,
+                    "order" => 7,
                     "title" => "实名认证",
                     "icon" => "fa-creative-commons",
                     "uri" => "real_names",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-10-05 11:51:02",
-                    "updated_at" => "2021-10-18 16:57:38"
+                    "updated_at" => "2021-10-26 15:03:25"
                 ],
                 [
                     "id" => 42,
                     "parent_id" => 9,
-                    "order" => 31,
+                    "order" => 33,
                     "title" => "资讯中心",
                     "icon" => NULL,
                     "uri" => "information",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-10-13 15:02:27",
-                    "updated_at" => "2021-10-18 16:57:42"
+                    "updated_at" => "2021-10-26 15:03:30"
                 ],
                 [
                     "id" => 43,
                     "parent_id" => 9,
-                    "order" => 32,
+                    "order" => 34,
                     "title" => "活动公告",
                     "icon" => NULL,
                     "uri" => "news",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-10-13 15:03:49",
-                    "updated_at" => "2021-10-18 16:57:43"
+                    "updated_at" => "2021-10-26 15:03:30"
                 ],
                 [
                     "id" => 45,
@@ -538,14 +538,26 @@ class AdminTablesSeeder extends Seeder
                 [
                     "id" => 46,
                     "parent_id" => 8,
-                    "order" => 44,
+                    "order" => 12,
                     "title" => "管理员",
                     "icon" => NULL,
                     "uri" => "admin_user",
                     "extension" => "",
                     "show" => 1,
                     "created_at" => "2021-10-26 13:24:01",
-                    "updated_at" => "2021-10-26 13:24:01"
+                    "updated_at" => "2021-10-26 15:03:26"
+                ],
+                [
+                    "id" => 47,
+                    "parent_id" => 8,
+                    "order" => 6,
+                    "title" => "店员业绩",
+                    "icon" => "fa-steam",
+                    "uri" => "user_team",
+                    "extension" => "",
+                    "show" => 1,
+                    "created_at" => "2021-10-26 15:03:00",
+                    "updated_at" => "2021-10-26 15:03:24"
                 ]
             ]
         );
@@ -783,6 +795,17 @@ class AdminTablesSeeder extends Seeder
                     "parent_id" => 0,
                     "created_at" => "2021-10-18 17:54:10",
                     "updated_at" => "2021-10-22 16:03:11"
+                ],
+                [
+                    "id" => 22,
+                    "name" => "shops_view",
+                    "slug" => "shops_view",
+                    "http_method" => "GET",
+                    "http_path" => "/shops",
+                    "order" => 22,
+                    "parent_id" => 0,
+                    "created_at" => "2021-10-26 16:15:10",
+                    "updated_at" => "2021-10-26 16:15:10"
                 ]
             ]
         );
@@ -938,6 +961,12 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 45,
                     "created_at" => "2021-10-18 17:54:10",
                     "updated_at" => "2021-10-18 17:54:10"
+                ],
+                [
+                    "permission_id" => 22,
+                    "menu_id" => 45,
+                    "created_at" => "2021-10-26 16:15:10",
+                    "updated_at" => "2021-10-26 16:15:10"
                 ]
             ]
 		);
@@ -1130,6 +1159,12 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 46,
                     "created_at" => "2021-10-26 13:24:01",
                     "updated_at" => "2021-10-26 13:24:01"
+                ],
+                [
+                    "role_id" => 1,
+                    "menu_id" => 47,
+                    "created_at" => "2021-10-26 15:03:00",
+                    "updated_at" => "2021-10-26 15:03:00"
                 ],
                 [
                     "role_id" => 2,
@@ -1340,6 +1375,12 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 30,
                     "created_at" => "2021-10-13 15:13:31",
                     "updated_at" => "2021-10-13 15:13:31"
+                ],
+                [
+                    "role_id" => 7,
+                    "menu_id" => 45,
+                    "created_at" => "2021-10-26 16:16:06",
+                    "updated_at" => "2021-10-26 16:16:06"
                 ],
                 [
                     "role_id" => 8,
@@ -1588,6 +1629,12 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2021-10-13 16:11:37"
                 ],
                 [
+                    "role_id" => 8,
+                    "menu_id" => 45,
+                    "created_at" => "2021-10-26 16:16:29",
+                    "updated_at" => "2021-10-26 16:16:29"
+                ],
+                [
                     "role_id" => 9,
                     "menu_id" => 1,
                     "created_at" => "2021-10-13 16:12:20",
@@ -1802,6 +1849,12 @@ class AdminTablesSeeder extends Seeder
                     "menu_id" => 43,
                     "created_at" => "2021-10-13 16:12:22",
                     "updated_at" => "2021-10-13 16:12:22"
+                ],
+                [
+                    "role_id" => 9,
+                    "menu_id" => 45,
+                    "created_at" => "2021-10-26 16:16:20",
+                    "updated_at" => "2021-10-26 16:16:20"
                 ]
             ]
         );
@@ -1930,6 +1983,12 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2021-10-13 15:14:47"
                 ],
                 [
+                    "role_id" => 7,
+                    "permission_id" => 22,
+                    "created_at" => "2021-10-26 16:16:06",
+                    "updated_at" => "2021-10-26 16:16:06"
+                ],
+                [
                     "role_id" => 8,
                     "permission_id" => 7,
                     "created_at" => "2021-10-13 16:11:34",
@@ -2014,6 +2073,12 @@ class AdminTablesSeeder extends Seeder
                     "updated_at" => "2021-10-13 16:11:35"
                 ],
                 [
+                    "role_id" => 8,
+                    "permission_id" => 22,
+                    "created_at" => "2021-10-26 16:15:34",
+                    "updated_at" => "2021-10-26 16:15:34"
+                ],
+                [
                     "role_id" => 9,
                     "permission_id" => 7,
                     "created_at" => "2021-10-13 16:12:19",
@@ -2096,6 +2161,12 @@ class AdminTablesSeeder extends Seeder
                     "permission_id" => 20,
                     "created_at" => "2021-10-13 16:12:20",
                     "updated_at" => "2021-10-13 16:12:20"
+                ],
+                [
+                    "role_id" => 9,
+                    "permission_id" => 22,
+                    "created_at" => "2021-10-26 16:15:39",
+                    "updated_at" => "2021-10-26 16:15:39"
                 ]
             ]
         );
