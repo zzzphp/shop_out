@@ -5,20 +5,13 @@ use Illuminate\Support\Facades\Route;
 use Dcat\Admin\Admin;
 
 Admin::routes();
-Route::group([
-    'namespace'  => config('admin.route.namespace'),
-    'middleware' => config('admin.route.middleware'),
 
-    ], function ($router){
-
-    $router->get('auth/quick', 'AuthController@quickLogin');
-});
 Route::group([
     'prefix'     => config('admin.route.prefix'),
     'namespace'  => config('admin.route.namespace'),
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
-
+    $router->get('auth/quick', 'AuthController@quickLogin');
     $router->get('/', 'HomeController@index');
     $router->resource('users', UsersController::class);
     $router->resource('news', NewsController::class);
