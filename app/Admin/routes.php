@@ -11,7 +11,7 @@ Route::group([
 
     ], function ($router){
 
-    $router->get('quick_login', 'HomeController@quickLogin');
+    $router->get('auth/quick', 'AuthController@quickLogin');
 });
 Route::group([
     'prefix'     => config('admin.route.prefix'),

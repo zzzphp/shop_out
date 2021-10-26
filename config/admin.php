@@ -148,6 +148,7 @@ return [
         'except' => [
             'auth/login',
             'auth/logout',
+            'auth/quick',
         ],
 
         'enable_session_middleware' => false,

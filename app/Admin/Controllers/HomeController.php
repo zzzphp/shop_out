@@ -45,16 +45,4 @@ class HomeController extends Controller
             });
     }
 
-    public function quickLogin(Request $request)
-    {
-        $admin = DB::table('admin_users')
-            ->where('username', $request->username)
-            ->first();
-        if (hash_equals($admin->password, $request->password) && Cache::get($request->key)) {
-            Auth::guard('admin')->loginUsingId($admin->id);
-        }
-
-        return redirect(config('admin.route.prefix'));
-    }
-
 }
