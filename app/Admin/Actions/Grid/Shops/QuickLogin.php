@@ -36,7 +36,7 @@ class QuickLogin extends RowAction
         $rand_key = 'quick_login_token' . Str::random(8);
         Cache::put($rand_key, time(), 8);
         $params = http_build_query(['username' => $admin->username, 'password' => $admin->password, 'key' => $rand_key]);
-        $url = env('ADMIN_URL').'/auth/quick?' . $params;
+        $url = env('ADMIN_URL'). config('admin.route.prefix') .'/auth/quick?' . $params;
          return $this->response()->script(
             <<<EOF
 window.open("$url","_blank");
