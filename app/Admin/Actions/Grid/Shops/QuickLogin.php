@@ -31,7 +31,7 @@ class QuickLogin extends RowAction
         // dump($this->getKey());
         $shop = Shop::find($this->getKey());
         Auth::guard('admin')->loginUsingId($shop->admin_id);
-        $url = url()->to(config('admin.route.prefix'));
+        $url = env('ADMIN_URL').'/'.config('admin.route.prefix');
 
          return $this->response()->script(
             <<<EOF

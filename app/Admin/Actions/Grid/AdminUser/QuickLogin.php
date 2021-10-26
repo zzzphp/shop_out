@@ -29,7 +29,7 @@ class QuickLogin extends RowAction
     public function handle(Request $request)
     {
         Auth::guard('admin')->loginUsingId($this->getKey());
-        $url = url()->to(config('admin.route.prefix'));
+        $url = env('ADMIN_URL').'/'.config('admin.route.prefix');
 
          return $this->response()->script(
             <<<EOF
