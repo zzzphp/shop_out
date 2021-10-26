@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\Shops\AchievementTable;
 use App\Admin\Actions\Grid\Shops\QuickLogin;
 use App\Admin\Repositories\Shop;
 use App\Models\Currency;
@@ -30,6 +31,11 @@ class ShopController extends AdminController
             $grid->column('name');
             $grid->column('phone');
             $grid->column('logo')->image('', '', 50);
+            $grid->post('业绩明细')
+                ->display('查看')
+                ->modal('业绩明细',function ($modal){
+                    return AchievementTable::make();
+                });
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
             if(!Admin::user()->isRole('administrator')) {

@@ -39,6 +39,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('user:grade-check')->daily(); // 体验会员检测
         $schedule->command('order:order-auction')->everyMinute(); // 客户转卖
         $schedule->command('user:thaw-bond')->hourly(); // 定时解冻保证金
+        $schedule->command('order:every-achievement')->daily(); // 统计业绩
+
 
     }
 

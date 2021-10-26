@@ -120,6 +120,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->where('invite_id', $this->id)->count();
     }
 
+
     public function myPowers()
     {
         $powers = 0;

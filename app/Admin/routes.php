@@ -46,4 +46,5 @@ Route::group([
     $router->resource('shops', ShopController::class);
 
     $router->resource('admin_user', AdminUserController::class);
+    $router->resource('user_team', UserTeamController::class);
 });

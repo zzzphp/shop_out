@@ -87,14 +87,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
         // 充币申请
         Route::get('recharges', 'RechargesController@store')->name('recharges.store');
         // 节流处理防止攻击
-        // 下单
-        Route::post('orders', 'OrdersController@store')
-            ->middleware('throttle:3,1')
-            ->name('orders.store');
-        // 提交支付凭证
-        Route::put('orders/prove', 'OrdersController@prove')
-            ->middleware('throttle:4,1')
-            ->name('orders.prove');
+
         // 申请提货
         Route::put('apply_goods', 'OrdersController@apply_goods');
         // 确认支付，放货
@@ -172,6 +165,14 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
             Route::post('withdrawals', 'WithdrawalsController@store')
                 ->name('withdrawals.store');
         });
+        // 下单
+        Route::post('orders', 'OrdersController@store')
+            ->middleware('throttle:3,1')
+            ->name('orders.store');
+        // 提交支付凭证
+        Route::put('orders/prove', 'OrdersController@prove')
+            ->middleware('throttle:4,1')
+            ->name('orders.prove');
     });
 
 });
