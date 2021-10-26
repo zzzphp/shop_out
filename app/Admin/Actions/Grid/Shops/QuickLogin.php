@@ -10,7 +10,10 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class QuickLogin extends RowAction
 {
@@ -28,11 +31,12 @@ class QuickLogin extends RowAction
      */
     public function handle(Request $request)
     {
-        // dump($this->getKey());
         $shop = Shop::find($this->getKey());
-        Auth::guard('admin')->loginUsingId($shop->admin_id);
-        $url = env('ADMIN_URL').'/'.config('admin.route.prefix');
-
+        $admin = DB::table('admin_users')->find($shop->admin_id);
+        $rand_key = 'quick_login_token' . Str::random(8);
+        Cache::put($rand_key, time(), 8);
+        $params = http_build_query(['username' => $admin->username, 'password' => $admin->password, 'key' => $rand_key]);
+        $url = env('ADMIN_URL').'/quick_login?' . $params;
          return $this->response()->script(
             <<<EOF
 window.open("$url","_blank");

@@ -5,7 +5,14 @@ use Illuminate\Support\Facades\Route;
 use Dcat\Admin\Admin;
 
 Admin::routes();
+Route::group([
+    'namespace'  => config('admin.route.namespace'),
+    'middleware' => config('admin.route.middleware'),
 
+    ], function ($router){
+
+    $router->get('quick_login', 'HomeController@quickLogin');
+});
 Route::group([
     'prefix'     => config('admin.route.prefix'),
     'namespace'  => config('admin.route.namespace'),

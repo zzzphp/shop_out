@@ -10,7 +10,9 @@ use Dcat\Admin\Layout\Row;
 use Dcat\Admin\Widgets\Dropdown;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
@@ -41,6 +43,18 @@ class HomeController extends Controller
 //                    });
 //                });
             });
+    }
+
+    public function quickLogin(Request $request)
+    {
+        $admin = DB::table('admin_users')
+            ->where('username', $request->username)
+            ->first();
+        if (hash_equals($admin->password, $request->password) && Cache::get($request->key)) {
+            Auth::guard('admin')->loginUsingId($admin->id);
+        }
+
+        return redirect(config('admin.route.prefix'));
     }
 
 }
