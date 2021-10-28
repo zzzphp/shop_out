@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\OrderForceRelease;
 use App\Admin\Actions\Grid\OrderTakeGoods;
 use App\Admin\Actions\Grid\OrderUnlock;
 use App\Admin\Repositories\Orders;
@@ -31,6 +32,8 @@ class OrdersController extends AdminController
                     $builder->where('admin_id', Admin::user()->id);
                 });
             }
+            $grid->column('id');
+
             $grid->model()
 //                ->whereHas('product', function ($query){
 //                    $query->where('type', Product::TYPE_ROB);
@@ -59,11 +62,12 @@ class OrdersController extends AdminController
                         Order::STATUS_PENDING => 'primary',
                         Order::STATUS_FAILED => 'danger',
                         Order::STATUS_SUCCESS => 'success',
+                        Order::STATUS_RELEASE => Admin::color()->blue1(),
                         Order::STATUS_WAIT_GOODS => Admin::color()->yellow(),
+                        Order::STATUS_COMPLETE_SELL => Admin::color()->success(),
                     ],
                     'primary' // 第二个参数为默认值
                 );
-            // $grid->column('no');
             $grid->actions(function (Grid\Displayers\Actions $actions){
                   if (in_array($actions->row->status, [Order::STATUS_WAIT_GOODS, Order::STATUS_RECEIVING])) {
                       $actions->append(new \App\Admin\Actions\Grid\OrderWriteNumber());
@@ -78,7 +82,7 @@ class OrdersController extends AdminController
                   if ($actions->row->status === Order::STATUS_SUCCESS) {
                         $actions->append(new OrderTakeGoods());
                   }
-                  if ($actions->row->status === Order::STATUS_RELEASE) {
+                  if ($actions->row->status === Order::STATUS_RELEASE && $actions->row->product->type === Product::TYPE_AUCTION) {
                     $actions->append(new OrderForceRelease());
                   }
 //                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());

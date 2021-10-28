@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class OrderUnlock extends RowAction
+class OrderForceRelease extends RowAction
 {
     /**
      * @return string
@@ -56,7 +56,7 @@ class OrderUnlock extends RowAction
 	 */
 	public function confirm()
 	{
-		 return ['确认驳回反馈?', '驳回后 订单将进入待收货状态，需要卖家手动放货！'];
+		 return ['确认放货?', '放货后该订单不可更改'];
 	}
 
     /**
