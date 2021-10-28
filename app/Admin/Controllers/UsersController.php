@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Users;
+use App\Models\Shop;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -48,7 +49,6 @@ class UsersController extends AdminController
                     } else {
                         return "<div style='padding:10px 10px 0'>该账户未提交实名信息</div>";
                     }
-
                 });
                 // $grid->column('status','认证状态')->select(\App\Models\User::$statusMap);
                 // $grid->post->display('查看钱包')->modal('', UserWallets::make());
@@ -102,8 +102,8 @@ class UsersController extends AdminController
                 $grid->column('updated_at')->sortable();
 
             }
-            $grid->disableActions();
-            $grid->disableEditButton();
+//            $grid->disableActions();
+            $grid->disableViewButton();
             // 禁用删除按钮
             $grid->disableDeleteButton();
             // $grid->disableActions();
@@ -160,16 +160,11 @@ class UsersController extends AdminController
     {
         return Form::make(new Users(), function (Form $form) {
             $form->display('id');
-            $form->text('name');
-            $form->text('phone');
-            $form->image('avatar');
-            $form->embeds('idcard_data', function($form){
-                $form->text('name');
-                $form->text('idcard', '身份证号码');// ->url('upload/files')->saveFullUrl();
-                $form->file('front_photo', '正面照')->url('upload/files')->saveFullUrl();
-                $form->file('back_photo', '背面照')->url('upload/files')->saveFullUrl();
+            $form->select('admin_id', '选择会馆')->options(function (){
+                return Shop::query()
+                    ->whereNotNull('admin_id')
+                    ->pluck('title', 'admin_id');
             });
-            $form->select('status', '身份状态')->options(\App\Models\User::$statusMap);
         });
     }
 }

@@ -78,6 +78,9 @@ class OrdersController extends AdminController
                   if ($actions->row->status === Order::STATUS_SUCCESS) {
                         $actions->append(new OrderTakeGoods());
                   }
+                  if ($actions->row->status === Order::STATUS_RELEASE) {
+                    $actions->append(new OrderForceRelease());
+                  }
 //                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
 //                $actions->append(' ');
 //                $actions->append(new \App\Admin\Actions\Grid\SetProfitDate());
