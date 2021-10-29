@@ -20,7 +20,9 @@ class AchievementTable extends LazyRenderable
     {
         $shop = Shop::find($this->key);
         return Grid::make(new ShopsAchievement(), function(Grid $grid) use ($shop){
-            $grid->model()->where('admin_id', $shop->admin_id);
+            $grid->model()
+                ->orderBy('dated', 'DESC')
+                ->where('admin_id', $shop->admin_id);
             $grid->column('id');
             $grid->column('dated', '日期');
             $grid->column('total_amount', '当日业绩');
