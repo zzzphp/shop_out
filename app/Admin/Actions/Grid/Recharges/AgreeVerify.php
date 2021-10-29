@@ -60,6 +60,9 @@ class AgreeVerify extends RowAction
                 // 当前币种
                 $current_coin = [];
                 $data = $shop->quota_data;
+                if (!$data) {
+                    throw new InternalException('未开通当前币种充值权限');
+                }
                 foreach ($data as $k => $value) {
                     if (intval($value['currency_id']) === $wallet->currency_id) {
                         $current_coin['key'] = $k;
