@@ -45,7 +45,9 @@ class RechargesController extends AdminController
             $grid->column('created_at');
 //            $grid->column('updated_at')->sortable();
             $grid->showQuickEditButton();
-
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->disableActions();
+            }
             $grid->actions(new \App\Admin\Actions\Grid\Recharges\AgreeVerify());
 
             $grid->actions(new \App\Admin\Actions\Grid\Recharges\RefuseVerify());

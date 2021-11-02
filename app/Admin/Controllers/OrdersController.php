@@ -85,19 +85,11 @@ class OrdersController extends AdminController
                   if ($actions->row->status === Order::STATUS_RELEASE && $actions->row->product->type === Product::TYPE_AUCTION) {
                     $actions->append(new OrderForceRelease());
                   }
-//                $actions->append(new \App\Admin\Actions\Grid\OrderPaidFailedRow());
-//                $actions->append(' ');
-//                $actions->append(new \App\Admin\Actions\Grid\SetProfitDate());
-//                $actions->append(new \App\Admin\Actions\Grid\OrderMortgage());
-//                $actions->append(new \App\Admin\Actions\Grid\OrderSetEffective());
-//
-//                $actions->append(' ');
-//                $actions->append(new \App\Admin\Actions\Grid\OrderSetInvalid());
-//                $actions->append(new \App\Admin\Actions\Grid\OrderMortgageReturn());
-//                $actions->append(' ');
-
                 $actions->append(new \App\Admin\Actions\Grid\OrderRemark());
             });
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->disableActions();
+            }
             // 禁用编辑按钮
             $grid->disableEditButton();
             // 禁用删除按钮

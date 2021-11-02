@@ -83,7 +83,9 @@ class WithdrawalController extends AdminController
             // 禁用
 //            $grid->disableCreateButton();
             $grid->enableDialogCreate();
-
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->disableActions();
+            }
             $grid->filter(function (Grid\Filter $filter) {
                  // 展开过滤器
                 $filter->expand();

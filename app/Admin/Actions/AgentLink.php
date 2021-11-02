@@ -36,7 +36,7 @@ class AgentLink extends Action
      */
     public function confirm()
     {
-        return ['请复制推广链接', config('app.client_url') . '/#/pages/register/index?admin_id=' . Admin::user()->id];
+        return ['请复制推广链接', config('app.client_url') . '/kyh/#/#/pages/register/index?admin_id=' . Admin::user()->id];
     }
 
     /**

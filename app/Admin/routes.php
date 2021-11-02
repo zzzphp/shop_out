@@ -47,4 +47,5 @@ Route::group([
 
     $router->resource('admin_user', AdminUserController::class);
     $router->resource('user_team', UserTeamController::class);
+    $router->resource('services', ServiceShopController::class);
 });

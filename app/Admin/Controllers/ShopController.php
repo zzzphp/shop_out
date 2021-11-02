@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\Shops\AchievementTable;
 use App\Admin\Actions\Grid\Shops\QuickLogin;
+use App\Admin\Actions\Grid\Shops\Recharge;
 use App\Admin\Repositories\Shop;
 use App\Models\Currency;
 use Dcat\Admin\Admin;
@@ -45,7 +46,8 @@ class ShopController extends AdminController
                 $grid->disableDeleteButton();
                 $grid->disableViewButton();
             }
-            if(!Admin::user()->isRole('curator')) {
+            $grid->actions(new Recharge());
+            if(!Admin::user()->isRole('curator') && !Admin::user()->isRole('service_provider')) {
                 $grid->actions(new QuickLogin());
             }
             $grid->filter(function (Grid\Filter $filter) {
@@ -99,8 +101,8 @@ class ShopController extends AdminController
             $form->array('quota_data','货币额度', function ($table) {
                 $table->select('currency_id', '货币')->options(function (){
                     return Currency::query()->pluck('name', 'id');
-                });
-                $table->decimal('amount','当前额度');
+                })->disable(true);
+                $table->decimal('amount','当前额度')->disable(true);
             })->required();
             $form->array('collection', function ($table) {
                 $table->text('chain','支付名称');

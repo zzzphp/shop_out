@@ -160,6 +160,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection category_id
      * @property Grid\Column|Collection currency
      * @property Grid\Column|Collection recharge_prove
+     * @property Grid\Column|Collection recharge_data
      * @property Grid\Column|Collection logo
      * @property Grid\Column|Collection quota_data
      * @property Grid\Column|Collection province
@@ -342,6 +343,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection category_id(string $label = null)
      * @method Grid\Column|Collection currency(string $label = null)
      * @method Grid\Column|Collection recharge_prove(string $label = null)
+     * @method Grid\Column|Collection recharge_data(string $label = null)
      * @method Grid\Column|Collection logo(string $label = null)
      * @method Grid\Column|Collection quota_data(string $label = null)
      * @method Grid\Column|Collection province(string $label = null)
@@ -529,6 +531,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection category_id
      * @property Show\Field|Collection currency
      * @property Show\Field|Collection recharge_prove
+     * @property Show\Field|Collection recharge_data
      * @property Show\Field|Collection logo
      * @property Show\Field|Collection quota_data
      * @property Show\Field|Collection province
@@ -711,6 +714,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection category_id(string $label = null)
      * @method Show\Field|Collection currency(string $label = null)
      * @method Show\Field|Collection recharge_prove(string $label = null)
+     * @method Show\Field|Collection recharge_data(string $label = null)
      * @method Show\Field|Collection logo(string $label = null)
      * @method Show\Field|Collection quota_data(string $label = null)
      * @method Show\Field|Collection province(string $label = null)
