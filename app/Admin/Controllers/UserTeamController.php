@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\UserTeam;
 use App\Models\User;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -20,7 +21,12 @@ class UserTeamController extends AdminController
     protected function grid()
     {
         return Grid::make(new UserTeam(), function (Grid $grid) {
-//            $grid->column('id')->sortable();
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->where('admin_id', Admin::user()->id);
+            }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereIn('admin_id', parent::getShopAdminId());
+            }
             $grid->title->tree(true); // 开启树状表格功能
             $grid->column('grade')->display(function ($value){
                 return User::$gradeMap[$value];

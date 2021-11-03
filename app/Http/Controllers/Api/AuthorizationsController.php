@@ -260,7 +260,7 @@ class AuthorizationsController extends Controller
     {
         $code = \Vinkla\Hashids\Facades\Hashids::encode($request->user()->id);
         $identity_system = config('app.identity_system');
-        $data['url'] = config('app.client_url').'/kyh/#/views/register/index?code='.$code . '&admin_id=' . $request->user()->admin_id;
+        $data['url'] = config('app.client_url').'/#/views/register/index?code='.$code . '&admin_id=' . $request->user()->admin_id;
         $result = Builder::create()
                         ->writer(new PngWriter())
                         ->data($data['url'])

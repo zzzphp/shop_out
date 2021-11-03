@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Commission;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -19,6 +20,17 @@ class CommissionController extends AdminController
     protected function grid()
     {
         return Grid::make(Commission::with(['order', 'user']), function (Grid $grid) {
+            $grid->model()->orderBy('id', 'DESC');
+            if(Admin::user()->isRole('curator')) {
+                $grid->model()->whereHas('user', function($builder){
+                    $builder->where('admin_id', Admin::user()->id);
+                });
+            }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereHas('user', function($builder){
+                    $builder->whereIn('admin_id', parent::getShopAdminId());
+                });
+            }
             $grid->column('id')->sortable();
             $grid->column('order.no', '订单流水号');
             $grid->column('user.name', '奖励用户');

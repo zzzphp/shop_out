@@ -28,6 +28,11 @@ class RechargesController extends AdminController
                    $builder->where('admin_id', Admin::user()->id);
                });
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereHas('user', function($builder){
+                    $builder->whereIn('admin_id', parent::getShopAdminId());
+                });
+            }
             $grid->column('id')->sortable();
             $grid->column('user.idcard_data.name', '姓名')->copyable();
             $grid->column('user.phone', '账号')->copyable();

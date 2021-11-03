@@ -80,7 +80,11 @@ class Product extends Model
         } else {
             if ($this->attributes['admin_id']) {
                 $shop = Shop::query()->where('admin_id', $this->attributes['admin_id'])->first();
-                $data = ['name' => $shop->name, 'phone' => $shop->phone];
+                if ($shop) {
+                    $data = ['name' => $shop->name, 'phone' => $shop->phone];
+                } else {
+                    $data = ['name' => '未绑定会馆', 'phone' => '未知'];
+                }
             } else {
                 $data = ['name' => '总馆', 'phone' => '111111111'];
             }

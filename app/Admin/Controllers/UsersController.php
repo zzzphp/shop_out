@@ -27,6 +27,9 @@ class UsersController extends AdminController
             if(Admin::user()->isRole('curator')) {
                $grid->model()->where('admin_id', Admin::user()->id);
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereIn('admin_id', parent::getShopAdminId());
+            }
             $grid->tools(new \App\Admin\Actions\AgentLink());
             $grid->model()->orderBy('id','DESC');
 

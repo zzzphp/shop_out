@@ -28,11 +28,14 @@ class ProductsController extends AdminController
             if(Admin::user()->isRole('curator')) {
                 $grid->model()->where('admin_id', Admin::user()->id);
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereIn('admin_id', parent::getShopAdminId());
+            }
             $grid->model()->where('type', Product::TYPE_ROB);
             $grid->column('id')->sortable();
             $grid->column('image')->image('', 50, 50);
             $grid->column('title')->display(function ($title){
-                $shop = $this->admin_id ?'':"【总馆】";
+                $shop = $this->admin_id ?'['.Shop::query()->where('admin_id', $this->admin_id)->value('title').']':"【总馆】";
                 return $shop . "【". Product::$typeMap[$this->type] ."】" . $title;
             });
             $grid->column('original_price');

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Actions;
 
+use App\Models\Currency;
 use App\Models\PowerDistributeLog;
 use Dcat\Admin\Actions\Action;
 use Dcat\Admin\Actions\Response;
@@ -27,7 +28,7 @@ class UserWallets extends LazyRenderable
             $wallet['user_id'] = PowerDistributeLog::query()
                 ->where(['user_id' => $wallet['user_id'], 'currency_id' => $wallet['currency_id']])
                 ->sum('all');
-
+            $wallet['name'] = Currency::query()->where('id', $wallet['currency_id'])->value('name');
             unset($wallet['currency_id']);
             $wallets[$k] = $wallet;
         }

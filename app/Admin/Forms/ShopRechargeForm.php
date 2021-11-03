@@ -60,7 +60,24 @@ class ShopRechargeForm extends Form implements LazyRenderable
                 $service->recharge_data = $data;
                 $service->save();
                 // 增加馆长额度
-
+                $shop = Shop::query()->where('id', $id)->lockForUpdate()->first();
+                $shop_data = $shop->quota_data;
+                $coin = [];
+                foreach ($shop_data as $k => $datum) {
+                    if (intval($datum['currency_id']) === intval($input['currency_id'])) {
+                        $coin['key'] = $k;
+                        $coin['amount'] = $datum['amount'];
+                    }
+                }
+                if ($coin) {
+                    $shop_data[$coin['key']]['amount'] = add($coin['amount'], $input['amount']);
+                } else {
+                    $coin['currency_id'] = $input['currency_id'];
+                    $coin['amount'] = $input['amount'];
+                    $shop_data[] = $coin;
+                }
+                $shop->quota_data = $shop_data;
+                $shop->save();
             } else {
                 if (!Admin::user()->isRole('administrator')) {
                     throw new InternalException('非法充值！');

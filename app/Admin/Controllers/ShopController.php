@@ -27,6 +27,9 @@ class ShopController extends AdminController
             if(Admin::user()->isRole('curator')) {
                 $grid->model()->where('admin_id', Admin::user()->id);
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->where('service_id', Admin::user()->id);
+            }
             $grid->column('id')->sortable();
             $grid->column('title');
             $grid->column('name');
@@ -39,14 +42,15 @@ class ShopController extends AdminController
                 });
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-            if(!Admin::user()->isRole('administrator')) {
+            if(!Admin::user()->isRole('administrator') && !Admin::user()->isRole('service_provider')) {
                 $grid->disableCreateButton();
                 $grid->disableBatchActions();
                 $grid->disableFilterButton();
-                $grid->disableDeleteButton();
-                $grid->disableViewButton();
             }
-            $grid->actions(new Recharge());
+            $grid->disableDeleteButton();
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->actions(new Recharge());
+            }
             if(!Admin::user()->isRole('curator') && !Admin::user()->isRole('service_provider')) {
                 $grid->actions(new QuickLogin());
             }
@@ -66,16 +70,21 @@ class ShopController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Shop(), function (Show $show) {
+        return Show::make($id, new Shop(), function (Show $show) use ($id) {
             $show->field('id');
-            $show->field('admin_id');
-            $show->field('collection');
-            $show->field('logo');
             $show->field('name');
             $show->field('phone');
             $show->field('title');
-            $show->field('created_at');
-            $show->field('updated_at');
+            $show->content('额度')->as(function () use ($id){
+                $service = \App\Models\Shop::find($id);
+                $label = "";
+                foreach ($service->quota_data as $data) {
+                    $label .= Currency::where('id', $data['currency_id'])->value('name') . ":";
+                    $label .= $data['amount'] . "  ";
+                }
+
+                return "$label";
+            });
         });
     }
 
@@ -94,16 +103,24 @@ class ShopController extends AdminController
                 return DB::table('admin_users')
                     ->whereIn('id', $roles)->pluck('name', 'id');
             });
+            $form->select('service_id', '所属综合服务商')->options(function (){
+                $roles = DB::table('admin_role_users')
+                    ->where('role_id', 10)->pluck('user_id')->toArray();
+                return DB::table('admin_users')
+                    ->whereIn('id', $roles)->pluck('name', 'id');
+            });
             $form->text('title');
             $form->text('name');
             $form->text('phone');
             $form->image('logo');
-            $form->array('quota_data','货币额度', function ($table) {
-                $table->select('currency_id', '货币')->options(function (){
-                    return Currency::query()->pluck('name', 'id');
-                })->disable(true);
-                $table->decimal('amount','当前额度')->disable(true);
-            })->required();
+            if(Admin::user()->isRole('administrator')) {
+                $form->array('quota_data','货币额度', function ($table) {
+                    $table->select('currency_id', '货币')->options(function (){
+                        return Currency::query()->pluck('name', 'id');
+                    });
+                    $table->decimal('amount','当前额度');
+                })->required();
+            }
             $form->array('collection', function ($table) {
                 $table->text('chain','支付名称');
                 $table->textarea('data','数据');

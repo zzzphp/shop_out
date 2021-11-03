@@ -30,6 +30,11 @@ class AssetDetailController extends AdminController
                    $builder->where('admin_id', Admin::user()->id);
                });
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereHas('user', function($builder){
+                    $builder->whereIn('admin_id', parent::getShopAdminId());
+                });
+            }
             if(isMobile()) {
                 $grid->column('full_data', '数据')->display(function(){
                     $html = "<p><span style='color:blue;font-size:12px;'>账号:{$this->user->phone}</span></p>";

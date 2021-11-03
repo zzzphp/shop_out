@@ -32,6 +32,11 @@ class OrdersController extends AdminController
                     $builder->where('admin_id', Admin::user()->id);
                 });
             }
+            if(Admin::user()->isRole('service_provider')) {
+                $grid->model()->whereHas('product', function($builder){
+                    $builder->where('admin_id', parent::getShopAdminId());
+                });
+            }
             $grid->column('id');
 
             $grid->model()
