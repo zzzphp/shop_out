@@ -7,6 +7,7 @@ use App\Admin\Actions\Grid\Shops\QuickLogin;
 use App\Admin\Actions\Grid\Shops\Recharge;
 use App\Admin\Repositories\Shop;
 use App\Models\Currency;
+use App\Models\ServiceShop;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -97,16 +98,20 @@ class ShopController extends AdminController
     {
         return Form::make(new Shop(), function (Form $form) {
             $form->display('id');
-            $form->select('admin_id')->options(function (){
+            $form->select('admin_id', '请绑定管理员')->options(function (){
+                $shops = \App\Models\Shop::query()->pluck('admin_id');
                 $roles = DB::table('admin_role_users')
                     ->where('role_id', 5)->pluck('user_id')->toArray();
                 return DB::table('admin_users')
+                    ->whereNotIn('id', $shops)
                     ->whereIn('id', $roles)->pluck('name', 'id');
             });
             $form->select('service_id', '所属综合服务商')->options(function (){
+                $services = ServiceShop::query()->pluck('admin_id');
                 $roles = DB::table('admin_role_users')
                     ->where('role_id', 10)->pluck('user_id')->toArray();
                 return DB::table('admin_users')
+                    ->whereNotIn('id', $services)
                     ->whereIn('id', $roles)->pluck('name', 'id');
             });
             $form->text('title');
