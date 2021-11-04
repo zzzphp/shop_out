@@ -46,6 +46,7 @@ class OrderPaidVerifyRow extends RowAction
             $order->status = Order::STATUS_SUCCESS;
             $order->save();
         });
+        dispatch(new CommissionOrder($order));
         return $this->response()
             ->success('操作成功'.$this->getKey())->refresh();
     }

@@ -65,10 +65,11 @@ class ServiceShopController extends AdminController
                 $roles = DB::table('admin_role_users')
                     ->where('role_id', 10)->pluck('user_id')->toArray();
                 return DB::table('admin_users')
-                    ->whereIn('id', $roles)->pluck('name', 'id');
-            });
-            $form->text('name');
-            $form->text('phone');
+                    ->whereIn('id', $roles)
+                    ->pluck('name', 'id');
+            })->required();
+            $form->text('name')->required();
+            $form->text('phone')->required();
             $form->array('recharge_data','货币额度', function ($table) {
                 $table->select('currency_id', '货币')->options(function (){
                     return Currency::query()->pluck('name', 'id');
