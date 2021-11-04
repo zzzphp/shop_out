@@ -98,16 +98,20 @@ class ShopController extends AdminController
     {
         return Form::make(new Shop(), function (Form $form) {
             $form->display('id');
-            $form->select('admin_id', '请绑定管理员')->options(function (){
-                $shops = \App\Models\Shop::query()->pluck('admin_id');
+            $form->select('admin_id', '请绑定管理员')->options(function ($value){
+                $shops = \App\Models\Shop::query()
+                    ->where('admin_id', '<>', $value)
+                    ->pluck('admin_id');
                 $roles = DB::table('admin_role_users')
                     ->where('role_id', 5)->pluck('user_id')->toArray();
                 return DB::table('admin_users')
                     ->whereNotIn('id', $shops)
                     ->whereIn('id', $roles)->pluck('name', 'id');
             });
-            $form->select('service_id', '所属综合服务商')->options(function (){
-                $services = ServiceShop::query()->pluck('admin_id');
+            $form->select('service_id', '所属综合服务商')->options(function ($value){
+                $services = ServiceShop::query()
+                    ->where('admin_id', '<>', $value)
+                    ->pluck('admin_id');
                 $roles = DB::table('admin_role_users')
                     ->where('role_id', 10)->pluck('user_id')->toArray();
                 return DB::table('admin_users')
