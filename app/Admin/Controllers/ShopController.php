@@ -109,14 +109,15 @@ class ShopController extends AdminController
                     ->whereIn('id', $roles)->pluck('name', 'id');
             });
             $form->select('service_id', '所属综合服务商')->options(function ($value){
-                $services = ServiceShop::query()
-                    ->where('admin_id', '<>', $value)
-                    ->pluck('admin_id');
-                $roles = DB::table('admin_role_users')
-                    ->where('role_id', 10)->pluck('user_id')->toArray();
-                return DB::table('admin_users')
-                    ->whereNotIn('id', $services)
-                    ->whereIn('id', $roles)->pluck('name', 'id');
+                if(Admin::user()->isRole('service_provider')) {
+                    return DB::table('admin_users')
+                        ->where('id', Admin::user()->id)->pluck('name', 'id');
+                } else {
+                    $roles = DB::table('admin_role_users')
+                        ->where('role_id', 10)->pluck('user_id')->toArray();
+                    return DB::table('admin_users')
+                        ->whereIn('id', $roles)->pluck('name', 'id');
+                }
             });
             $form->text('title');
             $form->text('name');
