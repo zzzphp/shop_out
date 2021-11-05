@@ -45,7 +45,10 @@ class CloseOrder implements ShouldQueue
         DB::transaction(function (){
             $this->order->update(['closed' => true]);
             $this->order->product->addStock($this->order->amount);
-            if (Order::query()->where('user_id', $this->order->user_id)->count() >= 2) {
+            if (Order::query()
+                    ->where('user_id', $this->order->user_id)
+                    ->whereNull('paid_at')
+                    ->where('status', Order::STATUS_PENDING)->count() >= 2) {
                 // 累计两次封号
                 User::query()
                     ->where('id', $this->order->user_id)
