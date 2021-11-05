@@ -36,6 +36,9 @@ class OrderObserver
             noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '锁单']]);
             noticeHelper(['phone' => [$order->user->phone], 'data' => [$order->product->title, '锁单']]);
         }
+        if ($order->status === Order::STATUS_SUCCESS) {
+            noticeHelper(['phone' => [$order->user->phone], 'data' => [$order->product->title, '支付成功']]);
+        }
     }
 
     /**

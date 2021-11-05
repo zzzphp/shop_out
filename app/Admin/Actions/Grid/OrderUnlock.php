@@ -44,7 +44,7 @@ class OrderUnlock extends RowAction
 	 */
 	public function confirm()
 	{
-		 return ['确认驳回反馈?', '驳回后 订单将进入待收货状态，需要卖家手动放货！'];
+		 return ['确认驳回反馈?', '驳回后 订单将进入待放货状态，需要卖家手动放货！'];
 	}
 
     /**
