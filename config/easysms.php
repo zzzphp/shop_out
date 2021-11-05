@@ -31,6 +31,16 @@ return [
                     'recharge_notice' => 'SMS_203671020',
                 ],
         ],
+        'ucloud' => [
+            'private_key'  => '2xUwYTrw0j34L8PcXfD6Ye6IyF4roHI5w5YguEVvezrs2eJyYqPTmX68ighkc5IUky',    //私钥
+            'public_key'   => 'LHy6KT4bHLf5vzijXjGaMk5kuqIlgnRjSpbMZiYL',    //公钥
+            'sig_content'  => '瓯越世纪',    // 短信签名,
+            'project_id'   => 'org-wj0o0p',    //项目ID,子账号才需要该参数
+            'template'     => [
+                'codes'   => 'UTA211105E3J6HV',
+                'notice' => 'UTN2111056DGWNX',
+            ],
+        ],
         //...
     ],
 ];

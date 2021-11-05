@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Order;
+use App\Models\Product;
 use EasyWeChatComposer\EasyWeChat;
 use Overtrue\LaravelWeChat\Facade;
 
@@ -28,29 +29,12 @@ class OrderObserver
     public function updated(Order $order)
     {
         //
-        if ($order->status === Order::STATUS_PENDING && $order->paid_at) {
-            noticeHelper(['scene' => "单 ID:{$order->id} 付款", 'name' => $order->user->name, 'phone' => $order->user->phone]);
+        if ($order->status === Order::STATUS_RELEASE && $order->product->type === Product::TYPE_AUCTION) {
+            noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '拍下付款']]);
         }
-        if ($order->status === Order::STATUS_SUCCESS) {
-            // 模板消息通知用户
-            $user = $order->user;
-            if ($user->openid) {
-                $official = Facade::officialAccount();
-                $official->template_message->send([
-                    'touser' => $user->openid,
-                    'template_id' => 'uYUboRC69ule_Xy8Bm8HM9z4VR8cov-zhLof7Otj0uo',
-                    'url'   => 'https://g.gaogecloud.com/#/pages/orderlist/index?id=1&=&status=success',
-                    'data' => [
-                        'first' => "恭喜您！购买的商品已支付成功",
-                        'keyword1' => $order->no,
-                        'keyword2' => $order->product->title,
-                        'keyword3' => $order->total_amount . ' ￥',
-                        'keyword4' => Order::$statusMap[$order->status],
-                        'keyword5' => $order->created_at,
-                        'remark'   => '高歌云',
-                    ],
-                ]);
-            }
+        if ($order->status === Order::STATUS_LOCK && $order->product->type === Product::TYPE_AUCTION) {
+            noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '锁单']]);
+            noticeHelper(['phone' => [$order->user->phone], 'data' => [$order->product->title, '锁单']]);
         }
     }
 

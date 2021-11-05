@@ -23,7 +23,7 @@ class VerificationCodesController extends Controller
             try {
                 $easySms = new EasySms(config('easysms'));
                 $result = $easySms->send($phone, [
-                    'template' => config('easysms.gateways.aliyun.template.register'),
+                    'template' => config('easysms.gateways.ucloud.template.codes'),
                     'data' => [
                         'code' => $code
                     ],

@@ -293,7 +293,7 @@ class OrdersController extends Controller
     {
         $request->validate(['order_id' => 'required', 'info' => 'required']);
         $order = Order::find($request->order_id);
-        if ($order->status !== Order::STATUS_RELEASE) {
+        if ($order->status !== Order::STATUS_RELEASE && $order->status !== Order::STATUS_LOCK) {
             return $this->errorResponse(400, '订单状态不正确，请联系客服');
         }
         $remarks = $order->remarks;

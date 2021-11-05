@@ -34,14 +34,19 @@ class NoticeSmsJob implements ShouldQueue
     public function handle()
     {
         //
-        $data = $this->data;
+        $data = $this->data['data'];
         $sms = new \Overtrue\EasySms\EasySms(config('easysms'));
-        $phones = config('site.admin_notice');
-        foreach ($phones as $phone) {
-            $sms->send($phone, [
-                'template' => config('easysms.gateways.aliyun.template.recharge_notice'),
-                'data' => $data,
-            ]);
+        $phones = $this->data['phone'];
+        try {
+            foreach ($phones as $phone) {
+                $sms->send($phone, [
+                    'template' => config('easysms.gateways.ucloud.template.notice'),
+                    'data' => ['code' => $data],
+                ]);
+            }
+        } catch (NoGatewayAvailableException $exception) {
+            $message = $exception->getException('ucloud')->getMessage();
+            dd($message ?: '短信发送异常');
         }
     }
 }
