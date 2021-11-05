@@ -102,6 +102,8 @@ class UsersController extends AdminController
                     // 允许在闭包内返回异步加载类的实例
                     return UserWallets::make(['title' => $this->title]);
                 });
+                $grid->column('is_ban', '封禁状态')->switch();
+
                 $grid->column('updated_at')->sortable();
 
             }
@@ -168,6 +170,7 @@ class UsersController extends AdminController
                     ->whereNotNull('admin_id')
                     ->pluck('title', 'admin_id');
             });
+            $form->hidden('is_ban');
         });
     }
 }
