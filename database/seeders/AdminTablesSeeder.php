@@ -735,12 +735,12 @@ class AdminTablesSeeder extends Seeder
                     "id" => 15,
                     "name" => "realname",
                     "slug" => "realname",
-                    "http_method" => "",
-                    "http_path" => "/real_names*",
+                    "http_method" => "GET",
+                    "http_path" => "/real_names",
                     "order" => 7,
                     "parent_id" => 0,
                     "created_at" => "2021-10-13 12:20:36",
-                    "updated_at" => "2021-10-13 14:27:41"
+                    "updated_at" => "2021-11-06 15:08:16"
                 ],
                 [
                     "id" => 16,
@@ -1452,6 +1452,12 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "role_id" => 5,
+                    "menu_id" => 41,
+                    "created_at" => "2021-11-06 14:43:53",
+                    "updated_at" => "2021-11-06 14:43:53"
+                ],
+                [
+                    "role_id" => 5,
                     "menu_id" => 45,
                     "created_at" => "2021-10-18 17:54:31",
                     "updated_at" => "2021-10-18 17:54:31"
@@ -2109,6 +2115,12 @@ class AdminTablesSeeder extends Seeder
                     "permission_id" => 14,
                     "created_at" => "2021-10-13 14:25:00",
                     "updated_at" => "2021-10-13 14:25:00"
+                ],
+                [
+                    "role_id" => 5,
+                    "permission_id" => 15,
+                    "created_at" => "2021-11-06 14:43:29",
+                    "updated_at" => "2021-11-06 14:43:29"
                 ],
                 [
                     "role_id" => 5,
