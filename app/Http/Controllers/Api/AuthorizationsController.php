@@ -167,13 +167,13 @@ class AuthorizationsController extends Controller
                 'front_photo'   => 'required|url',
                 'back_photo'    => 'required|url',
             ]);
-
+        $idcard_data = $request->user()->idcard_data;
         $info = [
                 'name'          => $request->name,
                 'idcard'        => $request->idcard,
                 'front_photo'   => $request->front_photo,
                 'back_photo'    => $request->back_photo,
-                'video'         => '',
+                'video'         => $idcard_data['video'] ?? '',
         ];
         $request->user()->update(['idcard_data' => $info, 'name' => $request->name]);
 
