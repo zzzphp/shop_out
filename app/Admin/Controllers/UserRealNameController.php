@@ -29,7 +29,9 @@ class UserRealNameController extends AdminController
                 $grid->model()->whereIn('admin_id', parent::getShopAdminId());
             }
             $grid->model()->orderBy('id','DESC');
-
+            if (!$grid->filter()->input('status')) {
+                $grid->model()->where('status', User::STATUS_AUDITING);
+            }
             $grid->column('id')->sortable();
             $grid->column('name')->title()->title();
             $grid->column('phone');
@@ -81,6 +83,7 @@ EOT;
             $grid->disableEditButton();
             $grid->disableViewButton();
             $grid->column('updated_at')->sortable();
+            $grid->paginate(10);
             $grid->filter(function (Grid\Filter $filter) {
                 // 更改为 panel 布局
                 $filter->panel();
@@ -93,7 +96,9 @@ EOT;
                     $builder->where('idcard_data', 'like', "%{$value}%");
                 })->width(4);
                 $filter->newline();
-                $filter->equal('status', '认证状态')->select(User::$statusMap)->width(4);
+                $filter->equal('status', '认证状态')
+                    ->default(User::STATUS_AUDITING)
+                    ->select(User::$statusMap)->width(4);
             });
         });
     }
