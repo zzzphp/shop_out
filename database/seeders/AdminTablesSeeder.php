@@ -1452,12 +1452,6 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "role_id" => 5,
-                    "menu_id" => 41,
-                    "created_at" => "2021-10-13 14:25:00",
-                    "updated_at" => "2021-10-13 14:25:00"
-                ],
-                [
-                    "role_id" => 5,
                     "menu_id" => 45,
                     "created_at" => "2021-10-18 17:54:31",
                     "updated_at" => "2021-10-18 17:54:31"
@@ -2064,12 +2058,6 @@ class AdminTablesSeeder extends Seeder
                 ],
                 [
                     "role_id" => 10,
-                    "menu_id" => 41,
-                    "created_at" => "2021-11-01 15:30:50",
-                    "updated_at" => "2021-11-01 15:30:50"
-                ],
-                [
-                    "role_id" => 10,
                     "menu_id" => 47,
                     "created_at" => "2021-11-03 12:40:02",
                     "updated_at" => "2021-11-03 12:40:02"
@@ -2119,12 +2107,6 @@ class AdminTablesSeeder extends Seeder
                 [
                     "role_id" => 5,
                     "permission_id" => 14,
-                    "created_at" => "2021-10-13 14:25:00",
-                    "updated_at" => "2021-10-13 14:25:00"
-                ],
-                [
-                    "role_id" => 5,
-                    "permission_id" => 15,
                     "created_at" => "2021-10-13 14:25:00",
                     "updated_at" => "2021-10-13 14:25:00"
                 ],
@@ -2409,12 +2391,6 @@ class AdminTablesSeeder extends Seeder
                     "permission_id" => 12,
                     "created_at" => "2021-11-01 15:30:49",
                     "updated_at" => "2021-11-01 15:30:49"
-                ],
-                [
-                    "role_id" => 10,
-                    "permission_id" => 15,
-                    "created_at" => "2021-11-01 15:32:37",
-                    "updated_at" => "2021-11-01 15:32:37"
                 ],
                 [
                     "role_id" => 10,

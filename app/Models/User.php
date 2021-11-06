@@ -137,7 +137,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getFullStatusAttribute()
     {
-        return self::$statusMap[$this->attributes['status']];
+        return self::$statusMap[$this->attributes['status']] ?? '未认证';
     }
 
     public function getGradeFullAttribute()
