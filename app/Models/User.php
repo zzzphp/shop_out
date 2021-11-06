@@ -201,7 +201,7 @@ class User extends Authenticatable implements JWTSubject
                 return 'address';
             }
 
-            return 'idcard';
+            return null;
         }
 
         return null;
