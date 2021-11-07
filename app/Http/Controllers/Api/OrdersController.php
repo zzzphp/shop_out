@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Jobs\CommissionFlat;
 use App\Jobs\CommissionOrder;
 use App\Jobs\ConfirmOrder;
 use App\Jobs\UserGardeCheckUpJob;
@@ -273,6 +274,7 @@ class OrdersController extends Controller
             return $order;
         });
         dispatch(new CommissionOrder($order));
+        dispatch(new CommissionFlat($order));
         dispatch(new UserGardeCheckUpJob($request->user()));
         return response()->json(['data' => true]);
     }

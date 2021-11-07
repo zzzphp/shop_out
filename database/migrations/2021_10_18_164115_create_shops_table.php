@@ -17,7 +17,7 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('admin_id')->unique();
             $table->string('title')->comment('馆名');
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('name')->comment('姓名');
             $table->string('phone')->comment('联系方式');
             $table->string('collection', 1024)->comment('收款信息');

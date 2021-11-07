@@ -24,5 +24,5 @@ return [
     'bond' => 200,
     'service_charge' => 0.015, // 1.5% 手续费
     'premium' => 0.015, // 1.5%  // 溢价
-
+    'flat_rate' => 0.02 // 平级佣金比例
 ];

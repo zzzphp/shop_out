@@ -168,7 +168,6 @@ class User extends Authenticatable implements JWTSubject
         } else {
             return '您的体验会员已过期';
         }
-
     }
 
     public function getParentAttribute()
@@ -189,6 +188,9 @@ class User extends Authenticatable implements JWTSubject
     public function getUploadDataAttribute()
     {
         if (isset($this->attributes['status']) && $this->attributes['status'] !== User::STATUS_SUCCESS) {
+            if ($this->attributes['status'] === User::STATUS_AUDITING) {
+                return null;
+            }
             $idcard_data = json_decode($this->attributes['idcard_data'], true);
             if (!isset($idcard_data['video']) ||
                 !isset($idcard_data['front_photo']) ||

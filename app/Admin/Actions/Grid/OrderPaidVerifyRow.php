@@ -2,6 +2,8 @@
 
 namespace App\Admin\Actions\Grid;
 
+use App\Jobs\CommissionFlat;
+use App\Jobs\UserGardeCheckUpJob;
 use App\Services\InstallmentService;
 use App\Services\WalletService;
 use Dcat\Admin\Actions\Response;
@@ -46,7 +48,9 @@ class OrderPaidVerifyRow extends RowAction
             $order->status = Order::STATUS_SUCCESS;
             $order->save();
         });
+        dispatch(new CommissionFlat($order));
         dispatch(new CommissionOrder($order));
+        dispatch(new UserGardeCheckUpJob($order->user));
         return $this->response()
             ->success('操作成功'.$this->getKey())->refresh();
     }
