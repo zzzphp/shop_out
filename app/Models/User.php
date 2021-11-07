@@ -191,6 +191,9 @@ class User extends Authenticatable implements JWTSubject
             if ($this->attributes['status'] === User::STATUS_AUDITING) {
                 return null;
             }
+            if ($this->attributes['status'] === User::STATUS_FAILED) {
+                return 'idcard';
+            }
             $idcard_data = json_decode($this->attributes['idcard_data'], true);
             if (!isset($idcard_data['video']) ||
                 !isset($idcard_data['front_photo']) ||
