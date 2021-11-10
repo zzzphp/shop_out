@@ -51,7 +51,6 @@ class CommissionsController extends Controller
         $service = new UserService();
         $users = User::query()
             ->where('invite_id', $request->user()->id)
-//            ->where('status', User::STATUS_SUCCESS)
             ->get();
         $data = [];
         $data['team'] = [];

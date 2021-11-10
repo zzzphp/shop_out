@@ -30,7 +30,7 @@ class OrderObserver
     {
         //
         if ($order->status === Order::STATUS_RELEASE && $order->product->type === Product::TYPE_AUCTION) {
-            noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '拍下付款']]);
+           // noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '拍下付款']]);
         }
         if ($order->status === Order::STATUS_LOCK && $order->product->type === Product::TYPE_AUCTION) {
             noticeHelper(['phone' => [$order->product->user->phone], 'data' => [$order->product->title, '锁单']]);

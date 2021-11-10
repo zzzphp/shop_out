@@ -43,14 +43,14 @@ class CommissionFlat implements ShouldQueue
         // 下单人是否满足条件
         $number = $this->getNumberByID($this->order->user);
         $total_amount = $this->getTotalAmount($number);
-        if (count($number) < 30 || $total_amount < 300000)
-            return;
+//        if (count($number) < 30 || $total_amount < 300000)
+//            return;
         // 判断上级是否满足条件
         $parent = User::find($this->order->user->invite_id);
         $parent_number = $this->getNumberByID($this->order->user);
         $total_amount = $this->getTotalAmount($parent_number);
-        if (count($parent_number) < 30 || $total_amount < 300000)
-            return;
+//        if (count($parent_number) < 30 || $total_amount < 300000)
+//            return;
         // 满足条件
         DB::transaction(function () use ($parent){
             $amount = mul($this->order->total_amount, config('site.flat_rate'));
@@ -79,7 +79,7 @@ class CommissionFlat implements ShouldQueue
     {
         return Order::query()
             ->whereIn('user_id', $number)
-            ->whereNotIn('status', Order::STATUS_PENDING, Order::STATUS_RELEASE, Order::STATUS_LOCK, Order::STATUS_FAILED)
+            ->whereNotIn('status', [Order::STATUS_PENDING, Order::STATUS_RELEASE, Order::STATUS_LOCK, Order::STATUS_FAILED])
             ->sum('total_amount');
     }
 }

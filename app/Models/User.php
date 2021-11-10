@@ -64,6 +64,7 @@ class User extends Authenticatable implements JWTSubject
         'created_at',
         'apply_at',
         'share_rate',
+        'sum_info'
     ];
 
     protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status', 'parent'];
@@ -244,6 +245,15 @@ class User extends Authenticatable implements JWTSubject
     public function getNameAttribute()
     {
         return $this->attributes['name'] ?: $this->attributes['phone'];
+    }
+
+    public function getSumInfoAttribute()
+    {
+        $data['integral'] = Recharge::query()->where('currency_id', 2)->sum('amount');
+        $data['service'] = AssetDetails::query()->where('type', AssetDetails::TYPE_SERVICE)->sum('amount');
+        $data['reward'] = Commission::query()->where('user_id', $this->attributes['id'])->sum('amount');
+
+        return $data;
     }
 
     public function admin()
