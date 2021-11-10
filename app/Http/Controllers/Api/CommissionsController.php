@@ -38,7 +38,7 @@ class CommissionsController extends Controller
         $request->validate(['one' => 'required', 'two' => 'required']);
         $rate['one'] = $request->one;
         $rate['two'] = $request->two;
-        if (($rate['one'] + $rate['two']) > 20) {
+        if (($rate['one'] + $rate['two']) > 25) {
             return $this->errorResponse(400, '');
         }
         $request->user()->update(['share_rate' => $rate]);
