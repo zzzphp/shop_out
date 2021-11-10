@@ -64,10 +64,9 @@ class User extends Authenticatable implements JWTSubject
         'created_at',
         'apply_at',
         'share_rate',
-        'sum_info'
     ];
 
-    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status', 'parent'];
+    protected $appends = ['team_count', 'grade_full', 'grade_list', 'by_vip', 'upload_data', 'full_status', 'parent', 'sum_info'];
 
     protected static function boot()
     {
