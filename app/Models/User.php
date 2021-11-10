@@ -248,8 +248,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function getSumInfoAttribute()
     {
-        $data['integral'] = Recharge::query()->where('currency_id', 2)->sum('amount');
-        $data['service'] = AssetDetails::query()->where('type', AssetDetails::TYPE_SERVICE)->sum('amount');
+        $data['integral'] = Recharge::query()
+            ->where('user_id', $this->attributes['id'])
+            ->where('currency_id', 2)->sum('amount');
+        $data['service'] = AssetDetails::query()
+            ->where('user_id', $this->attributes['id'])
+            ->where('type', AssetDetails::TYPE_SERVICE)->sum('amount');
         $data['reward'] = Commission::query()->where('user_id', $this->attributes['id'])->sum('amount');
 
         return $data;
